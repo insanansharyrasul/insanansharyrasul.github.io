@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trial iwdc</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/487cde38fb.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <nav>
+        <ul class="logo">
+            <img src="assets/logo.svg" alt="">
+        </ul>
+        <ul class="nav-right" id="myNav-right">
+            <a href="javascript:void(0)" onclick="myFunction()" class="icon">
+                <i class="fa-solid fa-bars"></i>
+            </a>
+            <li>home</li>
+            <li>about</li>
+            <li>tech</li>
+            <li>projects</li>
+        </ul>
+    </nav>
+
+    <section id="hero-container">
+        <div class="about-me">
+            <h2>about me</h2>
+            <p>
+                Saya adalah seorang mahasiswa baru angkatan 60 di IPB University.
+                Saya merupakan bagian dari Fakultas Matematika dan Ilmu Pengetahuan Alam serta berasal dari departemen
+                Ilmu Komputer
+            </p>
+        </div>
+        <div class="profile-img">
+            <img src="assets/Vector.svg" alt="my-pic">
+            <h2>Insan Anshary Rasul</h2>
+        </div>
+        <div class="right-side">
+            <div class="projects-container">
+                <h2>Photo Taken</h2>
+                <p>100+</p>
+            </div>
+            <div class="language-container">
+                <h2>language</h2>
+                <div>
+                    <img src="assets/c 1.svg" alt="">
+                    <img src="assets/cpp 1.svg" alt="">
+                    <img src="assets/css.svg" alt="">
+                    <img src="assets/html.svg" alt="">
+                    <img src="assets/python.svg" alt="">
+                    <img src="assets/javascript.svg" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="card-wrapper">
+        <h2>LATEST PHOTO</h2>
+        <div class="card-container">
+            <div class="card">
+                <img src="assets/foto1.jpg" alt="">
+                <p>Rumah Tua di dekat Asrama C4 (2023)</p>
+            </div>
+            <div class="card">
+                <img src="assets/foto2.jpg" alt="">
+                <p>Taman di FEM (2023)</p>
+            </div>
+            <div class="card">
+                <img src="assets/foto3.jpg" alt="">
+                <p>Kamar di Asrama C4 (2023)</p>
+            </div>
+            <div class="card">
+                <img src="assets/foto4.jpg" alt="">
+                <p>Jalan di dekat Asrama C4 (2023)</p>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-left">
+            <h3>Made with HTML CSS</h3>
+        </div>
+        <div class="footer-mid">
+            <h1>IWDC</h1>
+        </div>
+        <div class="footer-right">
+            <h3>Contact me : </h3>
+            <img src="assets/github.png" alt="">
+            <img src="assets/gmail.png" alt="">
+            <img src="assets/discord.png" alt="">
+        </div>
+    </footer>
+</body>
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("myNav-right");
+        if (x.className === "nav-right") {
+            x.className += " tambahan";
+        } else {
+            x.className = "nav-right";
+        }
+    }
+</script>
+
+</html>
