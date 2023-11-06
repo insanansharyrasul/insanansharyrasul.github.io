@@ -165,3 +165,8 @@ img {
     height: auto;
     object-fit: contain;
 }
+
+.card {
+    height: auto;
+    object-fit: contain;
+}
