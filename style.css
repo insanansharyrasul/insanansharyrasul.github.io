@@ -1,0 +1,285 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    background: #332E2A;
+    scroll-behavior: smooth;
+}
+
+h1 {
+    color: #FE8100;
+    font-family: Monda;
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+p {
+    color: #FFF;
+    font-family: Raleway;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+#header {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+}
+
+.logo {
+    background-color: black;
+    -webkit-mask: url(assets/Vector.svg) no-repeat;
+    mask: url(assets/Vector.svg) no-repeat;
+    width: 150px;
+}
+
+nav {
+    display: flex;
+    padding: 2% 6%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-right {
+    flex: 1;
+    text-align: right;
+}
+
+.nav-right ul li {
+    list-style: none;
+    display: inline-block;
+    padding: 8px 12px;
+    position: relative;
+}
+
+.nav-right ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 24px;
+    font-family: Raleway;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.nav-right ul li::after {
+    content: '';
+    width: 0%;
+    height: 2px;
+    background: #f44336;
+    display: block;
+    margin: auto;
+    transition: 0.5s;
+}
+
+.nav-right ul li:hover::after {
+    width: 100%;
+}
+
+.text-box {
+    width: 90%;
+    color: #FFF;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.text-box h1 {
+    color: #FE8100;
+    text-align: center;
+    font-family: Monda;
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.text-box p {
+    color: #FFF;
+    text-align: center;
+    font-family: Raleway;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+#about {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    background-position: center;
+}
+
+#about h1 {
+    padding-top: 2%;
+    font-size: 36px;
+    text-align: center;
+}
+
+.about-text p {
+    padding-top: 2%;
+}
+
+.language {
+    padding-top: 2%;
+}
+
+#about p {
+    margin-left: 25%;
+    margin-right: 25%;
+    font-size: 24px;
+    text-align: center;
+}
+
+.primary-language {
+    list-style: none;
+    display: flex;
+    text-align: center;
+}
+
+.programming-logo {
+    align-items: center;
+    margin: auto;
+}
+
+.programming-logo img {
+    transform: scale(0.70);
+}
+
+#photo-section {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    background-position: center;
+}
+
+.photos {
+    padding-top: 1%;
+}
+
+.photos h1 {
+    font-size: 36px;
+    text-align: center;
+}
+
+.photos img {
+    width: 450px;
+    height: 290px;
+    object-fit: cover;
+    padding-top: 8%;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+}
+
+.single {
+    text-align: center;
+    margin: auto;
+}
+
+#footer {
+    background: #23201D;
+    padding-bottom: 5px;
+    padding-top: 5px;
+
+}
+
+#footer p {
+    font-size: small;
+    text-align: center;
+    color: #000;
+}
+
+#footer .icon {
+    justify-content: center;
+    position: relative;
+    display: flex;
+    margin: auto;
+    width: 50%;
+}
+
+nav .fa-solid {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+    .text-box h1 {
+        font-size: 32px;
+    }
+
+    .text-box p {
+        font-size: 20px;
+    }
+
+    .logo img {
+        margin: auto;
+    }
+
+    .nav-right ul li {
+        display: block;
+    }
+
+    .nav-right {
+        position: absolute;
+        background: #FF8100;
+        height: 100vh;
+        width: 200px;
+        top: 0;
+        right: -200px;
+        text-align: left;
+        z-index: 2;
+        transition: 1s;
+    }
+
+    nav .fa-solid {
+        display: block;
+        color: #fff;
+        margin: 10px;
+        font-size: 22px;
+        cursor: pointer;
+    }
+
+    .nav-right {
+        padding: 20px;
+    }
+
+    #about h1 {
+        font-size: 30px;
+    }
+
+    #about p {
+        font-size: 20px;
+        margin: auto;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .primary-language {
+        list-style: none;
+        display: block;
+        text-align: center;
+    }
+    .row {
+        display : block;
+    }
+    .photos img {
+        width: 400px;
+        height: 250px;
+        object-fit: cover;
+        padding-top: 8%;
+    }
+}
