@@ -37,8 +37,8 @@ p {
 
 .logo {
     background-color: black;
-    -webkit-mask: url(assets/Vector.svg) no-repeat;
-    mask: url(assets/Vector.svg) no-repeat;
+    -webkit-mask: url(icons/header_icon.svg) no-repeat;
+    mask: url(icons/header_icon.svg) no-repeat;
     width: 150px;
 }
 
