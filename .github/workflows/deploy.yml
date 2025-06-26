@@ -4,6 +4,10 @@ on:
   push:
     branches: 'main'
 
+permissions:
+  pages: write
+  id-token: write
+
 jobs:
   build_site:
     runs-on: ubuntu-latest
@@ -23,38 +27,16 @@ jobs:
           npm install -D @sveltejs/adapter-static
 
       - name: Build
-        env:
-          BASE_PATH: '/${{ github.event.repository.name }}'
         run: npm run build
           
-      - name: Find and upload build artifacts
-        run: |
-          if [ -d "build" ]; then
-            echo "Using build/ directory"
-            echo "BUILD_PATH=build" >> $GITHUB_ENV
-          elif [ -d ".svelte-kit/output/client" ]; then
-            echo "Using .svelte-kit/output/client/ directory"
-            echo "BUILD_PATH=.svelte-kit/output/client" >> $GITHUB_ENV
-          elif [ -d "dist" ]; then
-            echo "Using dist/ directory"
-            echo "BUILD_PATH=dist" >> $GITHUB_ENV
-          else
-            echo "No build directory found!"
-            ls -la
-            exit 1
-          fi
-
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ env.BUILD_PATH }}
+          path: 'build/'
 
   deploy:
     needs: build_site
     runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
