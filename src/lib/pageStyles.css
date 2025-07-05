@@ -1,0 +1,141 @@
+/* Prevent horizontal scrolling */
+:global(body) {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+:global(html) {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+/* Ensure main container doesn't overflow */
+main {
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+/* Navigation link hover effects */
+.nav-right ul li {
+    position: relative;
+}
+
+.nav-right ul li::after {
+    content: "";
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(90deg, #fe8100, #ff6b35);
+    display: block;
+    margin: auto;
+    transition: width 0.5s ease;
+}
+
+.nav-right ul li:hover::after {
+    width: 100%;
+}
+
+/* Mobile responsive navigation */
+@media screen and (max-width: 600px) {
+
+    .hamburger-wrapper {
+        display: block !important;
+        z-index: 200 !important;
+        position: relative;
+        margin-left: auto;
+    }
+
+    .nav-right {
+        position: fixed;
+        background: linear-gradient(135deg, #fe8100, #ff6b35);
+        height: 100vh;
+        width: 250px;
+        top: 0;
+        right: -250px;
+        text-align: left;
+        z-index: 150 !important;
+        transition: right 0.3s ease;
+        transform: none;
+        padding: 20px;
+        backdrop-filter: blur(10px);
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-right ul {
+        margin-top: 60px;
+    }
+
+    .nav-right ul li {
+        display: block !important;
+    }
+
+    .nav-right ul li a {
+        font-size: 18px !important;
+        padding: 15px 0;
+        display: block;
+        color: white !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-right ul li a:hover {
+        color: #fff !important;
+        padding-left: 10px;
+    }
+
+    .nav-right.visible {
+        right: 0;
+        transform: none;
+    }
+
+    .text-box h1 {
+        font-size: 2rem !important;
+    }
+
+    .text-box p {
+        font-size: 1.25rem !important;
+    }
+
+    .logo img {
+        margin: auto;
+        width: 120px;
+    }
+
+    /* Force header elements to stay behind hamburger menu */
+    .text-box {
+        z-index: 10 !important;
+    }
+
+    .text-box h1,
+    .text-box p {
+        z-index: 1 !important;
+    }
+
+    .scroll-indicator {
+        z-index: 5 !important;
+    }
+
+    /* Ensure nav bar stays below hamburger menu but above text */
+    nav {
+        z-index: 15 !important;
+    }
+}
+
+/* Additional responsive styles */
+@media screen and (max-width: 768px) and (min-width: 601px) {
+    .text-box h1 {
+        font-size: 3rem !important;
+    }
+
+    .text-box p {
+        font-size: 1.5rem !important;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .text-box h1 {
+        font-size: 4.5rem !important;
+    }
+
+    .text-box p {
+        font-size: 2.25rem !important;
+    }
+}

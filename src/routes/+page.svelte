@@ -1,54 +1,44 @@
 <script lang="ts">
     import "../app.css";
+    import "$lib/pageStyles.css";
     import Hamburger from "svelte-hamburger";
     import TechCard from "$lib/TechCard.svelte";
     import ProjectCard from "$lib/ProjectCard.svelte";
-    import { onMount } from "svelte";
+    import {
+        initialState,
+        hideMenu as createHideMenu,
+        toggleMenu as createToggleMenu,
+        createTypeWriter,
+        setupIntersectionObserver,
+    } from "$lib/pageLogic";
 
-    let menuVisible = false;
-    let isVisible: Record<string, boolean> = {};
-    let typedText = "";
-    let fullText = "I'm Insan Anshary Rasul.";
-    let typeIndex = 0;
+    let menuVisible = initialState.menuVisible;
+    let isVisible: Record<string, boolean> = initialState.isVisible;
+    let typedText = initialState.typedText;
+    let fullText = initialState.fullText;
+    let typeIndex = initialState.typeIndex;
 
-    function hideMenu() {
+    const hideMenu = createHideMenu(() => {
         menuVisible = false;
-    }
-
-    function toggleMenu() {
-        menuVisible = !menuVisible;
-    }
-
-    function typeWriter() {
-        if (typeIndex < fullText.length) {
-            typedText += fullText.charAt(typeIndex);
-            typeIndex++;
-            setTimeout(typeWriter, 100);
-        }
-    }
-
-    onMount(() => {
-        typeWriter();
-
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        isVisible[entry.target.id] = true;
-                    }
-                });
-            },
-            { threshold: 0.3 },
-        );
-
-        // Observe sections
-        ["about", "skills-section", "projects-section"].forEach((id) => {
-            const element = document.getElementById(id);
-            if (element) observer.observe(element);
-        });
-
-        return () => observer.disconnect();
     });
+
+    const toggleMenu = createToggleMenu(() => {
+        menuVisible = !menuVisible;
+    });
+
+    const typeWriter = createTypeWriter(fullText, (text, index) => {
+        typedText = text;
+        typeIndex = index;
+    });
+
+    setupIntersectionObserver(
+        (id, visible) => {
+            isVisible[id] = visible;
+        },
+        () => {
+            typeWriter();
+        },
+    );
 </script>
 
 <main>
@@ -128,12 +118,11 @@
                     --layer-height="2px"
                     --layer-spacing="6px"
                     --border-radius="0px"
-                    --hover-opacity="0.8"
                 />
             </div>
         </nav>
         <div
-            class="text-box absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center z-20 w-[90%] text-white"
+            class="text-box absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center w-[90%] text-white"
         >
             <h1
                 class="typewriter text-primary text-center font-monda text-4xl md:text-5xl lg:text-6xl font-bold mb-4"
@@ -161,27 +150,41 @@
             <h1 class="text-3xl text-center mb-6 text-primary font-monda">
                 About Me
             </h1>
-            <p class="mx-[5%] text-lg text-center leading-relaxed mb-8 text-gray-300">
-                Freshman at IPB University studying Computer Science under the 
-                <span class="text-primary italic">Sekolah Sains Data, Matematika dan Informatika</span>. 
-                Currently interested in embedded systems and mobile app development.
+            <p
+                class="mx-[5%] text-lg text-center leading-relaxed mb-8 text-gray-300"
+            >
+                Freshman at IPB University studying Computer Science under the
+                <span class="text-primary italic"
+                    >Sekolah Sains Data, Matematika dan Informatika</span
+                >. Currently interested in firmware engineering and mobile app
+                development.
             </p>
-            
+
             <div class="grid md:grid-cols-2 gap-6 mt-8">
-                <div class="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-6">
-                    <h3 class="text-primary text-xl mb-3 font-monda flex items-center">
-                        ⚙️ Embedded Systems
+                <div
+                    class="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-6"
+                >
+                    <h3
+                        class="text-primary text-xl mb-3 font-monda flex items-center"
+                    >
+                        ⚙️ Firmware Engineering
                     </h3>
                     <p class="text-gray-300 text-sm leading-relaxed">
-                        Creating embedded systems that integrate hardware and software using C, C++, or Rust
+                        Creating a firmware that integrate hardware and software
+                        using C, C++, or Rust
                     </p>
                 </div>
-                <div class="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-6">
-                    <h3 class="text-primary text-xl mb-3 font-monda flex items-center">
+                <div
+                    class="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-6"
+                >
+                    <h3
+                        class="text-primary text-xl mb-3 font-monda flex items-center"
+                    >
                         📱 Mobile Development
                     </h3>
                     <p class="text-gray-300 text-sm leading-relaxed">
-                        Designing cross-platform mobile applications for Android and iOS
+                        Designing cross-platform mobile applications for Android
+                        and iOS
                     </p>
                 </div>
             </div>
@@ -200,7 +203,9 @@
 
             <!-- Automation Section -->
             <div class="mb-8">
-                <h2 class="text-lg text-center mb-4 text-primary font-monda opacity-90">
+                <h2
+                    class="text-lg text-center mb-4 text-primary font-monda opacity-90"
+                >
                     Automation
                 </h2>
                 <div
@@ -268,7 +273,7 @@
                 <h2
                     class="text-2xl text-center mb-8 text-primary font-monda opacity-90"
                 >
-                    Embedded Systems
+                    Firmware Engineering
                 </h2>
                 <div
                     class="skills-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
@@ -293,6 +298,42 @@
                     />
                 </div>
             </div>
+
+            <div class="mb-12">
+                <h2
+                    class="text-2xl text-center mb-8 text-primary font-monda opacity-90"
+                >
+                    Tools 
+                </h2>
+                <div
+                    class="skills-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
+                >
+                    <TechCard
+                        name="Ubuntu"
+                        icon="icons/ubuntu-original.svg"
+                        iconType="svg"
+                        link="https://ubuntu.com"
+                    />
+                    <TechCard
+                        name="Neovim"
+                        icon="icons/neovim-original.svg"
+                        iconType="svg"
+                        link="https://neovim.io"
+                    />
+                    <TechCard
+                        name="VSCode"
+                        icon="icons/vscode-original.svg"
+                        iconType="svg"
+                        link="https://code.visualstudio.com"
+                    />
+                    <TechCard
+                        name="Android Studio"
+                        icon="icons/androidstudio-original.svg"
+                        iconType="svg"
+                        link="https://developer.android.com/studio"
+                    />
+                </div>
+            </div>
         </div>
     </section>
 
@@ -305,11 +346,15 @@
             <h1 class="text-3xl text-center mb-3 text-primary font-monda">
                 Coding Projects
             </h1>
-            <p class="section-subtitle text-center text-gray-300 text-base mb-8 italic">
+            <p
+                class="section-subtitle text-center text-gray-300 text-base mb-8 italic"
+            >
                 Building solutions through code and creativity
             </p>
 
-            <div class="projects-grid grid grid-cols-1 md:grid-cols-2 gap-6 py-2">
+            <div
+                class="projects-grid grid grid-cols-1 md:grid-cols-2 gap-6 py-2"
+            >
                 <ProjectCard
                     title="IPB Auto Logbook"
                     description="Automation tool for IPB University logbook system"
@@ -380,108 +425,3 @@
         </div>
     </section>
 </main>
-
-<style>
-    /* Navigation link hover effects */
-    .nav-right ul li {
-        position: relative;
-    }
-
-    .nav-right ul li::after {
-        content: "";
-        width: 0%;
-        height: 2px;
-        background: linear-gradient(90deg, #fe8100, #ff6b35);
-        display: block;
-        margin: auto;
-        transition: width 0.5s ease;
-    }
-
-    .nav-right ul li:hover::after {
-        width: 100%;
-    }
-
-    /* Mobile responsive navigation */
-    @media screen and (max-width: 600px) {
-        .hamburger-wrapper {
-            display: block !important;
-            z-index: 30;
-        }
-
-        .nav-right {
-            position: fixed;
-            background: linear-gradient(135deg, #fe8100, #ff6b35);
-            height: 100vh;
-            width: 250px;
-            top: 0;
-            right: -250px;
-            text-align: left;
-            z-index: 20;
-            transition: right 0.3s ease;
-            transform: none;
-            padding: 20px;
-            backdrop-filter: blur(10px);
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-right ul {
-            margin-top: 60px;
-        }
-
-        .nav-right ul li {
-            display: block !important;
-        }
-
-        .nav-right ul li a {
-            font-size: 18px !important;
-            padding: 15px 0;
-            display: block;
-            color: white !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-right ul li a:hover {
-            color: #fff !important;
-            padding-left: 10px;
-        }
-
-        .nav-right.visible {
-            right: 0;
-            transform: none;
-        }
-
-        .text-box h1 {
-            font-size: 2rem !important;
-        }
-
-        .text-box p {
-            font-size: 1.25rem !important;
-        }
-
-        .logo img {
-            margin: auto;
-            width: 120px;
-        }
-    }
-
-    /* Additional responsive styles */
-    @media screen and (max-width: 768px) and (min-width: 601px) {
-        .text-box h1 {
-            font-size: 3rem !important;
-        }
-
-        .text-box p {
-            font-size: 1.5rem !important;
-        }
-    }
-
-    @media screen and (min-width: 1200px) {
-        .text-box h1 {
-            font-size: 4.5rem !important;
-        }
-
-        .text-box p {
-            font-size: 2.25rem !important;
-        }
-    }
-</style>
