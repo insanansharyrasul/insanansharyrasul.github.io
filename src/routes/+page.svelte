@@ -2,7 +2,6 @@
     import { onMount } from "svelte";
     import "../app.css";
     import "$lib/pageStyles.css";
-    import TechCard from "$lib/TechCard.svelte";
     import ProjectCard from "$lib/ProjectCard.svelte";
 
     let menuVisible = false;
@@ -275,10 +274,10 @@
                             programming with C, C++, and Rust.
                         </p>
                         <div class="flex flex-wrap gap-2 mt-5 mb-6">
-                            <span class="pill">C</span>
-                            <span class="pill">C++</span>
-                            <span class="pill">Rust</span>
-                            <span class="pill">Linux</span>
+                            <span class="pill"><img src="icons/c-original.svg" alt="" />C</span>
+                            <span class="pill"><img src="icons/cplusplus-original.svg" alt="" />C++</span>
+                            <span class="pill"><img src="icons/rust-original.svg" alt="" />Rust</span>
+                            <span class="pill"><img src="icons/linux-original.svg" alt="" />Linux</span>
                             <span class="pill">Shell</span>
                         </div>
                         <div class="flex items-center justify-between gap-3 border-t border-border mt-auto pt-4">
@@ -300,8 +299,8 @@
                             focusing on useful features and thoughtful user experiences.
                         </p>
                         <div class="flex flex-wrap gap-2 mt-5 mb-6">
-                            <span class="pill">Flutter</span>
-                            <span class="pill">Bloc</span>
+                            <span class="pill"><img src="icons/flutter-original.svg" alt="" />Flutter</span>
+                            <span class="pill"><img src="icons/bloc-original.svg" alt="" />Bloc</span>
                             <span class="pill">Kotlin</span>
                             <span class="pill">Android</span>
                         </div>
@@ -338,138 +337,82 @@
             </div>
             <div class="flex-1 min-w-0 md:border-l md:border-border md:pl-10">
 
-            <!-- Automation Section -->
-            <div class="mb-8">
-                <h2
-                    class="text-lg text-left mb-4 text-primary font-monda opacity-90"
-                >
-                    Automation
-                </h2>
-                <div
-                    class="skills-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
-                >
-                    <TechCard
-                        name="Python"
-                        icon="icons/python-original.svg"
-                        iconType="svg"
-                        link="https://www.python.org"
-                    />
-                    <TechCard
-                        name="JavaScript"
-                        icon="icons/javascript-original.svg"
-                        iconType="svg"
-                        link="https://en.wikipedia.org/wiki/JavaScript"
-                    />
-                    <TechCard
-                        name="Git"
-                        icon="icons/git-original.svg"
-                        iconType="svg"
-                        link="https://git-scm.com"
-                    />
-                    <TechCard
-                        name="GitHub"
-                        icon="icons/github-original.svg"
-                        iconType="svg"
-                        link="https://github.com"
-                    />
-                    <TechCard
-                        name="Playwright"
-                        icon="icons/playwright-original.svg"
-                        iconType="svg"
-                        link="https://playwright.dev"
-                    />
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-surface border border-border rounded-lg p-6 flex flex-col">
+                    <p class="font-mono text-xs tracking-[0.2em] text-primary mb-4">01 / SYSTEMS</p>
+                    <div class="flex items-center gap-4 mb-4">
+                        <span class="inline-flex items-center justify-center w-12 h-12 rounded-md border border-primary text-primary shrink-0" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5" /><line x1="12" y1="19" x2="20" y2="19" /></svg>
+                        </span>
+                        <h3 class="text-text text-xl font-monda font-bold">Systems Programming</h3>
+                    </div>
+                    <p class="text-text-muted text-sm leading-relaxed">
+                        I like knowing what my code really does to the machine — small C, C++, and Rust utilities on Linux, glued together with shell.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-5 mb-6">
+                        <span class="pill"><img src="icons/c-original.svg" alt="" />C</span>
+                        <span class="pill"><img src="icons/cplusplus-original.svg" alt="" />C++</span>
+                        <span class="pill"><img src="icons/rust-original.svg" alt="" />Rust</span>
+                        <span class="pill"><img src="icons/linux-original.svg" alt="" />Linux</span>
+                        <span class="pill">Shell</span>
+                    </div>
+                    <div class="flex items-center justify-between gap-3 border-t border-border mt-auto pt-4">
+                        <a href="#projects-section" class="inline-flex items-center gap-2 text-primary text-sm hover:translate-x-1 transition-transform duration-300"><span aria-hidden="true">→</span> View related projects</a>
+                        <span class="font-mono text-[0.65rem] tracking-[0.1em] text-text-muted">// SYSTEMS_DEVELOPMENT</span>
+                    </div>
+                </div>
+                <div class="bg-surface border border-border rounded-lg p-6 flex flex-col">
+                    <p class="font-mono text-xs tracking-[0.2em] text-primary mb-4">02 / MOBILE</p>
+                    <div class="flex items-center gap-4 mb-4">
+                        <span class="inline-flex items-center justify-center w-12 h-12 rounded-md border border-primary text-primary shrink-0" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2" /><line x1="11" y1="18" x2="13" y2="18" /></svg>
+                        </span>
+                        <h3 class="text-text text-xl font-monda font-bold">Mobile Development</h3>
+                    </div>
+                    <p class="text-text-muted text-sm leading-relaxed">
+                        I build cross-platform apps with Flutter and Bloc, and tinker with native Android and Kotlin when I want to get closer to the platform.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-5 mb-6">
+                        <span class="pill"><img src="icons/flutter-original.svg" alt="" />Flutter</span>
+                        <span class="pill"><img src="icons/bloc-original.svg" alt="" />Bloc</span>
+                        <span class="pill">Kotlin</span>
+                        <span class="pill">Android</span>
+                    </div>
+                    <div class="flex items-center justify-between gap-3 border-t border-border mt-auto pt-4">
+                        <a href="#projects-section" class="inline-flex items-center gap-2 text-primary text-sm hover:translate-x-1 transition-transform duration-300"><span aria-hidden="true">→</span> View related projects</a>
+                        <span class="font-mono text-[0.65rem] tracking-[0.1em] text-text-muted">// MOBILE_APPS</span>
+                    </div>
+                </div>
+                <div class="bg-surface border border-border rounded-lg p-6 flex flex-col md:col-span-2">
+                    <p class="font-mono text-xs tracking-[0.2em] text-primary mb-4">03 / AUTOMATION</p>
+                    <div class="flex items-center gap-4 mb-4">
+                        <span class="inline-flex items-center justify-center w-12 h-12 rounded-md border border-primary text-primary shrink-0" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>
+                        </span>
+                        <h3 class="text-text text-xl font-monda font-bold">Automation &amp; Tooling</h3>
+                    </div>
+                    <p class="text-text-muted text-sm leading-relaxed">
+                        I automate the boring parts — scripts and browser tests with Python and Playwright, versioned with Git and GitHub.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-5 mb-6">
+                        <span class="pill"><img src="icons/python-original.svg" alt="" />Python</span>
+                        <span class="pill"><img src="icons/javascript-original.svg" alt="" />JavaScript</span>
+                        <span class="pill"><img src="icons/playwright-original.svg" alt="" />Playwright</span>
+                        <span class="pill"><img src="icons/git-original.svg" alt="" />Git</span>
+                        <span class="pill"><img src="icons/github-original.svg" alt="" />GitHub</span>
+                    </div>
+                    <div class="flex items-center justify-between gap-3 border-t border-border mt-auto pt-4">
+                        <a href="#projects-section" class="inline-flex items-center gap-2 text-primary text-sm hover:translate-x-1 transition-transform duration-300"><span aria-hidden="true">→</span> View related projects</a>
+                        <span class="font-mono text-[0.65rem] tracking-[0.1em] text-text-muted">// AUTOMATION_TOOLING</span>
+                    </div>
                 </div>
             </div>
-
-            <!-- Mobile Apps Section -->
-            <div class="mb-12">
-                <h2
-                    class="text-2xl text-left mb-8 text-primary font-monda opacity-90"
-                >
-                    Mobile Apps
-                </h2>
-                <div
-                    class="skills-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
-                >
-                    <TechCard
-                        name="Flutter"
-                        icon="icons/flutter-original.svg"
-                        iconType="svg"
-                        link="https://flutter.dev"
-                    />
-                    <TechCard
-                        name="BloC"
-                        icon="icons/bloc-original.svg"
-                        iconType="svg"
-                        link="https://bloclibrary.dev"
-                    />
-                </div>
-            </div>
-
-            <div class="mb-12">
-                <h2
-                    class="text-2xl text-left mb-8 text-primary font-monda opacity-90"
-                >
-                    System Engineering
-                </h2>
-                <div
-                    class="skills-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
-                >
-                    <TechCard
-                        name="C"
-                        icon="icons/c-original.svg"
-                        iconType="svg"
-                        link="https://en.wikipedia.org/wiki/C_(programming_language)"
-                    />
-                    <TechCard
-                        name="C++"
-                        icon="icons/cplusplus-original.svg"
-                        iconType="svg"
-                        link="https://en.wikipedia.org/wiki/C%2B%2B"
-                    />
-                    <TechCard
-                        name="Rust"
-                        icon="icons/rust-original.svg"
-                        iconType="svg"
-                        link="https://www.rust-lang.org"
-                    />
-                </div>
-            </div>
-
-            <div class="mb-12">
-                <h2
-                    class="text-2xl text-left mb-8 text-primary font-monda opacity-90"
-                >
-                    Tools
-                </h2>
-                <div
-                    class="skills-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
-                >
-                    <TechCard
-                        name="Ubuntu"
-                        icon="icons/ubuntu-original.svg"
-                        iconType="svg"
-                        link="https://ubuntu.com"
-                    />
-                    <TechCard
-                        name="Neovim"
-                        icon="icons/neovim-original.svg"
-                        iconType="svg"
-                        link="https://neovim.io"
-                    />
-                    <TechCard
-                        name="VSCode"
-                        icon="icons/vscode-original.svg"
-                        iconType="svg"
-                        link="https://code.visualstudio.com"
-                    />
-                    <TechCard
-                        name="Android Studio"
-                        icon="icons/androidstudio-original.svg"
-                        iconType="svg"
-                        link="https://developer.android.com/studio"
-                    />
-                </div>
+            <div class="flex flex-wrap items-center gap-2 mt-6">
+                <span class="font-mono text-[0.65rem] tracking-[0.1em] text-text-muted mr-2">// TOOLS</span>
+                <span class="pill"><img src="icons/ubuntu-original.svg" alt="" />Ubuntu</span>
+                <span class="pill"><img src="icons/neovim-original.svg" alt="" />Neovim</span>
+                <span class="pill"><img src="icons/vscode-original.svg" alt="" />VSCode</span>
+                <span class="pill"><img src="icons/androidstudio-original.svg" alt="" />Android Studio</span>
             </div>
         </div>
         </div>
@@ -597,4 +540,14 @@
     .hamburger-btn.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
     .hamburger-btn.open span:nth-child(2) { opacity: 0; }
     .hamburger-btn.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    /* ponytail: 16px pill icons in original colors */
+    .pill:has(img) {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .pill img {
+        width: 16px;
+        height: 16px;
+    }
 </style>
