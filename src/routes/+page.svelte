@@ -248,7 +248,8 @@
                         <ul class="space-y-1.5 font-mono text-sm text-text-muted">
                             <li><span class="text-primary">$</span> systems</li>
                             <li><span class="text-primary">$</span> mobile</li>
-                            <li><span class="text-primary">$</span> better_me</li>
+                            <li><span class="text-primary">$</span> backend</li>
+                            <li><span class="text-primary">$</span> network</li>
                         </ul>
                     </aside>
                     <div class="hidden xl:flex flex-col justify-between w-40 shrink-0" aria-hidden="true">
