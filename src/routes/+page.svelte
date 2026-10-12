@@ -3,6 +3,9 @@
     import "../app.css";
     import "$lib/pageStyles.css";
     import ProjectCard from "$lib/ProjectCard.svelte";
+    import { getAllPosts } from "$lib/blog";
+
+    const recentPosts = getAllPosts().slice(0, 3);
 
     let menuVisible = false;
     let isVisible: Record<string, boolean> = {};
@@ -45,7 +48,7 @@
                 activeSection = "header";
         };
         window.addEventListener("scroll", onScroll, { passive: true });
-        ["about", "skills-section", "projects-section"].forEach((id) => {
+        ["about", "skills-section", "projects-section", "blog-section"].forEach((id) => {
             const el = document.getElementById(id);
             if (el) obs.observe(el);
         });
@@ -725,13 +728,71 @@
         </div>
     </section>
 
+    <section
+        id="blog-section"
+        class="section-animate py-16 px-5 bg-bg"
+        class:visible={isVisible["blog-section"]}
+    >
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-10">
+            <div class="md:w-56 shrink-0 flex flex-col">
+                <p class="section-label">
+                    <span class="text-primary">05</span> / BLOG
+                </p>
+                <h1
+                    class="font-monda font-bold text-5xl leading-[1.05] mt-6 text-text"
+                >
+                    Latest<br /><span class="text-primary">writes.</span>
+                </h1>
+                <div class="w-10 h-px bg-primary mt-6"></div>
+                <p class="text-text-muted text-sm leading-relaxed mt-4">
+                    Writeups, notes, and life updates.
+                </p>
+                <div class="mt-auto pt-10 hidden md:block">
+                    <p class="font-mono text-xs tracking-[0.2em] text-primary">
+                        04 -- 05
+                    </p>
+                    <a
+                        href="/blog"
+                        class="font-mono text-xs tracking-[0.2em] text-text-muted hover:text-primary transition-colors duration-300 mt-2 inline-block"
+                        >EXPLORE →</a
+                    >
+                </div>
+            </div>
+            <div class="flex-1 min-w-0 md:border-l md:border-border md:pl-10">
+                {#if recentPosts.length}
+                    <div class="flex flex-col divide-y divide-border border-y border-border">
+                        {#each recentPosts as post}
+                            <a
+                                href="/blog/{post.slug}"
+                                class="group flex items-baseline gap-4 py-4 no-underline transition-colors duration-300 hover:bg-surface px-3 -mx-3 rounded-md"
+                            >
+                                <span class="flex-1 min-w-0">
+                                    <span class="block text-text text-lg leading-snug group-hover:text-primary transition-colors duration-300 truncate">{post.title}</span>
+                                    <span class="block font-mono text-xs tracking-wide text-text-muted mt-1">{post.dateLabel} · {post.readTime} min read</span>
+                                </span>
+                                <span aria-hidden="true" class="text-primary shrink-0 transition-transform duration-300 group-hover:translate-x-1">→</span>
+                            </a>
+                        {/each}
+                    </div>
+                    <a
+                        href="/blog"
+                        class="inline-flex items-center gap-2 text-primary text-sm mt-6 hover:translate-x-1 transition-transform duration-300"
+                        ><span aria-hidden="true">→</span> View all posts</a
+                    >
+                {:else}
+                    <p class="text-text-muted">No posts yet — first writeup coming soon.</p>
+                {/if}
+            </div>
+        </div>
+    </section>
+
     <section id="footer" class="py-16 px-5 border-t border-border bg-bg">
         <div
             class="footer-content max-w-7xl mx-auto flex flex-col md:flex-row gap-10"
         >
             <div class="md:w-56 shrink-0 flex flex-col">
                 <p class="section-label">
-                    <span class="text-primary">05</span> / CONNECT
+                    <span class="text-primary">06</span> / CONNECT
                 </p>
                 <h1
                     class="font-monda font-bold text-5xl leading-[1.05] mt-6 text-text"
