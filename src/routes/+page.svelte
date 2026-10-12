@@ -59,6 +59,14 @@
     });
 </script>
 
+<svelte:head>
+    <title>Insan Anshary Rasul — Computer Science Student & Developer</title>
+    <meta
+        name="description"
+        content="Insan Anshary Rasul is a Computer Science student at IPB University building software across systems, mobile, and automation."
+    />
+</svelte:head>
+
 <main>
     <section
         id="header"

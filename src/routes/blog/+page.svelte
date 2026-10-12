@@ -17,6 +17,10 @@
 
 <svelte:head>
 	<title>Blog — Insan Anshary Rasul</title>
+	<meta
+		name="description"
+		content="Blog by Insan Anshary Rasul — writeups, notes, and life updates on systems, mobile, and automation."
+	/>
 </svelte:head>
 
 <main class="min-h-screen bg-bg text-text">
