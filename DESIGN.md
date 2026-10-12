@@ -162,7 +162,7 @@ export default {
 
 ## 4. Example Components
 
-See live components: `src/lib/TechCard.svelte`, `src/lib/ProjectCard.svelte`, `src/lib/BlogCard.svelte`.
+See live components: `src/lib/ProjectCard.svelte`, `src/lib/BlogCard.svelte`.
 
 ---
 

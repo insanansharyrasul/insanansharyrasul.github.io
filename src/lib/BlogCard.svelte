@@ -21,7 +21,7 @@
 		</div>
 		<div class="blog-tags">
 			{#each post.tags as tag}
-				<span class="blog-tag"># {tag}</span>
+				<span class="pill"># {tag}</span>
 			{/each}
 		</div>
 	</div>
@@ -108,16 +108,7 @@
 		gap: 8px;
 	}
 
-	.blog-tag {
-		background-color: rgba(255, 255, 255, 0.06);
-		border: 1px solid var(--color-border);
-		border-radius: 999px;
-		padding: 4px 14px;
-		font-size: 0.85rem;
-		color: var(--color-text);
-	}
-
-	@media (max-width: 640px) {
+  @media (max-width: 640px) {
 		.blog-card {
 			flex-direction: column;
 		}

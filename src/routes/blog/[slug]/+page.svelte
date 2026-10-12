@@ -81,7 +81,7 @@
 		{#if post.tags.length}
 			<div class="flex flex-wrap gap-2 mt-4">
 				{#each post.tags as tag}
-					<a href="/blog" class="blog-tag no-underline">#{tag}</a>
+					<a href="/blog" class="pill no-underline">#{tag}</a>
 				{/each}
 			</div>
 		{/if}
@@ -123,16 +123,7 @@
 </main>
 
 <style>
-	.blog-tag {
-		background-color: rgba(255, 255, 255, 0.06);
-		border: 1px solid var(--color-border);
-		border-radius: 999px;
-		padding: 4px 14px;
-		font-size: 0.85rem;
-		color: var(--color-text);
-	}
-
-	.post-grid {
+  .post-grid {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
 		gap: 2rem;

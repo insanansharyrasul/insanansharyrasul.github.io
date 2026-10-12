@@ -57,10 +57,6 @@
         transform: none;
     }
 
-    .text-box h1 {
-        font-size: 2rem !important;
-    }
-
     .hero-main h1 {
         font-size: 1.75rem !important;
     }
@@ -70,27 +66,9 @@
         gap: 2rem;
     }
 
-    .text-box p {
-        font-size: 1.25rem !important;
-    }
-
     .logo img {
         height: 32px;
         width: auto;
-    }
-
-    /* Force header elements to stay behind hamburger menu */
-    .text-box {
-        z-index: 10 !important;
-    }
-
-    .text-box h1,
-    .text-box p {
-        z-index: 1 !important;
-    }
-
-    .scroll-indicator {
-        z-index: 5 !important;
     }
 
     /* Ensure nav bar stays below hamburger menu but above text */
@@ -101,29 +79,13 @@
 
 /* Additional responsive styles */
 @media screen and (max-width: 768px) and (min-width: 601px) {
-    .text-box h1 {
-        font-size: 3rem !important;
-    }
-
     .hero-main h1 {
         font-size: 2.5rem !important;
-    }
-
-    .text-box p {
-        font-size: 1.5rem !important;
     }
 }
 
 @media screen and (min-width: 1200px) {
-    .text-box h1 {
-        font-size: 4.5rem !important;
-    }
-
     .hero-main h1 {
         font-size: 3.75rem !important;
-    }
-
-    .text-box p {
-        font-size: 2.25rem !important;
     }
 }

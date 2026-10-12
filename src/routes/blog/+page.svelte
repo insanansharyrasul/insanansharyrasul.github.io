@@ -37,7 +37,7 @@
 		{#if tags.length}
 			<div class="flex flex-wrap justify-center gap-2 mb-10">
 				<button
-					class="tag-filter"
+					class="pill"
 					class:active={activeTag === null}
 					on:click={() => toggle(null)}
 				>
@@ -45,7 +45,7 @@
 				</button>
 				{#each tags as tag}
 					<button
-						class="tag-filter"
+						class="pill"
 						class:active={activeTag === tag}
 						on:click={() => toggle(tag)}
 					>
@@ -65,25 +65,4 @@
 	</div>
 </main>
 
-<style>
-	.tag-filter {
-		background-color: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: 999px;
-		padding: 6px 16px;
-		font-size: 0.85rem;
-		color: var(--color-text-muted);
-		cursor: pointer;
-		transition: all 0.2s ease;
-	}
 
-	.tag-filter:hover {
-		border-color: var(--color-primary);
-		color: var(--color-text);
-	}
-
-	.tag-filter.active {
-		border-color: var(--color-primary);
-		color: var(--color-primary);
-	}
-</style>
