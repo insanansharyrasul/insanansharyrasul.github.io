@@ -10,13 +10,7 @@
 	let contentEl: HTMLElement;
 
 	onMount(() => {
-		// Assign TOC ids in lexer order (matches blog.ts toc)
-		const heads = contentEl.querySelectorAll('h2, h3');
-		heads.forEach((el, i) => {
-			if (post.toc[i]) el.id = post.toc[i].id;
-		});
-
-		// Copy button per code block
+		// ponytail: ids already injected server-side in blog.ts — copy buttons only
 		contentEl.querySelectorAll('pre').forEach((pre) => {
 			const btn = document.createElement('button');
 			btn.textContent = 'Copy';
@@ -55,6 +49,16 @@
 	</nav>
 
 	<article class="max-w-5xl mx-auto px-5 py-10">
+		<!-- ponytail: single snippet, was duplicated {#each} loops -->
+		{#snippet tocList()}
+			<ol>
+				{#each post.toc as item}
+					<li class:indent={item.level === 3}>
+						<a href={'#' + item.id}>{item.text}</a>
+					</li>
+				{/each}
+			</ol>
+		{/snippet}
 		<a href="/blog" class="text-text-muted no-underline text-sm hover:text-primary transition-colors">
 			← All posts
 		</a>
@@ -85,13 +89,7 @@
 		{#if post.toc.length}
 			<details class="toc-mobile">
 				<summary>Table of Contents</summary>
-				<ol>
-					{#each post.toc as item}
-						<li class:indent={item.level === 3}>
-							<a href={'#' + item.id}>{item.text}</a>
-						</li>
-					{/each}
-				</ol>
+				{@render tocList()}
 			</details>
 		{/if}
 
@@ -102,13 +100,7 @@
 			{#if post.toc.length}
 				<aside class="toc-side">
 					<p class="toc-title">Table of Contents</p>
-					<ol>
-						{#each post.toc as item}
-							<li class:indent={item.level === 3}>
-								<a href={'#' + item.id}>{item.text}</a>
-							</li>
-						{/each}
-					</ol>
+					{@render tocList()}
 				</aside>
 			{/if}
 		</div>

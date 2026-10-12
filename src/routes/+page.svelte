@@ -1,44 +1,48 @@
 <script lang="ts">
+    import { onMount } from "svelte";
     import "../app.css";
     import "$lib/pageStyles.css";
-    import Hamburger from "svelte-hamburger";
     import TechCard from "$lib/TechCard.svelte";
     import ProjectCard from "$lib/ProjectCard.svelte";
-    import {
-        initialState,
-        hideMenu as createHideMenu,
-        toggleMenu as createToggleMenu,
-        createTypeWriter,
-        setupIntersectionObserver,
-    } from "$lib/pageLogic";
 
-    let menuVisible = initialState.menuVisible;
-    let isVisible: Record<string, boolean> = initialState.isVisible;
-    let typedText = initialState.typedText;
-    let fullText = initialState.fullText;
-    let typeIndex = initialState.typeIndex;
+    let menuVisible = false;
+    let isVisible: Record<string, boolean> = {};
+    let typedText = "";
+    const fullText = "I'm Insan Anshary Rasul.";
 
-    const hideMenu = createHideMenu(() => {
+    function hideMenu() {
         menuVisible = false;
-    });
+    }
 
-    const toggleMenu = createToggleMenu(() => {
+    function toggleMenu() {
         menuVisible = !menuVisible;
-    });
+    }
 
-    const typeWriter = createTypeWriter(fullText, (text, index) => {
-        typedText = text;
-        typeIndex = index;
-    });
+    // ponytail: inline typewriter + observer, was pageLogic.ts indirection
+    onMount(() => {
+        let i = 0;
+        const tw = () => {
+            if (i < fullText.length) {
+                typedText = fullText.substring(0, ++i);
+                setTimeout(tw, 100);
+            }
+        };
+        tw();
 
-    setupIntersectionObserver(
-        (id, visible) => {
-            isVisible[id] = visible;
-        },
-        () => {
-            typeWriter();
-        },
-    );
+        const obs = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) isVisible[entry.target.id] = true;
+                });
+            },
+            { threshold: 0.3 },
+        );
+        ["about", "skills-section", "projects-section"].forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) obs.observe(el);
+        });
+        return () => obs.disconnect();
+    });
 </script>
 
 <main>
@@ -61,12 +65,6 @@
                 id="navRights"
                 class:visible={menuVisible}
             >
-                <button
-                    on:click={hideMenu}
-                    aria-label="Close menu"
-                    class="bg-transparent border-none cursor-pointer text-text p-3 text-2xl transition-transform duration-300 hover:rotate-90 hidden"
-                >
-                </button>
                 <ul class="items-center">
                     <li class="list-none inline-block px-3 relative">
                         <a
@@ -114,16 +112,17 @@
                 </ul>
             </div>
             <div class="hamburger-wrapper hidden">
-                <Hamburger
-                    bind:open={menuVisible}
+                <button
+                    aria-label="Toggle menu"
+                    aria-expanded={menuVisible}
                     on:click={toggleMenu}
-                    --color="#BFBDB6"
-                    --active-color="#FF8F40"
-                    --layer-width="24px"
-                    --layer-height="2px"
-                    --layer-spacing="6px"
-                    --border-radius="0px"
-                />
+                    class="hamburger-btn"
+                    class:open={menuVisible}
+                >
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </nav>
         <div
@@ -424,3 +423,28 @@
         </div>
     </section>
 </main>
+
+<style>
+    /* ponytail: native hamburger, was svelte-hamburger dep */
+    .hamburger-btn {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 6px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+    }
+    .hamburger-btn span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: #bfbdb6;
+        transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+    }
+    .hamburger-btn.open span { background: #ff8f40; }
+    .hamburger-btn.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger-btn.open span:nth-child(2) { opacity: 0; }
+    .hamburger-btn.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+</style>
