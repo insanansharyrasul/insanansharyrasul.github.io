@@ -349,6 +349,32 @@
 		line-height: 1.7;
 	}
 
+	/* highlight.js tokens → DESIGN.md palette (no prebuilt hljs theme) */
+	.blog-content :global(.hljs-keyword) {
+		color: var(--color-purple);
+	}
+
+	.blog-content :global(.hljs-string),
+	.blog-content :global(.hljs-regexp) {
+		color: var(--color-green);
+	}
+
+	.blog-content :global(.hljs-number),
+	.blog-content :global(.hljs-literal) {
+		color: var(--color-yellow);
+	}
+
+	.blog-content :global(.hljs-title),
+	.blog-content :global(.hljs-built_in) {
+		color: var(--color-blue);
+	}
+
+	.blog-content :global(.hljs-comment),
+	.blog-content :global(.hljs-quote) {
+		color: var(--color-text-muted);
+		font-style: italic;
+	}
+
 	.blog-content :global(.copy-btn) {
 		position: absolute;
 		top: 8px;

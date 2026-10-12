@@ -1,4 +1,17 @@
 import { marked } from 'marked';
+import hljs from 'highlight.js/lib/core';
+import python from 'highlight.js/lib/languages/python';
+import markdown from 'highlight.js/lib/languages/markdown';
+import javascript from 'highlight.js/lib/languages/javascript';
+import typescript from 'highlight.js/lib/languages/typescript';
+import bash from 'highlight.js/lib/languages/bash';
+
+// ponytail: only languages the blog uses — one line each to add more
+hljs.registerLanguage('python', python);
+hljs.registerLanguage('markdown', markdown);
+hljs.registerLanguage('javascript', javascript);
+hljs.registerLanguage('typescript', typescript);
+hljs.registerLanguage('bash', bash);
 
 // ponytail: single hardcoded author, no authors/ collection until needed
 export const AUTHOR = {
@@ -70,6 +83,23 @@ const modules = import.meta.glob('../posts/*.md', {
 	eager: true
 }) as Record<string, string>;
 
+const decode = (s: string): string =>
+	s
+		.replace(/&lt;/g, '<')
+		.replace(/&gt;/g, '>')
+		.replace(/&quot;/g, '"')
+		.replace(/&#39;|&apos;/g, "'")
+		.replace(/&amp;/g, '&');
+
+const esc = (s: string): string =>
+	s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+// highlight.js (real grammars); unknown language → plain-escaped, no auto-detect
+function highlightCode(raw: string, lang: string): string {
+	if (lang && hljs.getLanguage(lang)) return hljs.highlight(raw, { language: lang }).value;
+	return esc(raw);
+}
+
 function buildPost(path: string, raw: string): Post {
 	const slug = path.split('/').pop()!.replace(/\.md$/, '');
 	const { meta, body } = parseFrontmatter(raw);
@@ -91,11 +121,17 @@ function buildPost(path: string, raw: string): Post {
 	}
 
 	const rawHtml = marked.parse(body, { breaks: true }) as string;
+	// Highlight fenced blocks (marked only adds language-xxx, no colors).
+	const codeHtml = rawHtml.replace(
+		/<pre><code(?: class="language-([\w-]+)")?>([\s\S]*?)<\/code><\/pre>/g,
+		(m: string, lang: string | undefined, code: string) =>
+			`<pre><code${lang ? ` class="language-${lang}"` : ''}>${highlightCode(decode(code), lang ?? '')}</code></pre>`
+	);
 	// Inject TOC ids server-side so anchors exist in prerendered HTML.
 	// ponytail: regex on bare <h2>/<h3> instead of a marked renderer
 	// override — version-proof, no API coupling.
 	let n = 0;
-	const html = rawHtml.replace(/<h([23])>/g, (m, lvl: string) => {
+	const html = codeHtml.replace(/<h([23])>/g, (m, lvl: string) => {
 		const t = toc[n++];
 		return t ? `<h${lvl} id="${t.id}">` : m;
 	});
