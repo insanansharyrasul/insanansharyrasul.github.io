@@ -4,6 +4,14 @@
 
 /* Navigation link hover effects live in app.css (.nav-link) */
 
+#about,
+#skills-section,
+#projects-section,
+#blog-section,
+#footer {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 800px;
+}
 
 /* Mobile responsive navigation */
 @media screen and (max-width: 600px) {
@@ -74,6 +82,8 @@
     /* Ensure nav bar stays below hamburger menu but above text */
     nav {
         z-index: 15 !important;
+        /* ponytail: backdrop blur is costly on mobile GPUs */
+        backdrop-filter: none !important;
     }
 }
 

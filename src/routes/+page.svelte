@@ -24,12 +24,20 @@
     onMount(() => {
         let i = 0;
         const tw = () => {
+            if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                typedText = fullText;
+                return;
+            }
             if (i < fullText.length) {
                 typedText = fullText.substring(0, ++i);
                 setTimeout(tw, 100);
             }
         };
-        tw();
+        if ("requestIdleCallback" in window) {
+            window.requestIdleCallback(tw, { timeout: 800 });
+        } else {
+            setTimeout(tw, 500);
+        }
 
         const obs = new IntersectionObserver(
             (entries) => {
