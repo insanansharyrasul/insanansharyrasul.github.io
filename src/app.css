@@ -59,8 +59,9 @@
 
 @layer components {
   /* Typewriter effect */
+  /* ponytail: no nowrap — heading wraps like the mockup instead of clipping */
   .typewriter {
-    @apply overflow-hidden whitespace-nowrap;
+    @apply overflow-hidden;
     border-right: 0px solid var(--color-primary);
     animation: typing 3.5s steps(30, end);
   }
@@ -163,6 +164,83 @@
 
   .nav-link:hover::after {
     width: 100%;
+  }
+
+  .nav-link.active {
+    color: var(--color-primary);
+  }
+
+  .nav-link.active::after {
+    width: 100%;
+  }
+
+  /* ponytail: mockup rails — mono labels + CSS-only deco grid */
+  .section-label {
+    font-family: 'Fira Code', ui-monospace, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+  }
+
+  .section-label::after {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 1px;
+    background: var(--color-primary);
+    opacity: 0.7;
+  }
+
+  .hero-grid-lines {
+    background-image:
+      linear-gradient(to right, rgba(52, 59, 77, 0.35) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(52, 59, 77, 0.35) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-position: top right;
+    border-right: 1px solid var(--color-border);
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+
+  .scroll-cue {
+    display: block;
+    width: 64px;
+    height: 1px;
+    background: var(--color-primary);
+    opacity: 0.7;
+    position: relative;
+  }
+
+  .scroll-cue::before {
+    content: "SCROLL";
+    position: absolute;
+    left: 0;
+    top: -18px;
+    font-family: 'Fira Code', ui-monospace, monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--color-primary);
+  }
+
+  /* ponytail: shared outline pill, was scoped .tech-tag in ProjectCard */
+  .pill {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    background: transparent;
+    transition: all 0.2s ease;
+  }
+
+  .pill:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
   }
 }
 

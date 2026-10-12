@@ -7,6 +7,7 @@
 
     let menuVisible = false;
     let isVisible: Record<string, boolean> = {};
+    let activeSection = "header";
     let typedText = "";
     const fullText = "I'm Insan Anshary Rasul.";
 
@@ -32,16 +33,27 @@
         const obs = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
-                    if (entry.isIntersecting) isVisible[entry.target.id] = true;
+                    if (entry.isIntersecting) {
+                        isVisible[entry.target.id] = true;
+                        activeSection = entry.target.id;
+                    }
                 });
             },
             { threshold: 0.3 },
         );
+        // ponytail: single scroll check resets nav to Home at top
+        const onScroll = () => {
+            if (window.scrollY < window.innerHeight / 2) activeSection = "header";
+        };
+        window.addEventListener("scroll", onScroll, { passive: true });
         ["about", "skills-section", "projects-section"].forEach((id) => {
             const el = document.getElementById(id);
             if (el) obs.observe(el);
         });
-        return () => obs.disconnect();
+        return () => {
+            obs.disconnect();
+            window.removeEventListener("scroll", onScroll);
+        };
     });
 </script>
 
@@ -71,6 +83,8 @@
                             href="#header"
                             on:click={hideMenu}
                             class="nav-link text-text no-underline text-base font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
+                            class:active={activeSection === "header"}
+                            aria-current={activeSection === "header" ? "page" : undefined}
                             style="font-family: 'Raleway', sans-serif;">Home</a
                         >
                     </li>
@@ -79,6 +93,8 @@
                             href="#about"
                             on:click={hideMenu}
                             class="nav-link text-text no-underline text-base font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
+                            class:active={activeSection === "about"}
+                            aria-current={activeSection === "about" ? "page" : undefined}
                             style="font-family: 'Raleway', sans-serif;">About</a
                         >
                     </li>
@@ -87,6 +103,8 @@
                             href="#skills-section"
                             on:click={hideMenu}
                             class="nav-link text-text no-underline text-base font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
+                            class:active={activeSection === "skills-section"}
+                            aria-current={activeSection === "skills-section" ? "page" : undefined}
                             style="font-family: 'Raleway', sans-serif;"
                             >Skills</a
                         >
@@ -96,6 +114,8 @@
                             href="#projects-section"
                             on:click={hideMenu}
                             class="nav-link text-text no-underline text-base font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
+                            class:active={activeSection === "projects-section"}
+                            aria-current={activeSection === "projects-section" ? "page" : undefined}
                             style="font-family: 'Raleway', sans-serif;"
                             >Projects</a
                         >
@@ -125,23 +145,71 @@
                 </button>
             </div>
         </nav>
-        <div
-            class="text-box absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center w-[90%] text-text"
-        >
-            <h1
-                class="typewriter text-primary text-center font-monda text-4xl md:text-5xl lg:text-6xl font-bold mb-4"
-            >
-                {typedText}<span class="cursor">|</span>
-            </h1>
-            <p
-                class="fade-in text-text text-center text-lg md:text-xl lg:text-2xl font-normal opacity-90"
-                style="font-family: 'Raleway', sans-serif;"
-            >
-                Computer Science Student at IPB University
-            </p>
+        <div class="hero-grid flex-1 flex items-center w-full max-w-7xl mx-auto px-[5%] py-12 gap-8">
+            <!-- 01 / INTRODUCTION rail -->
+            <div class="hero-rail hidden md:flex flex-col items-start gap-4 pr-8 border-r border-border self-stretch">
+                <p class="section-label"><span class="text-primary">01</span> / INTRODUCTION</p>
+            </div>
+            <!-- Main intro: typewriter kept verbatim -->
+            <div class="hero-main flex-1 min-w-0 text-left text-text">
+                <p class="font-mono text-xs tracking-[0.25em] text-text-muted mb-4">HELLO, I'M</p>
+                <h1
+                    class="typewriter text-primary text-left font-monda text-4xl md:text-5xl lg:text-6xl font-bold mb-4"
+                >
+                    {typedText}<span class="cursor">|</span>
+                </h1>
+                <p
+                    class="text-text text-left text-lg md:text-xl lg:text-2xl font-normal opacity-90"
+                    style="font-family: 'Raleway', sans-serif;"
+                >
+                    Computer Science Student at IPB University.
+                </p>
+                <p class="text-text-muted text-sm md:text-base leading-relaxed mt-4 max-w-md">
+                    I build software, explore systems, and enjoy turning
+                    ideas into working solutions.
+                </p>
+                <div class="flex flex-wrap items-center gap-6 mt-8">
+                    <a
+                        href="#projects-section"
+                        class="inline-flex items-center gap-3 bg-primary text-text-on-accent font-semibold text-sm px-6 py-3 rounded-md transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5"
+                    >
+                        Explore Projects <span aria-hidden="true">→</span>
+                    </a>
+                    <a
+                        href="#about"
+                        class="text-text-muted text-sm underline underline-offset-4 decoration-border hover:text-primary hover:decoration-primary transition-all duration-300"
+                    >
+                        About Me
+                    </a>
+                </div>
+            </div>
+            <!-- Interests rail -->
+            <aside class="hero-side hidden lg:flex flex-col justify-center gap-6 pl-8 border-l border-border max-w-xs">
+                <div>
+                    <h2 class="font-mono text-xs tracking-[0.2em] text-primary mb-3">INTERESTS</h2>
+                    <ul class="space-y-1.5 text-sm text-text-muted">
+                        <li>System Programming</li>
+                        <li>Mobile Development</li>
+                        <li>Linux &amp; Infrastructure</li>
+                        <li>Automation &amp; Tooling</li>
+                    </ul>
+                </div>
+                <div class="w-10 h-px bg-primary"></div>
+                <p class="font-mono text-sm text-text-muted leading-relaxed">
+                    Better software,<br />better systems,<br />a more open future.
+                </p>
+            </aside>
+            <!-- Deco grid -->
+            <div class="hero-deco hidden xl:flex flex-col justify-between self-stretch w-40" aria-hidden="true">
+                <div class="hero-grid-lines relative flex-1">
+                    <span class="absolute top-0 right-0 w-4 h-4 bg-primary"></span>
+                </div>
+                <p class="font-mono text-[0.65rem] tracking-[0.15em] text-text-muted mt-3">IPB UNIVERSITY<br />/ 2026</p>
+            </div>
         </div>
-        <div class="scroll-indicator">
-            <span></span>
+        <div class="hero-foot flex items-center gap-4 px-[5%] pb-6 max-w-7xl mx-auto w-full">
+            <span class="scroll-cue"></span>
+            <a href="#projects-section" aria-label="Scroll to projects" class="ml-auto text-primary text-xl leading-none no-underline hover:-translate-y-0.5 hover:translate-x-0.5 transition-transform duration-300">↗</a>
         </div>
     </section>
 
@@ -150,43 +218,98 @@
         class="section-animate py-16 px-5 bg-bg"
         class:visible={isVisible.about}
     >
-        <div class="max-w-4xl mx-auto">
-            <h1 class="text-3xl text-center mb-6 text-primary font-monda">
-                About Me
-            </h1>
-            <p
-                class="mx-[5%] text-lg text-center leading-relaxed mb-8 text-text-muted"
-            >
-                Freshman at IPB University studying Computer Science under the
-                <span class="text-primary italic"
-                    >Sekolah Sains Data, Matematika dan Informatika</span
-                >. Currently interested in system development and mobile app
-                development.
-            </p>
-
-            <div class="grid md:grid-cols-2 gap-6 mt-8">
-                <div class="bg-surface border border-border rounded-lg p-6">
-                    <h3
-                        class="text-primary text-xl mb-3 font-monda flex items-center"
-                    >
-                        ⚙️ Systems Development
-                    </h3>
-                    <p class="text-text-muted text-sm leading-relaxed">
-                        Creating a low level program that monitor computer
-                        resource or making simple script to do simple task using
-                        C, C++, or Rust
-                    </p>
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-10">
+            <!-- Left rail -->
+            <div class="md:w-56 shrink-0 flex flex-col">
+                <p class="section-label"><span class="text-primary">02</span> / ABOUT ME</p>
+                <h1 class="font-monda font-bold text-5xl leading-[1.05] mt-6 text-text">
+                    How I<br /><span class="text-primary">think.</span>
+                </h1>
+                <div class="w-10 h-px bg-primary mt-6"></div>
+                <p class="font-mono text-sm text-text-muted leading-relaxed mt-4">
+                    Better software,<br />better systems,<br />a more open future.
+                </p>
+                <div class="mt-auto pt-10 hidden md:block">
+                    <p class="font-mono text-xs tracking-[0.2em] text-primary">01 -- 02</p>
+                    <a href="#skills-section" class="font-mono text-xs tracking-[0.2em] text-text-muted hover:text-primary transition-colors duration-300 mt-2 inline-block">EXPLORE →</a>
                 </div>
-                <div class="bg-surface border border-border rounded-lg p-6">
-                    <h3
-                        class="text-primary text-xl mb-3 font-monda flex items-center"
-                    >
-                        📱 Mobile Development
-                    </h3>
-                    <p class="text-text-muted text-sm leading-relaxed">
-                        Designing cross-platform mobile applications for Android
-                        and iOS using Flutter or Android-only using Kotlin
+            </div>
+            <!-- Main -->
+            <div class="flex-1 min-w-0 md:border-l md:border-border md:pl-10">
+                <div class="flex flex-col lg:flex-row gap-8 border-b border-border pb-10">
+                    <p class="flex-1 min-w-0 text-text-muted text-lg md:text-xl leading-relaxed">
+                        I'm a Computer Science student at IPB University,
+                        interested in understanding the systems behind software
+                        and building applications that solve practical problems.
+                        I enjoy exploring systems programming, Linux, and
+                        mobile development.
                     </p>
+                    <aside class="lg:w-48 shrink-0 lg:border-l lg:border-border lg:pl-8">
+                        <h2 class="font-mono text-xs tracking-[0.2em] text-text-muted mb-3">CURRENTLY EXPLORING</h2>
+                        <ul class="space-y-1.5 font-mono text-sm text-text-muted">
+                            <li><span class="text-primary">$</span> systems</li>
+                            <li><span class="text-primary">$</span> mobile</li>
+                            <li><span class="text-primary">$</span> better_me</li>
+                        </ul>
+                    </aside>
+                    <div class="hidden xl:flex flex-col justify-between w-40 shrink-0" aria-hidden="true">
+                        <div class="hero-grid-lines relative flex-1 min-h-40">
+                            <span class="absolute top-0 right-0 w-4 h-4 bg-primary"></span>
+                        </div>
+                        <p class="font-mono text-[0.65rem] tracking-[0.15em] text-text-muted mt-3">IPB UNIVERSITY<br />/ 2026</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 mt-10">
+                    <div class="bg-surface border border-border rounded-lg p-6 flex flex-col">
+                        <p class="font-mono text-xs tracking-[0.2em] text-primary mb-4">01 / SYSTEMS</p>
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="inline-flex items-center justify-center w-12 h-12 rounded-md border border-primary text-primary shrink-0" aria-hidden="true">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5" /><line x1="12" y1="19" x2="20" y2="19" /></svg>
+                            </span>
+                            <h3 class="text-text text-xl font-monda font-bold">Systems Programming</h3>
+                        </div>
+                        <p class="text-text-muted text-sm leading-relaxed">
+                            I enjoy exploring how software interacts with computer
+                            resources, writing utilities, and learning about low-level
+                            programming with C, C++, and Rust.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-5 mb-6">
+                            <span class="pill">C</span>
+                            <span class="pill">C++</span>
+                            <span class="pill">Rust</span>
+                            <span class="pill">Linux</span>
+                            <span class="pill">Shell</span>
+                        </div>
+                        <div class="flex items-center justify-between gap-3 border-t border-border mt-auto pt-4">
+                            <a href="#projects-section" class="inline-flex items-center gap-2 text-primary text-sm hover:translate-x-1 transition-transform duration-300"><span aria-hidden="true">→</span> View related projects</a>
+                            <span class="font-mono text-[0.65rem] tracking-[0.1em] text-text-muted">// SYSTEMS_DEVELOPMENT</span>
+                        </div>
+                    </div>
+                    <div class="bg-surface border border-border rounded-lg p-6 flex flex-col">
+                        <p class="font-mono text-xs tracking-[0.2em] text-primary mb-4">02 / MOBILE</p>
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="inline-flex items-center justify-center w-12 h-12 rounded-md border border-primary text-primary shrink-0" aria-hidden="true">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2" /><line x1="11" y1="18" x2="13" y2="18" /></svg>
+                            </span>
+                            <h3 class="text-text text-xl font-monda font-bold">Mobile Development</h3>
+                        </div>
+                        <p class="text-text-muted text-sm leading-relaxed">
+                            I build cross-platform mobile applications with Flutter
+                            and explore native Android development with Kotlin,
+                            focusing on useful features and thoughtful user experiences.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-5 mb-6">
+                            <span class="pill">Flutter</span>
+                            <span class="pill">Bloc</span>
+                            <span class="pill">Kotlin</span>
+                            <span class="pill">Android</span>
+                        </div>
+                        <div class="flex items-center justify-between gap-3 border-t border-border mt-auto pt-4">
+                            <a href="#projects-section" class="inline-flex items-center gap-2 text-primary text-sm hover:translate-x-1 transition-transform duration-300"><span aria-hidden="true">→</span> View related projects</a>
+                            <span class="font-mono text-[0.65rem] tracking-[0.1em] text-text-muted">// MOBILE_APPS</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -194,18 +317,31 @@
 
     <section
         id="skills-section"
-        class="section-animate py-16 px-5 bg-surface"
+        class="section-animate py-16 px-5 bg-bg"
         class:visible={isVisible["skills-section"]}
     >
-        <div class="skills-content max-w-5xl mx-auto">
-            <h1 class="text-3xl text-center mb-10 text-primary font-monda">
-                Skills & Technologies
-            </h1>
+        <div class="skills-content max-w-7xl mx-auto flex flex-col md:flex-row gap-10">
+            <div class="md:w-56 shrink-0 flex flex-col">
+                <p class="section-label"><span class="text-primary">03</span> / SKILLS</p>
+                <h1 class="font-monda font-bold text-5xl leading-[1.05] mt-6 text-text">
+                    What I<br /><span class="text-primary">use.</span>
+                </h1>
+                <div class="w-10 h-px bg-primary mt-6"></div>
+                <p class="text-text-muted text-sm leading-relaxed mt-4">
+                    Languages, frameworks, and tools I reach for when
+                    building software.
+                </p>
+                <div class="mt-auto pt-10 hidden md:block">
+                    <p class="font-mono text-xs tracking-[0.2em] text-primary">02 -- 03</p>
+                    <a href="#projects-section" class="font-mono text-xs tracking-[0.2em] text-text-muted hover:text-primary transition-colors duration-300 mt-2 inline-block">EXPLORE →</a>
+                </div>
+            </div>
+            <div class="flex-1 min-w-0 md:border-l md:border-border md:pl-10">
 
             <!-- Automation Section -->
             <div class="mb-8">
                 <h2
-                    class="text-lg text-center mb-4 text-primary font-monda opacity-90"
+                    class="text-lg text-left mb-4 text-primary font-monda opacity-90"
                 >
                     Automation
                 </h2>
@@ -248,7 +384,7 @@
             <!-- Mobile Apps Section -->
             <div class="mb-12">
                 <h2
-                    class="text-2xl text-center mb-8 text-primary font-monda opacity-90"
+                    class="text-2xl text-left mb-8 text-primary font-monda opacity-90"
                 >
                     Mobile Apps
                 </h2>
@@ -272,7 +408,7 @@
 
             <div class="mb-12">
                 <h2
-                    class="text-2xl text-center mb-8 text-primary font-monda opacity-90"
+                    class="text-2xl text-left mb-8 text-primary font-monda opacity-90"
                 >
                     System Engineering
                 </h2>
@@ -302,7 +438,7 @@
 
             <div class="mb-12">
                 <h2
-                    class="text-2xl text-center mb-8 text-primary font-monda opacity-90"
+                    class="text-2xl text-left mb-8 text-primary font-monda opacity-90"
                 >
                     Tools
                 </h2>
@@ -336,6 +472,7 @@
                 </div>
             </div>
         </div>
+        </div>
     </section>
 
     <section
@@ -343,50 +480,63 @@
         class="section-animate py-16 px-5 bg-bg"
         class:visible={isVisible["projects-section"]}
     >
-        <div class="projects max-w-5xl mx-auto">
-            <h1 class="text-3xl text-center mb-3 text-primary font-monda">
-                Coding Projects
-            </h1>
-            <p
-                class="section-subtitle text-center text-text-muted text-base mb-8 italic"
-            >
-                Building solutions through code and creativity
-            </p>
+        <div class="projects max-w-7xl mx-auto flex flex-col md:flex-row gap-10">
+            <div class="md:w-56 shrink-0 flex flex-col">
+                <p class="section-label"><span class="text-primary">04</span> / PROJECTS</p>
+                <h1 class="font-monda font-bold text-5xl leading-[1.05] mt-6 text-text">
+                    Selected<br /><span class="text-primary">work.</span>
+                </h1>
+                <div class="w-10 h-px bg-primary mt-6"></div>
+                <p class="text-text-muted text-sm leading-relaxed mt-4">
+                    A selection of projects that I've worked on, from
+                    automation tools to apps and developer utilities.
+                </p>
+                <div class="mt-auto pt-10 hidden md:block">
+                    <p class="font-mono text-xs tracking-[0.2em] text-primary">03 -- 04</p>
+                    <a href="https://github.com/insanansharyrasul" target="_blank" rel="noopener noreferrer" class="font-mono text-xs tracking-[0.2em] text-text-muted hover:text-primary transition-colors duration-300 mt-2 inline-block">EXPLORE →</a>
+                </div>
+            </div>
 
-            <div
-                class="projects-grid grid grid-cols-1 md:grid-cols-2 gap-6 py-2"
-            >
+            <div class="flex-1 min-w-0">
+                <div
+                    class="projects-grid grid grid-cols-1 md:grid-cols-2 gap-6 py-2"
+                >
                 <ProjectCard
                     title="IPB Auto Logbook"
                     description="Automation tool for IPB University logbook system"
                     githubUrl="https://github.com/insanansharyrasul/ipb_auto_logbook"
-                    imageUrl="https://opengraph.githubassets.com/1/insanansharyrasul/ipb_auto_logbook"
                     technologies={["Python", "Automation"]}
+                    index="01"
+                    category="Automation"
                 />
 
                 <ProjectCard
                     title="SPP Sekolah"
                     description="School payment system management application"
                     githubUrl="https://github.com/insanansharyrasul/spp_sekolah"
-                    imageUrl="https://opengraph.githubassets.com/1/insanansharyrasul/spp_sekolah"
                     technologies={["Qt", "Desktop App"]}
+                    index="02"
+                    category="Desktop App"
                 />
 
                 <ProjectCard
                     title="Syamsun"
                     description="Prayer time application with home widget and sleep notifier"
                     githubUrl="https://github.com/insanansharyrasul/syamsun"
-                    imageUrl="https://opengraph.githubassets.com/1/insanansharyrasul/syamsun"
                     technologies={["Development", "Innovation"]}
+                    index="03"
+                    category="App"
                 />
 
                 <ProjectCard
                     title="The Djenggot"
                     description="Creative coding project with unique functionality"
                     githubUrl="https://github.com/insanansharyrasul/the_djenggot"
-                    imageUrl="https://opengraph.githubassets.com/1/insanansharyrasul/the_djenggot"
                     technologies={["Creative", "Coding"]}
+                    index="04"
+                    category="Creative"
                 />
+            </div>
             </div>
         </div>
     </section>
@@ -418,7 +568,7 @@
                 class="text-xs text-text-muted m-0"
                 style="font-family: 'Raleway', sans-serif;"
             >
-                © 2025 Insan Anshary Rasul. All rights reserved.
+                © 2026 Insan Anshary Rasul. All rights reserved.
             </p>
         </div>
     </section>
