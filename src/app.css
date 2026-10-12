@@ -58,12 +58,10 @@
 }
 
 @layer components {
-  /* Typewriter effect */
-  /* ponytail: no nowrap — heading wraps like the mockup instead of clipping */
+  /* Typewriter effect — JS types the text, CSS only hides overflow during typing */
+  /* ponytail: no CSS typing animation, was dead duplicate of the JS typer */
   .typewriter {
     @apply overflow-hidden;
-    border-right: 0px solid var(--color-primary);
-    animation: typing 3.5s steps(30, end);
   }
 
   .cursor {
@@ -79,9 +77,9 @@
     @apply opacity-100 transform translate-y-0;
   }
 
-  /* Social links */
+  /* Social links — rounded-md per DESIGN.md, was rounded-full pill */
   .social-link {
-    @apply flex items-center gap-3 no-underline px-6 py-4 rounded-full transition-all duration-300 font-raleway;
+    @apply flex items-center gap-3 no-underline px-6 py-4 rounded-md transition-all duration-300 font-raleway;
     color: var(--color-text);
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);

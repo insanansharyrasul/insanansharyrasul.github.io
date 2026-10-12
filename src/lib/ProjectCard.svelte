@@ -81,7 +81,6 @@
 
     .project-card:hover {
         transform: translateY(-8px);
-        box-shadow: 0 20px 40px rgba(255, 143, 64, 0.2);
         border-color: var(--color-primary);
     }
 

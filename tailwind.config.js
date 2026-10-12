@@ -29,14 +29,9 @@ export default {
                 'mono': ['Fira Code', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
             },
             animation: {
-                'typing': 'typing 3.5s steps(30, end)',
                 'blink': 'blink 1s infinite',
             },
             keyframes: {
-                typing: {
-                    'from': { width: '0' },
-                    'to': { width: '100%' }
-                },
                 blink: {
                     '0%, 50%': { opacity: '1' },
                     '51%, 100%': { opacity: '0' }
