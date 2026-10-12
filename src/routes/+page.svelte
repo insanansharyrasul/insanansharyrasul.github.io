@@ -1,63 +1,77 @@
 <script lang="ts">
+    import { onMount } from "svelte";
     import "../app.css";
     import "$lib/pageStyles.css";
-    import Hamburger from "svelte-hamburger";
-    import TechCard from "$lib/TechCard.svelte";
     import ProjectCard from "$lib/ProjectCard.svelte";
-    import {
-        initialState,
-        hideMenu as createHideMenu,
-        toggleMenu as createToggleMenu,
-        createTypeWriter,
-        setupIntersectionObserver,
-    } from "$lib/pageLogic";
+    import { getAllPosts } from "$lib/blog";
 
-    let menuVisible = initialState.menuVisible;
-    let isVisible: Record<string, boolean> = initialState.isVisible;
-    let typedText = initialState.typedText;
-    let fullText = initialState.fullText;
-    let typeIndex = initialState.typeIndex;
+    const recentPosts = getAllPosts().slice(0, 3);
 
-    const hideMenu = createHideMenu(() => {
+    let menuVisible = false;
+    let isVisible: Record<string, boolean> = {};
+    let activeSection = "header";
+    let typedText = "";
+    const fullText = "I'm Insan Anshary Rasul.";
+
+    function hideMenu() {
         menuVisible = false;
-    });
+    }
 
-    const toggleMenu = createToggleMenu(() => {
+    function toggleMenu() {
         menuVisible = !menuVisible;
-    });
+    }
 
-    const typeWriter = createTypeWriter(fullText, (text, index) => {
-        typedText = text;
-        typeIndex = index;
-    });
+    onMount(() => {
+        let i = 0;
+        const tw = () => {
+            if (i < fullText.length) {
+                typedText = fullText.substring(0, ++i);
+                setTimeout(tw, 100);
+            }
+        };
+        tw();
 
-    setupIntersectionObserver(
-        (id, visible) => {
-            isVisible[id] = visible;
-        },
-        () => {
-            typeWriter();
-        },
-    );
+        const obs = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        isVisible[entry.target.id] = true;
+                        activeSection = entry.target.id;
+                    }
+                });
+            },
+            { threshold: 0.3 },
+        );
+
+        const onScroll = () => {
+            if (window.scrollY < window.innerHeight / 2)
+                activeSection = "header";
+        };
+        window.addEventListener("scroll", onScroll, { passive: true });
+        ["about", "skills-section", "projects-section", "blog-section"].forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) obs.observe(el);
+        });
+        return () => {
+            obs.disconnect();
+            window.removeEventListener("scroll", onScroll);
+        };
+    });
 </script>
 
 <main>
     <section
         id="header"
-        class="w-full min-h-screen relative flex flex-col bg-gradient-header"
+        class="w-full min-h-screen relative flex flex-col bg-bg"
     >
-        <div
-            class="absolute inset-0 animate-gradientShift z-0"
-            style="background-size: 400% 400%;"
-        ></div>
         <nav
-            class="relative z-10 flex px-[5%] py-[1%] justify-between items-center backdrop-blur-md bg-white/5 border-b border-primary/10"
+            class="relative z-10 flex px-[5%] py-4 justify-between items-center backdrop-blur-md bg-surface border-b border-border"
         >
             <ul class="logo">
                 <img
                     src="icons/header_icon.svg"
                     alt=""
-                    class="mask-[url(icons/header_icon.svg)] transition-all duration-300 hover:scale-110 hover:animate-glow"
+                    class="h-8 transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_12px_rgba(255,143,64,0.6)]"
                 />
             </ul>
             <div
@@ -65,127 +79,263 @@
                 id="navRights"
                 class:visible={menuVisible}
             >
-                <button
-                    on:click={hideMenu}
-                    aria-label="Close menu"
-                    class="bg-transparent border-none cursor-pointer text-white p-3 text-2xl transition-transform duration-300 hover:rotate-90 hidden"
-                >
-                </button>
-                <ul class="items-center leading-3">
-                    <li class="list-none inline-block px-3 py-2 relative">
+                <ul class="items-center">
+                    <li class="list-none inline-block px-3 relative">
                         <a
                             href="#header"
                             on:click={hideMenu}
-                            class="text-white no-underline text-2xl font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
+                            class="nav-link text-text no-underline text-base font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
+                            class:active={activeSection === "header"}
+                            aria-current={activeSection === "header"
+                                ? "page"
+                                : undefined}
                             style="font-family: 'Raleway', sans-serif;">Home</a
                         >
                     </li>
-                    <li class="list-none inline-block px-3 py-2 relative">
+                    <li class="list-none inline-block px-3 relative">
                         <a
                             href="#about"
                             on:click={hideMenu}
-                            class="text-white no-underline text-2xl font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
+                            class="nav-link text-text no-underline text-base font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
+                            class:active={activeSection === "about"}
+                            aria-current={activeSection === "about"
+                                ? "page"
+                                : undefined}
                             style="font-family: 'Raleway', sans-serif;">About</a
                         >
                     </li>
-                    <li class="list-none inline-block px-3 py-2 relative">
+                    <li class="list-none inline-block px-3 relative">
                         <a
                             href="#skills-section"
                             on:click={hideMenu}
-                            class="text-white no-underline text-2xl font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
+                            class="nav-link text-text no-underline text-base font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
+                            class:active={activeSection === "skills-section"}
+                            aria-current={activeSection === "skills-section"
+                                ? "page"
+                                : undefined}
                             style="font-family: 'Raleway', sans-serif;"
                             >Skills</a
                         >
                     </li>
-                    <li class="list-none inline-block px-3 py-2 relative">
+                    <li class="list-none inline-block px-3 relative">
                         <a
                             href="#projects-section"
                             on:click={hideMenu}
-                            class="text-white no-underline text-2xl font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
+                            class="nav-link text-text no-underline text-base font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
+                            class:active={activeSection === "projects-section"}
+                            aria-current={activeSection === "projects-section"
+                                ? "page"
+                                : undefined}
                             style="font-family: 'Raleway', sans-serif;"
                             >Projects</a
+                        >
+                    </li>
+                    <li class="list-none inline-block px-3 relative">
+                        <a
+                            href="/blog"
+                            on:click={hideMenu}
+                            class="nav-link text-text no-underline text-base font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
+                            style="font-family: 'Raleway', sans-serif;">Blog</a
                         >
                     </li>
                 </ul>
             </div>
             <div class="hamburger-wrapper hidden">
-                <Hamburger
-                    bind:open={menuVisible}
+                <button
+                    aria-label="Toggle menu"
+                    aria-expanded={menuVisible}
                     on:click={toggleMenu}
-                    --color="white"
-                    --active-color="#FE8100"
-                    --layer-width="24px"
-                    --layer-height="2px"
-                    --layer-spacing="6px"
-                    --border-radius="0px"
-                />
+                    class="hamburger-btn"
+                    class:open={menuVisible}
+                >
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </nav>
         <div
-            class="text-box absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center w-[90%] text-white"
+            class="hero-grid flex-1 flex items-center w-full max-w-7xl mx-auto px-[5%] py-12 gap-8"
         >
-            <h1
-                class="typewriter text-primary text-center font-monda text-4xl md:text-5xl lg:text-6xl font-bold mb-4"
+            <!-- 01 / INTRODUCTION rail -->
+            <div
+                class="hero-rail hidden md:flex flex-col items-start gap-4 pr-8 border-r border-border self-stretch"
             >
-                {typedText}<span class="cursor">|</span>
-            </h1>
-            <p
-                class="fade-in text-white text-center text-lg md:text-xl lg:text-2xl font-normal opacity-90"
-                style="font-family: 'Raleway', sans-serif;"
+                <p class="section-label">
+                    <span class="text-primary">01</span> / INTRODUCTION
+                </p>
+            </div>
+            <!-- Main intro: typewriter kept verbatim -->
+            <div class="hero-main flex-1 min-w-0 text-left text-text">
+                <p
+                    class="font-mono text-xs tracking-[0.25em] text-text-muted mb-4"
+                >
+                    HELLO, I'M
+                </p>
+                <h1
+                    class="typewriter text-primary text-left font-monda text-4xl md:text-5xl lg:text-6xl font-bold mb-4"
+                >
+                    {typedText}<span class="cursor">|</span>
+                </h1>
+                <p
+                    class="text-text text-left text-lg md:text-xl lg:text-2xl font-normal opacity-90"
+                    style="font-family: 'Raleway', sans-serif;"
+                >
+                    Computer Science Student at IPB University.
+                </p>
+                <p
+                    class="text-text-muted text-sm md:text-base leading-relaxed mt-4 max-w-md"
+                >
+                    I build software, explore systems, and enjoy turning ideas
+                    into working solutions.
+                </p>
+                <div class="flex flex-wrap items-center gap-6 mt-8">
+                    <a
+                        href="#projects-section"
+                        class="inline-flex items-center gap-3 bg-primary text-text-on-accent font-semibold text-sm px-6 py-3 rounded-md transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5"
+                    >
+                        Explore Projects <span aria-hidden="true">→</span>
+                    </a>
+                    <a
+                        href="#about"
+                        class="text-text-muted text-sm underline underline-offset-4 decoration-border hover:text-primary hover:decoration-primary transition-all duration-300"
+                    >
+                        About Me
+                    </a>
+                </div>
+            </div>
+            <!-- Interests rail -->
+            <aside
+                class="hero-side hidden lg:flex flex-col justify-center gap-6 pl-8 border-l border-border max-w-xs"
             >
-                Computer Science Student at IPB University
-            </p>
+                <div>
+                    <h2
+                        class="font-mono text-xs tracking-[0.2em] text-primary mb-3"
+                    >
+                        INTERESTS
+                    </h2>
+                    <ul class="space-y-1.5 text-sm text-text-muted">
+                        <li>System Programming</li>
+                        <li>Mobile Development</li>
+                        <li>Linux &amp; Infrastructure</li>
+                        <li>Automation &amp; Tooling</li>
+                    </ul>
+                </div>
+                <div class="w-10 h-px bg-primary"></div>
+                <p class="font-mono text-sm text-text-muted leading-relaxed">
+                    Better software,<br />better systems,<br />a more open
+                    future.
+                </p>
+            </aside>
+            <!-- Deco grid -->
+            <div
+                class="hero-deco hidden xl:flex flex-col justify-between self-stretch w-40"
+                aria-hidden="true"
+            >
+                <div class="hero-grid-lines relative flex-1">
+                    <span class="absolute top-0 right-0 w-4 h-4 bg-primary"
+                    ></span>
+                </div>
+                <p
+                    class="font-mono text-[0.65rem] tracking-[0.15em] text-text-muted mt-3"
+                >
+                    IPB UNIVERSITY<br />/ 2026
+                </p>
+            </div>
         </div>
-        <div class="scroll-indicator">
-            <span></span>
+        <div
+            class="hero-foot flex items-center gap-4 px-[5%] pb-6 max-w-7xl mx-auto w-full"
+        >
+            <span class="scroll-cue"></span>
+            <a
+                href="#projects-section"
+                aria-label="Scroll to projects"
+                class="ml-auto text-primary text-xl leading-none no-underline hover:-translate-y-0.5 hover:translate-x-0.5 transition-transform duration-300"
+                >↗</a
+            >
         </div>
     </section>
 
     <section
         id="about"
-        class="section-animate py-16 px-5 bg-gradient-about"
+        class="section-animate py-16 px-5 bg-bg"
         class:visible={isVisible.about}
     >
-        <div class="max-w-4xl mx-auto">
-            <h1 class="text-3xl text-center mb-6 text-primary font-monda">
-                About Me
-            </h1>
-            <p
-                class="mx-[5%] text-lg text-center leading-relaxed mb-8 text-gray-300"
-            >
-                Freshman at IPB University studying Computer Science under the
-                <span class="text-primary italic"
-                    >Sekolah Sains Data, Matematika dan Informatika</span
-                >. Currently interested in firmware engineering and mobile app
-                development.
-            </p>
-
-            <div class="grid md:grid-cols-2 gap-6 mt-8">
-                <div
-                    class="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-6"
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-10">
+            <!-- Left rail -->
+            <div class="md:w-56 shrink-0 flex flex-col">
+                <p class="section-label">
+                    <span class="text-primary">02</span> / ABOUT ME
+                </p>
+                <h1
+                    class="font-monda font-bold text-5xl leading-[1.05] mt-6 text-text"
                 >
-                    <h3
-                        class="text-primary text-xl mb-3 font-monda flex items-center"
-                    >
-                        ⚙️ Firmware Engineering
-                    </h3>
-                    <p class="text-gray-300 text-sm leading-relaxed">
-                        Creating a firmware that integrate hardware and software
-                        using C, C++, or Rust
+                    How I<br /><span class="text-primary">think.</span>
+                </h1>
+                <div class="w-10 h-px bg-primary mt-6"></div>
+                <p
+                    class="font-mono text-sm text-text-muted leading-relaxed mt-4"
+                >
+                    Better software,<br />better systems,<br />a more open
+                    future.
+                </p>
+                <div class="mt-auto pt-10 hidden md:block">
+                    <p class="font-mono text-xs tracking-[0.2em] text-primary">
+                        01 -- 02
                     </p>
+                    <a
+                        href="#skills-section"
+                        class="font-mono text-xs tracking-[0.2em] text-text-muted hover:text-primary transition-colors duration-300 mt-2 inline-block"
+                        >EXPLORE →</a
+                    >
                 </div>
+            </div>
+            <!-- Main -->
+            <div class="flex-1 min-w-0 md:border-l md:border-border md:pl-10">
                 <div
-                    class="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-6"
+                    class="flex flex-col lg:flex-row gap-8 border-b border-border pb-10"
                 >
-                    <h3
-                        class="text-primary text-xl mb-3 font-monda flex items-center"
+                    <p
+                        class="flex-1 min-w-0 text-text-muted text-lg md:text-xl leading-relaxed"
                     >
-                        📱 Mobile Development
-                    </h3>
-                    <p class="text-gray-300 text-sm leading-relaxed">
-                        Designing cross-platform mobile applications for Android
-                        and iOS
+                        I'm a Computer Science student at IPB University,
+                        interested in understanding the systems behind software
+                        and building applications that solve practical problems.
+                        I enjoy exploring systems programming, Linux, and mobile
+                        development.
                     </p>
+                    <aside
+                        class="lg:w-48 shrink-0 lg:border-l lg:border-border lg:pl-8"
+                    >
+                        <h2
+                            class="font-mono text-xs tracking-[0.2em] text-text-muted mb-3"
+                        >
+                            CURRENTLY EXPLORING
+                        </h2>
+                        <ul
+                            class="space-y-1.5 font-mono text-sm text-text-muted"
+                        >
+                            <li><span class="text-primary">$</span> systems</li>
+                            <li><span class="text-primary">$</span> mobile</li>
+                            <li><span class="text-primary">$</span> backend</li>
+                            <li><span class="text-primary">$</span> network</li>
+                        </ul>
+                    </aside>
+                    <div
+                        class="hidden xl:flex flex-col justify-between w-40 shrink-0"
+                        aria-hidden="true"
+                    >
+                        <div class="hero-grid-lines relative flex-1 min-h-40">
+                            <span
+                                class="absolute top-0 right-0 w-4 h-4 bg-primary"
+                            ></span>
+                        </div>
+                        <p
+                            class="font-mono text-[0.65rem] tracking-[0.15em] text-text-muted mt-3"
+                        >
+                            IPB UNIVERSITY<br />/ 2026
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -193,145 +343,306 @@
 
     <section
         id="skills-section"
-        class="section-animate py-16 px-5 bg-gradient-skills"
+        class="section-animate py-16 px-5 bg-bg"
         class:visible={isVisible["skills-section"]}
     >
-        <div class="skills-content max-w-5xl mx-auto">
-            <h1 class="text-3xl text-center mb-10 text-primary font-monda">
-                Skills & Technologies
-            </h1>
-
-            <!-- Automation Section -->
-            <div class="mb-8">
-                <h2
-                    class="text-lg text-center mb-4 text-primary font-monda opacity-90"
+        <div
+            class="skills-content max-w-7xl mx-auto flex flex-col md:flex-row gap-10"
+        >
+            <div class="md:w-56 shrink-0 flex flex-col">
+                <p class="section-label">
+                    <span class="text-primary">03</span> / SKILLS
+                </p>
+                <h1
+                    class="font-monda font-bold text-5xl leading-[1.05] mt-6 text-text"
                 >
-                    Automation
-                </h2>
-                <div
-                    class="skills-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
-                >
-                    <TechCard
-                        name="Python"
-                        icon="icons/python-original.svg"
-                        iconType="svg"
-                        link="https://www.python.org"
-                    />
-                    <TechCard
-                        name="JavaScript"
-                        icon="icons/javascript-original.svg"
-                        iconType="svg"
-                        link="https://en.wikipedia.org/wiki/JavaScript"
-                    />
-                    <TechCard
-                        name="Git"
-                        icon="icons/git-original.svg"
-                        iconType="svg"
-                        link="https://git-scm.com"
-                    />
-                    <TechCard
-                        name="GitHub"
-                        icon="icons/github-original.svg"
-                        iconType="svg"
-                        link="https://github.com"
-                    />
-                    <TechCard
-                        name="Playwright"
-                        icon="icons/playwright-original.svg"
-                        iconType="svg"
-                        link="https://playwright.dev"
-                    />
+                    What I<br /><span class="text-primary">use.</span>
+                </h1>
+                <div class="w-10 h-px bg-primary mt-6"></div>
+                <p class="text-text-muted text-sm leading-relaxed mt-4">
+                    Languages, frameworks, and tools I reach for when building
+                    software.
+                </p>
+                <div class="mt-auto pt-10 hidden md:block">
+                    <p class="font-mono text-xs tracking-[0.2em] text-primary">
+                        02 -- 03
+                    </p>
+                    <a
+                        href="#projects-section"
+                        class="font-mono text-xs tracking-[0.2em] text-text-muted hover:text-primary transition-colors duration-300 mt-2 inline-block"
+                        >EXPLORE →</a
+                    >
                 </div>
             </div>
-
-            <!-- Mobile Apps Section -->
-            <div class="mb-12">
-                <h2
-                    class="text-2xl text-center mb-8 text-primary font-monda opacity-90"
-                >
-                    Mobile Apps
-                </h2>
-                <div
-                    class="skills-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
-                >
-                    <TechCard
-                        name="Flutter"
-                        icon="icons/flutter-original.svg"
-                        iconType="svg"
-                        link="https://flutter.dev"
-                    />
-                    <TechCard
-                        name="BloC"
-                        icon="icons/bloc-original.svg"
-                        iconType="svg"
-                        link="https://bloclibrary.dev"
-                    />
+            <div class="flex-1 min-w-0 md:border-l md:border-border md:pl-10">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div
+                        class="bg-surface border border-border rounded-lg p-6 flex flex-col"
+                    >
+                        <p
+                            class="font-mono text-xs tracking-[0.2em] text-primary mb-4"
+                        >
+                            01 / SYSTEMS
+                        </p>
+                        <div class="flex items-center gap-4 mb-4">
+                            <span
+                                class="inline-flex items-center justify-center w-12 h-12 rounded-md border border-primary text-primary shrink-0"
+                                aria-hidden="true"
+                            >
+                                <svg
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    ><polyline points="4 17 10 11 4 5" /><line
+                                        x1="12"
+                                        y1="19"
+                                        x2="20"
+                                        y2="19"
+                                    /></svg
+                                >
+                            </span>
+                            <h3 class="text-text text-xl font-monda font-bold">
+                                Systems Programming
+                            </h3>
+                        </div>
+                        <p class="text-text-muted text-sm leading-relaxed">
+                            I like knowing what my code really does to the
+                            machine — small C, C++, and Rust utilities on Linux,
+                            glued together with shell.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-5 mb-6">
+                            <span class="pill"
+                                ><img
+                                    src="icons/c-original.svg"
+                                    alt=""
+                                />C</span
+                            >
+                            <span class="pill"
+                                ><img
+                                    src="icons/cplusplus-original.svg"
+                                    alt=""
+                                />C++</span
+                            >
+                            <span class="pill"
+                                ><img
+                                    src="icons/rust-original.svg"
+                                    alt=""
+                                />Rust</span
+                            >
+                            <span class="pill"
+                                ><img
+                                    src="icons/linux-original.svg"
+                                    alt=""
+                                />Linux</span
+                            >
+                            <span class="pill">Shell</span>
+                        </div>
+                        <div
+                            class="flex items-center justify-between gap-3 border-t border-border mt-auto pt-4"
+                        >
+                            <a
+                                href="#projects-section"
+                                class="inline-flex items-center gap-2 text-primary text-sm hover:translate-x-1 transition-transform duration-300"
+                                ><span aria-hidden="true">→</span> View related projects</a
+                            >
+                            <span
+                                class="font-mono text-[0.65rem] tracking-[0.1em] text-text-muted"
+                                >// SYSTEMS_DEVELOPMENT</span
+                            >
+                        </div>
+                    </div>
+                    <div
+                        class="bg-surface border border-border rounded-lg p-6 flex flex-col"
+                    >
+                        <p
+                            class="font-mono text-xs tracking-[0.2em] text-primary mb-4"
+                        >
+                            02 / MOBILE
+                        </p>
+                        <div class="flex items-center gap-4 mb-4">
+                            <span
+                                class="inline-flex items-center justify-center w-12 h-12 rounded-md border border-primary text-primary shrink-0"
+                                aria-hidden="true"
+                            >
+                                <svg
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    ><rect
+                                        x="7"
+                                        y="2"
+                                        width="10"
+                                        height="20"
+                                        rx="2"
+                                    /><line
+                                        x1="11"
+                                        y1="18"
+                                        x2="13"
+                                        y2="18"
+                                    /></svg
+                                >
+                            </span>
+                            <h3 class="text-text text-xl font-monda font-bold">
+                                Mobile Development
+                            </h3>
+                        </div>
+                        <p class="text-text-muted text-sm leading-relaxed">
+                            I build cross-platform apps with Flutter and Bloc,
+                            and tinker with native Android and Kotlin when I
+                            want to get closer to the platform.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-5 mb-6">
+                            <span class="pill"
+                                ><img
+                                    src="icons/flutter-original.svg"
+                                    alt=""
+                                />Flutter</span
+                            >
+                            <span class="pill"
+                                ><img
+                                    src="icons/bloc-original.svg"
+                                    alt=""
+                                />Bloc</span
+                            >
+                            <span class="pill">Kotlin</span>
+                            <span class="pill">Android</span>
+                        </div>
+                        <div
+                            class="flex items-center justify-between gap-3 border-t border-border mt-auto pt-4"
+                        >
+                            <a
+                                href="#projects-section"
+                                class="inline-flex items-center gap-2 text-primary text-sm hover:translate-x-1 transition-transform duration-300"
+                                ><span aria-hidden="true">→</span> View related projects</a
+                            >
+                            <span
+                                class="font-mono text-[0.65rem] tracking-[0.1em] text-text-muted"
+                                >// MOBILE_APPS</span
+                            >
+                        </div>
+                    </div>
+                    <div
+                        class="bg-surface border border-border rounded-lg p-6 flex flex-col md:col-span-2"
+                    >
+                        <p
+                            class="font-mono text-xs tracking-[0.2em] text-primary mb-4"
+                        >
+                            03 / AUTOMATION
+                        </p>
+                        <div class="flex items-center gap-4 mb-4">
+                            <span
+                                class="inline-flex items-center justify-center w-12 h-12 rounded-md border border-primary text-primary shrink-0"
+                                aria-hidden="true"
+                            >
+                                <svg
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    ><polygon
+                                        points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"
+                                    /></svg
+                                >
+                            </span>
+                            <h3 class="text-text text-xl font-monda font-bold">
+                                Automation &amp; Tooling
+                            </h3>
+                        </div>
+                        <p class="text-text-muted text-sm leading-relaxed">
+                            I automate the boring parts — scripts and browser
+                            tests with Python and Playwright, versioned with Git
+                            and GitHub.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-5 mb-6">
+                            <span class="pill"
+                                ><img
+                                    src="icons/python-original.svg"
+                                    alt=""
+                                />Python</span
+                            >
+                            <span class="pill"
+                                ><img
+                                    src="icons/javascript-original.svg"
+                                    alt=""
+                                />JavaScript</span
+                            >
+                            <span class="pill"
+                                ><img
+                                    src="icons/playwright-original.svg"
+                                    alt=""
+                                />Playwright</span
+                            >
+                            <span class="pill"
+                                ><img
+                                    src="icons/git-original.svg"
+                                    alt=""
+                                />Git</span
+                            >
+                            <span class="pill"
+                                ><img
+                                    src="icons/github-original.svg"
+                                    alt=""
+                                />GitHub</span
+                            >
+                        </div>
+                        <div
+                            class="flex items-center justify-between gap-3 border-t border-border mt-auto pt-4"
+                        >
+                            <a
+                                href="#projects-section"
+                                class="inline-flex items-center gap-2 text-primary text-sm hover:translate-x-1 transition-transform duration-300"
+                                ><span aria-hidden="true">→</span> View related projects</a
+                            >
+                            <span
+                                class="font-mono text-[0.65rem] tracking-[0.1em] text-text-muted"
+                                >// AUTOMATION_TOOLING</span
+                            >
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div class="mb-12">
-                <h2
-                    class="text-2xl text-center mb-8 text-primary font-monda opacity-90"
-                >
-                    Firmware Engineering
-                </h2>
-                <div
-                    class="skills-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
-                >
-                    <TechCard
-                        name="C"
-                        icon="icons/c-original.svg"
-                        iconType="svg"
-                        link="https://en.wikipedia.org/wiki/C_(programming_language)"
-                    />
-                    <TechCard
-                        name="C++"
-                        icon="icons/cplusplus-original.svg"
-                        iconType="svg"
-                        link="https://en.wikipedia.org/wiki/C%2B%2B"
-                    />
-                    <TechCard
-                        name="Rust"
-                        icon="icons/rust-original.svg"
-                        iconType="svg"
-                        link="https://www.rust-lang.org"
-                    />
-                </div>
-            </div>
-
-            <div class="mb-12">
-                <h2
-                    class="text-2xl text-center mb-8 text-primary font-monda opacity-90"
-                >
-                    Tools 
-                </h2>
-                <div
-                    class="skills-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
-                >
-                    <TechCard
-                        name="Ubuntu"
-                        icon="icons/ubuntu-original.svg"
-                        iconType="svg"
-                        link="https://ubuntu.com"
-                    />
-                    <TechCard
-                        name="Neovim"
-                        icon="icons/neovim-original.svg"
-                        iconType="svg"
-                        link="https://neovim.io"
-                    />
-                    <TechCard
-                        name="VSCode"
-                        icon="icons/vscode-original.svg"
-                        iconType="svg"
-                        link="https://code.visualstudio.com"
-                    />
-                    <TechCard
-                        name="Android Studio"
-                        icon="icons/androidstudio-original.svg"
-                        iconType="svg"
-                        link="https://developer.android.com/studio"
-                    />
+                <div class="flex flex-wrap items-center gap-2 mt-6">
+                    <span
+                        class="font-mono text-[0.65rem] tracking-[0.1em] text-text-muted mr-2"
+                        >// TOOLS</span
+                    >
+                    <span class="pill"
+                        ><img
+                            src="icons/ubuntu-original.svg"
+                            alt=""
+                        />Ubuntu</span
+                    >
+                    <span class="pill"
+                        ><img
+                            src="icons/neovim-original.svg"
+                            alt=""
+                        />Neovim</span
+                    >
+                    <span class="pill"
+                        ><img
+                            src="icons/vscode-original.svg"
+                            alt=""
+                        />VSCode</span
+                    >
+                    <span class="pill"
+                        ><img
+                            src="icons/androidstudio-original.svg"
+                            alt=""
+                        />Android Studio</span
+                    >
                 </div>
             </div>
         </div>
@@ -339,89 +650,244 @@
 
     <section
         id="projects-section"
-        class="section-animate py-16 px-5 bg-gradient-about"
+        class="section-animate py-16 px-5 bg-bg"
         class:visible={isVisible["projects-section"]}
     >
-        <div class="projects max-w-5xl mx-auto">
-            <h1 class="text-3xl text-center mb-3 text-primary font-monda">
-                Coding Projects
-            </h1>
-            <p
-                class="section-subtitle text-center text-gray-300 text-base mb-8 italic"
-            >
-                Building solutions through code and creativity
-            </p>
+        <div
+            class="projects max-w-7xl mx-auto flex flex-col md:flex-row gap-10"
+        >
+            <div class="md:w-56 shrink-0 flex flex-col">
+                <p class="section-label">
+                    <span class="text-primary">04</span> / PROJECTS
+                </p>
+                <h1
+                    class="font-monda font-bold text-5xl leading-[1.05] mt-6 text-text"
+                >
+                    Selected<br /><span class="text-primary">work.</span>
+                </h1>
+                <div class="w-10 h-px bg-primary mt-6"></div>
+                <p class="text-text-muted text-sm leading-relaxed mt-4">
+                    A selection of projects that I've worked on, from automation
+                    tools to apps and developer utilities.
+                </p>
+                <div class="mt-auto pt-10 hidden md:block">
+                    <p class="font-mono text-xs tracking-[0.2em] text-primary">
+                        03 -- 04
+                    </p>
+                    <a
+                        href="https://github.com/insanansharyrasul"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="font-mono text-xs tracking-[0.2em] text-text-muted hover:text-primary transition-colors duration-300 mt-2 inline-block"
+                        >EXPLORE →</a
+                    >
+                </div>
+            </div>
 
-            <div
-                class="projects-grid grid grid-cols-1 md:grid-cols-2 gap-6 py-2"
-            >
-                <ProjectCard
-                    title="IPB Auto Logbook"
-                    description="Automation tool for IPB University logbook system"
-                    githubUrl="https://github.com/insanansharyrasul/ipb_auto_logbook"
-                    imageUrl="https://opengraph.githubassets.com/1/insanansharyrasul/ipb_auto_logbook"
-                    technologies={["Python", "Automation"]}
-                />
+            <div class="flex-1 min-w-0">
+                <div
+                    class="projects-grid grid grid-cols-1 md:grid-cols-2 gap-6 py-2"
+                >
+                    <ProjectCard
+                        title="IPB Auto Logbook"
+                        description="Automation tool for IPB University logbook system"
+                        githubUrl="https://github.com/insanansharyrasul/ipb_auto_logbook"
+                        technologies={["Python", "Automation"]}
+                        index="01"
+                        category="Automation"
+                    />
 
-                <ProjectCard
-                    title="SPP Sekolah"
-                    description="School payment system management application"
-                    githubUrl="https://github.com/insanansharyrasul/spp_sekolah"
-                    imageUrl="https://opengraph.githubassets.com/1/insanansharyrasul/spp_sekolah"
-                    technologies={["Qt", "Desktop App"]}
-                />
+                    <ProjectCard
+                        title="SPP Sekolah"
+                        description="School payment system management application"
+                        githubUrl="https://github.com/insanansharyrasul/spp_sekolah"
+                        technologies={["Qt", "Desktop App"]}
+                        index="02"
+                        category="Desktop App"
+                    />
 
-                <ProjectCard
-                    title="Syamsun"
-                    description="Prayer time application with home widget and sleep notifier"
-                    githubUrl="https://github.com/insanansharyrasul/syamsun"
-                    imageUrl="https://opengraph.githubassets.com/1/insanansharyrasul/syamsun"
-                    technologies={["Development", "Innovation"]}
-                />
+                    <ProjectCard
+                        title="Syamsun"
+                        description="Prayer time application with home widget and sleep notifier"
+                        githubUrl="https://github.com/insanansharyrasul/syamsun"
+                        technologies={["Development", "Innovation"]}
+                        index="03"
+                        category="App"
+                    />
 
-                <ProjectCard
-                    title="The Djenggot"
-                    description="Creative coding project with unique functionality"
-                    githubUrl="https://github.com/insanansharyrasul/the_djenggot"
-                    imageUrl="https://opengraph.githubassets.com/1/insanansharyrasul/the_djenggot"
-                    technologies={["Creative", "Coding"]}
-                />
+                    <ProjectCard
+                        title="The Djenggot"
+                        description="Creative coding project with unique functionality"
+                        githubUrl="https://github.com/insanansharyrasul/the_djenggot"
+                        technologies={["Creative", "Coding"]}
+                        index="04"
+                        category="Creative"
+                    />
+                </div>
             </div>
         </div>
     </section>
 
     <section
-        id="footer"
-        class="py-8 px-5 border-t border-primary/20 bg-gradient-footer"
+        id="blog-section"
+        class="section-animate py-16 px-5 bg-bg"
+        class:visible={isVisible["blog-section"]}
     >
-        <div class="footer-content max-w-3xl mx-auto text-center">
-            <div class="social-links flex justify-center gap-6 mb-6">
-                <a href="https://instagram.com/insan.a.r" class="social-link">
-                    <img
-                        src="icons/icons8-instagram.svg"
-                        alt="Instagram"
-                        class="w-5 h-5 filter invert sepia saturate-[5] hue-rotate-[25deg]"
-                    />
-                    <span>Instagram</span>
-                </a>
-                <a
-                    href="https://github.com/insanansharyrasul"
-                    class="social-link"
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-10">
+            <div class="md:w-56 shrink-0 flex flex-col">
+                <p class="section-label">
+                    <span class="text-primary">05</span> / BLOG
+                </p>
+                <h1
+                    class="font-monda font-bold text-5xl leading-[1.05] mt-6 text-text"
                 >
-                    <img
-                        src="icons/icons8-github.svg"
-                        alt="GitHub"
-                        class="w-5 h-5 filter invert sepia saturate-[5] hue-rotate-[25deg]"
-                    />
-                    <span>GitHub</span>
-                </a>
+                    Latest<br /><span class="text-primary">writes.</span>
+                </h1>
+                <div class="w-10 h-px bg-primary mt-6"></div>
+                <p class="text-text-muted text-sm leading-relaxed mt-4">
+                    Writeups, notes, and life updates.
+                </p>
+                <div class="mt-auto pt-10 hidden md:block">
+                    <p class="font-mono text-xs tracking-[0.2em] text-primary">
+                        04 -- 05
+                    </p>
+                    <a
+                        href="/blog"
+                        class="font-mono text-xs tracking-[0.2em] text-text-muted hover:text-primary transition-colors duration-300 mt-2 inline-block"
+                        >EXPLORE →</a
+                    >
+                </div>
             </div>
-            <p
-                class="text-xs text-gray-500 m-0"
-                style="font-family: 'Raleway', sans-serif;"
-            >
-                © 2025 Insan Anshary Rasul. All rights reserved.
-            </p>
+            <div class="flex-1 min-w-0 md:border-l md:border-border md:pl-10">
+                {#if recentPosts.length}
+                    <div class="flex flex-col divide-y divide-border border-y border-border">
+                        {#each recentPosts as post}
+                            <a
+                                href="/blog/{post.slug}"
+                                class="group flex items-baseline gap-4 py-4 no-underline transition-colors duration-300 hover:bg-surface px-3 -mx-3 rounded-md"
+                            >
+                                <span class="flex-1 min-w-0">
+                                    <span class="block text-text text-lg leading-snug group-hover:text-primary transition-colors duration-300 truncate">{post.title}</span>
+                                    <span class="block font-mono text-xs tracking-wide text-text-muted mt-1">{post.dateLabel} · {post.readTime} min read</span>
+                                </span>
+                                <span aria-hidden="true" class="text-primary shrink-0 transition-transform duration-300 group-hover:translate-x-1">→</span>
+                            </a>
+                        {/each}
+                    </div>
+                    <a
+                        href="/blog"
+                        class="inline-flex items-center gap-2 text-primary text-sm mt-6 hover:translate-x-1 transition-transform duration-300"
+                        ><span aria-hidden="true">→</span> View all posts</a
+                    >
+                {:else}
+                    <p class="text-text-muted">No posts yet — first writeup coming soon.</p>
+                {/if}
+            </div>
+        </div>
+    </section>
+
+    <section id="footer" class="py-16 px-5 border-t border-border bg-bg">
+        <div
+            class="footer-content max-w-7xl mx-auto flex flex-col md:flex-row gap-10"
+        >
+            <div class="md:w-56 shrink-0 flex flex-col">
+                <p class="section-label">
+                    <span class="text-primary">06</span> / CONNECT
+                </p>
+                <h1
+                    class="font-monda font-bold text-5xl leading-[1.05] mt-6 text-text"
+                >
+                    Follow<br />the <span class="text-primary">builds.</span>
+                </h1>
+                <div class="w-10 h-px bg-primary mt-6"></div>
+            </div>
+            <div class="flex-1 min-w-0 md:border-l md:border-border md:pl-10">
+                <p class="text-text-muted text-lg md:text-xl leading-relaxed">
+                    Code on GitHub, life on Instagram.
+                </p>
+                <div class="social-links flex flex-wrap gap-4 mt-6">
+                    <a
+                        href="https://github.com/insanansharyrasul"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Follow on GitHub"
+                        class="inline-flex items-center gap-3 bg-primary text-text-on-accent font-semibold text-sm px-6 py-3 rounded-md transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5"
+                    >
+                        <img
+                            src="icons/icons8-github.svg"
+                            alt=""
+                            class="w-5 h-5 brightness-0"
+                        />
+                        <span>GitHub</span>
+                    </a>
+                    <a
+                        href="https://instagram.com/insan_a_r"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Follow on Instagram"
+                        class="social-link"
+                    >
+                        <img
+                            src="icons/icons8-instagram.svg"
+                            alt=""
+                            class="w-5 h-5 filter invert sepia saturate-[5] hue-rotate-[25deg]"
+                        />
+                        <span>Instagram</span>
+                    </a>
+                </div>
+                <p
+                    class="text-xs text-text-muted mt-10 pt-6 border-t border-border m-0"
+                    style="font-family: 'Raleway', sans-serif;"
+                >
+                    © 2026 Insan Anshary Rasul. All rights reserved.
+                </p>
+            </div>
         </div>
     </section>
 </main>
+
+<style>
+    /* ponytail: native hamburger, was svelte-hamburger dep */
+    .hamburger-btn {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 6px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+    }
+    .hamburger-btn span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: #bfbdb6;
+        transition:
+            transform 0.3s ease,
+            opacity 0.3s ease,
+            background 0.3s ease;
+    }
+    .hamburger-btn.open span {
+        background: #ff8f40;
+    }
+    .hamburger-btn.open span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger-btn.open span:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger-btn.open span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+    /* ponytail: 16px pill icons in original colors */
+    .pill:has(img) {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .pill img {
+        width: 16px;
+        height: 16px;
+    }
+</style>

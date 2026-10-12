@@ -1,51 +1,71 @@
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Monda:wght@400;700&family=Raleway:wght@300;400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Custom CSS for animations and special effects */
+/* DESIGN.md tokens */
 @layer base {
   :root {
-    --gradient-main: linear-gradient(135deg, #2c2c2c 0%, #332E2A 50%, #1a1a1a 100%);
-    --gradient-header: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 50%, #332E2A 100%);
-    --gradient-about: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
-    --gradient-skills: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
-    --gradient-footer: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
-    --gradient-primary: linear-gradient(90deg, #FE8100, #ff6b35);
-    --gradient-nav-mobile: linear-gradient(135deg, #FE8100, #ff6b35);
+    /* Surface & Text */
+    --color-bg: #0d1017;
+    --color-surface: #141821;
+    --color-border: #343b4d;
+    --color-text: #bfbdb6;
+    --color-text-muted: #828e9f;
+    --color-text-on-accent: #0d1017;
+
+    /* Accents & Status */
+    --color-primary: #ff8f40;
+    --color-blue: #59c2ff;
+    --color-green: #aad94c;
+    --color-yellow: #ffb454;
+    --color-purple: #d2a6ff;
+    --color-error: #d95757;
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+
+    /* Spacing Scale */
+    --space-1: 8px;
+    --space-2: 16px;
+    --space-3: 24px;
+    --space-4: 32px;
+    --space-5: 40px;
+    --space-6: 48px;
+    --space-8: 64px;
+    --space-9: 72px;
+    --space-12: 96px;
   }
 
   html {
-    background: var(--gradient-main);
-    @apply overflow-x-hidden scroll-smooth;
+    background-color: var(--color-bg);
+    @apply overflow-x-clip scroll-smooth;
   }
-  
+
   body {
-    @apply font-raleway text-white;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    margin: 0;
+    overflow-x: clip;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-blue);
+    outline-offset: 2px;
   }
 }
 
 @layer components {
-  /* Typewriter effect */
+  /* Typewriter effect — JS types the text, CSS only hides overflow during typing */
+  /* ponytail: no CSS typing animation, was dead duplicate of the JS typer */
   .typewriter {
-    @apply overflow-hidden whitespace-nowrap;
-    border-right: 0px solid #FE8100;
-    animation: typing 3.5s steps(30, end);
+    @apply overflow-hidden;
   }
 
   .cursor {
     @apply animate-blink text-primary;
-  }
-
-  /* Scroll indicator */
-  .scroll-indicator {
-    @apply absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-float z-10;
-  }
-
-  .scroll-indicator span {
-    @apply block w-8 h-8 border-b-2 border-r-2 border-primary transform rotate-45 animate-scroll-down;
   }
 
   /* Section animations */
@@ -57,96 +77,18 @@
     @apply opacity-100 transform translate-y-0;
   }
 
-  /* Interest cards */
-  .interest-card {
-    @apply bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-2xl p-8 text-center transition-all duration-300 backdrop-blur-sm relative overflow-hidden;
-  }
-
-  .interest-card::before {
-    content: '';
-    @apply absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-primary/10 to-transparent transition-all duration-500;
-  }
-
-  .interest-card:hover::before {
-    @apply left-full;
-  }
-
-  .interest-card:hover {
-    @apply transform -translate-y-3 shadow-xl shadow-primary/20 border-primary/40 animate-pulse-custom;
-  }
-
-  /* Skill items */
-  .skill-item {
-    @apply flex items-center gap-5 bg-primary/5 border border-primary/10 rounded-xl p-5 transition-all duration-300;
-  }
-
-  .skill-item:hover {
-    @apply bg-primary/10 border-primary/30 transform translate-x-3;
-  }
-
-  .skill-bar {
-    @apply flex-1 h-3 bg-white/10 rounded-md overflow-hidden relative;
-  }
-
-  .skill-progress {
-    @apply h-full rounded-md transition-all duration-300 relative;
-    background: var(--gradient-primary);
-  }
-
-  .skill-progress::after {
-    content: '';
-    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer;
-  }
-
-  /* Photo cards */
-  .photo-card {
-    @apply relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 bg-dark-400 shadow-xl shadow-black/30;
-  }
-
-  .photo-card:hover {
-    @apply transform -translate-y-3 scale-105 shadow-2xl shadow-primary/20;
-  }
-
-  .photo-card img {
-    @apply w-full h-72 object-cover transition-transform duration-300;
-  }
-
-  .photo-card:hover img {
-    @apply transform scale-110;
-  }
-
-  .photo-overlay {
-    @apply absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent text-white p-5 transform translate-y-full transition-transform duration-300;
-  }
-
-  .photo-card:hover .photo-overlay {
-    @apply transform translate-y-0;
-  }
-
-  /* Modal */
-  .modal-backdrop {
-    @apply fixed inset-0 bg-black/90 flex items-center justify-center z-50 animate-fadeIn;
-  }
-
-  .modal-content {
-    @apply relative max-w-[90%] max-h-[90%] bg-dark-400 rounded-2xl overflow-hidden shadow-2xl shadow-primary/30 animate-modalSlideIn;
-  }
-
-  .modal-close {
-    @apply absolute top-4 right-4 bg-primary/20 border-0 text-primary text-3xl w-10 h-10 rounded-full cursor-pointer flex items-center justify-center transition-all duration-300;
-  }
-
-  .modal-close:hover {
-    @apply bg-primary/40 transform rotate-90;
-  }
-
-  /* Social links */
+  /* Social links — rounded-md per DESIGN.md, was rounded-full pill */
   .social-link {
-    @apply flex items-center gap-3 text-primary no-underline px-6 py-4 bg-primary/10 border border-primary/20 rounded-full transition-all duration-300 font-raleway;
+    @apply flex items-center gap-3 no-underline px-6 py-4 rounded-md transition-all duration-300 font-raleway;
+    color: var(--color-text);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
   }
 
   .social-link:hover {
-    @apply bg-primary/20 border-primary/40 transform -translate-y-1 shadow-lg shadow-primary/20;
+    @apply transform -translate-y-1 shadow-lg;
+    border-color: var(--color-primary);
+    color: var(--color-primary);
   }
 
   /* Custom scrollbar */
@@ -155,63 +97,138 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-dark-400;
+    background-color: var(--color-surface);
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply rounded;
-    background: var(--gradient-primary);
+    border-radius: var(--radius-sm);
+    background: var(--color-primary);
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(to bottom, #ff6b35, #FE8100);
+    filter: brightness(1.1);
   }
 
-  /* Skill cards */
-  .skill-card {
-    @apply bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-2xl p-6 text-center transition-all duration-300 backdrop-blur-sm relative overflow-hidden;
+  /* Unified navbar link — compact size, animated underline */
+  .nav-link {
+    position: relative;
   }
 
-  .skill-card::before {
-    content: '';
-    @apply absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-primary/10 to-transparent transition-all duration-500;
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 2px;
+    background: var(--color-primary);
+    transition: width 0.5s ease;
   }
 
-  .skill-card:hover::before {
-    @apply left-full;
+  .nav-link:hover::after {
+    width: 100%;
   }
 
-  .skill-card:hover {
-    @apply transform -translate-y-2 shadow-xl shadow-primary/20 border-primary/40;
+  .nav-link.active {
+    color: var(--color-primary);
+  }
+
+  .nav-link.active::after {
+    width: 100%;
+  }
+
+  /* ponytail: mockup rails — mono labels + CSS-only deco grid */
+  .section-label {
+    font-family: 'Fira Code', ui-monospace, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+  }
+
+  .section-label::after {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 1px;
+    background: var(--color-primary);
+    opacity: 0.7;
+  }
+
+  .hero-grid-lines {
+    background-image:
+      linear-gradient(to right, rgba(52, 59, 77, 0.35) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(52, 59, 77, 0.35) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-position: top right;
+    border-right: 1px solid var(--color-border);
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+
+  .scroll-cue {
+    display: block;
+    width: 64px;
+    height: 1px;
+    background: var(--color-primary);
+    opacity: 0.7;
+    position: relative;
+  }
+
+  .scroll-cue::before {
+    content: "SCROLL";
+    position: absolute;
+    left: 0;
+    top: -18px;
+    font-family: 'Fira Code', ui-monospace, monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--color-primary);
+  }
+
+  /* ponytail: shared outline pill, was scoped .tech-tag in ProjectCard */
+  .pill {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    background: transparent;
+    transition: all 0.2s ease;
+  }
+
+  .pill:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  .pill.active {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  button.pill {
+    cursor: pointer;
+    background-color: var(--color-surface);
   }
 }
 
 @layer utilities {
-  .animate-fadeIn {
-    animation: fadeIn 0.3s ease;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  /* Focus styles for accessibility */
-  .focus-ring {
-    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-transparent;
-  }
-
   /* Reduced motion preferences */
   @media (prefers-reduced-motion: reduce) {
     .typewriter {
       animation: none;
       border-right: none;
     }
-    
+
     .cursor {
       @apply hidden;
     }
-    
+
     * {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;

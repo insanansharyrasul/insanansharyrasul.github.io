@@ -3,7 +3,16 @@
     export let description: string;
     export let githubUrl: string;
     export let technologies: string[] = [];
-    export let imageUrl: string;
+    export let category: string = "";
+    export let index: string = "";
+    $: label = (
+        category ||
+        technologies[1] ||
+        technologies[0] ||
+        ""
+    ).toUpperCase();
+
+    $: repoTag = "// " + title.toUpperCase().replace(/[^A-Z0-9]+/g, "_");
 </script>
 
 <a
@@ -12,79 +21,71 @@
     rel="noopener noreferrer"
     class="project-card"
 >
-    <img
-        src={imageUrl}
-        alt={title}
-        class="w-full h-48 object-cover transition-transform duration-300"
-    />
-    <div class="project-overlay">
-        <h3 class="text-primary text-xl mb-2 font-monda">
+    {#if index || label}
+        <p class="font-mono text-xs tracking-[0.2em] text-primary mb-4">
+            {#if index}{index} /
+            {/if}{label}
+        </p>
+    {/if}
+    <div class="flex items-center gap-4 mb-4">
+        <span
+            class="inline-flex items-center justify-center w-12 h-12 rounded-md border border-primary shrink-0"
+            aria-hidden="true"
+        >
+            <img
+                src="icons/icons8-github.svg"
+                alt=""
+                class="w-6 h-6 filter invert sepia saturate-[5] hue-rotate-[25deg]"
+            />
+        </span>
+        <h3 class="text-text text-xl font-monda font-bold">
             {title}
         </h3>
-        <p class="text-gray-300 text-sm mb-3">
-            {description}
-        </p>
-        <div class="project-tech flex flex-wrap gap-2">
-            {#each technologies as tech}
-                <span
-                    class="tech-tag bg-primary/20 text-primary px-2 py-1 rounded text-xs"
-                >
-                    {tech}
-                </span>
-            {/each}
-        </div>
+    </div>
+    <p class="text-text-muted text-sm leading-relaxed">
+        {description}
+    </p>
+    <div class="project-tech flex flex-wrap gap-2 mt-5 mb-6">
+        {#each technologies as tech}
+            <span class="pill">
+                {tech}
+            </span>
+        {/each}
+    </div>
+    <div
+        class="flex items-center justify-between gap-3 border-t border-border mt-auto pt-4"
+    >
+        <span class="inline-flex items-center gap-2 text-primary text-sm"
+            ><span aria-hidden="true">→</span> View on GitHub</span
+        >
+        <span class="font-mono text-[0.65rem] tracking-[0.1em] text-text-muted"
+            >{repoTag}</span
+        >
     </div>
 </a>
 
 <style>
     .project-card {
-        display: block;
+        display: flex;
+        flex-direction: column;
         position: relative;
-        background: linear-gradient(
-            135deg,
-            rgba(254, 129, 0, 0.1),
-            rgba(255, 107, 53, 0.05)
-        );
-        border: 1px solid rgba(254, 129, 0, 0.2);
-        border-radius: 16px;
+        background-color: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
         overflow: hidden;
         transition: all 0.3s ease;
         text-decoration: none;
         color: inherit;
+        padding: var(--space-3);
     }
 
     .project-card:hover {
         transform: translateY(-8px);
-        box-shadow: 0 20px 40px rgba(254, 129, 0, 0.3);
-        border-color: rgba(254, 129, 0, 0.5);
+        border-color: var(--color-primary);
     }
 
-    .project-card img {
-        border-radius: 16px 16px 0 0;
-    }
-
-    .project-card:hover img {
-        transform: scale(1.05);
-    }
-
-    .project-overlay {
-        padding: 20px;
-        background: linear-gradient(
-            135deg,
-            rgba(15, 23, 42, 0.95),
-            rgba(30, 41, 59, 0.9)
-        );
-        backdrop-filter: blur(10px);
-    }
-
-    .tech-tag {
-        font-size: 0.75rem;
-        font-weight: 500;
-        transition: all 0.2s ease;
-    }
-
-    .tech-tag:hover {
-        background: rgba(254, 129, 0, 0.3) !important;
-        transform: scale(1.05);
+    .project-card:hover .project-tech .pill {
+        border-color: var(--color-primary);
+        color: var(--color-primary);
     }
 </style>
