@@ -49,8 +49,8 @@
 			<img src="/icons/header_icon.svg" alt="home" class="h-8 transition-all duration-300 hover:scale-110" />
 		</a>
 		<div class="flex gap-6">
-			<a href="/" class="text-text no-underline hover:text-primary transition-colors">Home</a>
-			<a href="/blog" class="text-primary no-underline">Blog</a>
+			<a href="/" class="nav-link text-text no-underline text-base hover:text-primary transition-colors" style="font-family: 'Raleway', sans-serif;">Home</a>
+			<a href="/blog" class="nav-link text-primary no-underline text-base" style="font-family: 'Raleway', sans-serif;">Blog</a>
 		</div>
 	</nav>
 

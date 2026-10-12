@@ -15,24 +15,8 @@ main {
     overflow-x: hidden;
 }
 
-/* Navigation link hover effects */
-.nav-right ul li {
-    position: relative;
-}
+/* Navigation link hover effects live in app.css (.nav-link) */
 
-.nav-right ul li::after {
-    content: "";
-    width: 0%;
-    height: 2px;
-    background: var(--color-primary);
-    display: block;
-    margin: auto;
-    transition: width 0.5s ease;
-}
-
-.nav-right ul li:hover::after {
-    width: 100%;
-}
 
 /* Mobile responsive navigation */
 @media screen and (max-width: 600px) {
@@ -95,8 +79,8 @@ main {
     }
 
     .logo img {
-        margin: auto;
-        width: 120px;
+        height: 32px;
+        width: auto;
     }
 
     /* Force header elements to stay behind hamburger menu */

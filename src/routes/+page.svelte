@@ -47,13 +47,13 @@
         class="w-full min-h-screen relative flex flex-col bg-bg"
     >
         <nav
-            class="relative z-10 flex px-[5%] py-[1%] justify-between items-center backdrop-blur-md bg-surface border-b border-border"
+            class="relative z-10 flex px-[5%] py-4 justify-between items-center backdrop-blur-md bg-surface border-b border-border"
         >
             <ul class="logo">
                 <img
                     src="icons/header_icon.svg"
                     alt=""
-                    class="mask-[url(icons/header_icon.svg)] transition-all duration-300 hover:scale-110 hover:animate-glow"
+                    class="h-8 mask-[url(icons/header_icon.svg)] transition-all duration-300 hover:scale-110 hover:animate-glow"
                 />
             </ul>
             <div
@@ -67,46 +67,46 @@
                     class="bg-transparent border-none cursor-pointer text-text p-3 text-2xl transition-transform duration-300 hover:rotate-90 hidden"
                 >
                 </button>
-                <ul class="items-center leading-3">
-                    <li class="list-none inline-block px-3 py-2 relative">
+                <ul class="items-center">
+                    <li class="list-none inline-block px-3 relative">
                         <a
                             href="#header"
                             on:click={hideMenu}
-                            class="text-text no-underline text-2xl font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
+                            class="nav-link text-text no-underline text-base font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
                             style="font-family: 'Raleway', sans-serif;">Home</a
                         >
                     </li>
-                    <li class="list-none inline-block px-3 py-2 relative">
+                    <li class="list-none inline-block px-3 relative">
                         <a
                             href="#about"
                             on:click={hideMenu}
-                            class="text-text no-underline text-2xl font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
+                            class="nav-link text-text no-underline text-base font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
                             style="font-family: 'Raleway', sans-serif;">About</a
                         >
                     </li>
-                    <li class="list-none inline-block px-3 py-2 relative">
+                    <li class="list-none inline-block px-3 relative">
                         <a
                             href="#skills-section"
                             on:click={hideMenu}
-                            class="text-text no-underline text-2xl font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
+                            class="nav-link text-text no-underline text-base font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
                             style="font-family: 'Raleway', sans-serif;"
                             >Skills</a
                         >
                     </li>
-                    <li class="list-none inline-block px-3 py-2 relative">
+                    <li class="list-none inline-block px-3 relative">
                         <a
                             href="#projects-section"
                             on:click={hideMenu}
-                            class="text-text no-underline text-2xl font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
+                            class="nav-link text-text no-underline text-base font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
                             style="font-family: 'Raleway', sans-serif;"
                             >Projects</a
                         >
                     </li>
-                    <li class="list-none inline-block px-3 py-2 relative">
+                    <li class="list-none inline-block px-3 relative">
                         <a
                             href="/blog"
                             on:click={hideMenu}
-                            class="text-text no-underline text-2xl font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
+                            class="nav-link text-text no-underline text-base font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
                             style="font-family: 'Raleway', sans-serif;"
                             >Blog</a
                         >
