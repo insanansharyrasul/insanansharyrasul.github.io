@@ -25,7 +25,8 @@ export default {
             fontFamily: {
                 'monda': ['Monda', 'sans-serif'],
                 'raleway': ['Raleway', 'sans-serif'],
-                'sans': ['Raleway', 'sans-serif']
+                'sans': ['Raleway', 'sans-serif'],
+                'mono': ['Fira Code', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
             },
             animation: {
                 'fadeInUp': 'fadeInUp 1s ease-out 0.5s both',

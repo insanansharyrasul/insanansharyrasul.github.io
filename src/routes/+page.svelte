@@ -102,6 +102,15 @@
                             >Projects</a
                         >
                     </li>
+                    <li class="list-none inline-block px-3 py-2 relative">
+                        <a
+                            href="/blog"
+                            on:click={hideMenu}
+                            class="text-text no-underline text-2xl font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
+                            style="font-family: 'Raleway', sans-serif;"
+                            >Blog</a
+                        >
+                    </li>
                 </ul>
             </div>
             <div class="hamburger-wrapper hidden">
