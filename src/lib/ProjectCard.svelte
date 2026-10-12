@@ -21,7 +21,7 @@
         <h3 class="text-primary text-xl mb-2 font-monda">
             {title}
         </h3>
-        <p class="text-gray-300 text-sm mb-3">
+        <p class="text-text-muted text-sm mb-3">
             {description}
         </p>
         <div class="project-tech flex flex-wrap gap-2">
@@ -40,13 +40,9 @@
     .project-card {
         display: block;
         position: relative;
-        background: linear-gradient(
-            135deg,
-            rgba(254, 129, 0, 0.1),
-            rgba(255, 107, 53, 0.05)
-        );
-        border: 1px solid rgba(254, 129, 0, 0.2);
-        border-radius: 16px;
+        background-color: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
         overflow: hidden;
         transition: all 0.3s ease;
         text-decoration: none;
@@ -55,12 +51,12 @@
 
     .project-card:hover {
         transform: translateY(-8px);
-        box-shadow: 0 20px 40px rgba(254, 129, 0, 0.3);
-        border-color: rgba(254, 129, 0, 0.5);
+        box-shadow: 0 20px 40px rgba(255, 143, 64, 0.2);
+        border-color: var(--color-primary);
     }
 
     .project-card img {
-        border-radius: 16px 16px 0 0;
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
     }
 
     .project-card:hover img {
@@ -68,13 +64,8 @@
     }
 
     .project-overlay {
-        padding: 20px;
-        background: linear-gradient(
-            135deg,
-            rgba(15, 23, 42, 0.95),
-            rgba(30, 41, 59, 0.9)
-        );
-        backdrop-filter: blur(10px);
+        padding: var(--space-3);
+        background-color: var(--color-surface);
     }
 
     .tech-tag {
@@ -84,7 +75,7 @@
     }
 
     .tech-tag:hover {
-        background: rgba(254, 129, 0, 0.3) !important;
+        background: rgba(255, 143, 64, 0.3) !important;
         transform: scale(1.05);
     }
 </style>

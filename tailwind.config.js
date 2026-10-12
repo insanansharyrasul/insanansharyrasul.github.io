@@ -4,15 +4,23 @@ export default {
     theme: {
         extend: {
             colors: {
-                primary: '#FE8100',
-                'primary-dark': '#ff6b35',
-                dark: {
-                    100: '#2c2c2c',
-                    200: '#2a2a2a',
-                    300: '#1f1f1f',
-                    400: '#1a1a1a',
-                    500: '#000000'
-                }
+                bg: '#0D1017',
+                surface: '#141821',
+                border: '#343B4D',
+                text: '#BFBDB6',
+                'text-muted': '#828E9F',
+                'text-on-accent': '#0D1017',
+                primary: '#FF8F40',
+                blue: '#59C2FF',
+                green: '#AAD94C',
+                yellow: '#FFB454',
+                purple: '#D2A6FF',
+                error: '#D95757',
+            },
+            borderRadius: {
+                sm: '4px',
+                md: '8px',
+                lg: '12px',
             },
             fontFamily: {
                 'monda': ['Monda', 'sans-serif'],
@@ -37,8 +45,8 @@ export default {
                     'to': { opacity: '1', transform: 'translateY(0)' }
                 },
                 glow: {
-                    '0%, 100%': { boxShadow: '0 0 20px rgba(254, 129, 0, 0.3)' },
-                    '50%': { boxShadow: '0 0 30px rgba(254, 129, 0, 0.6)' }
+                    '0%, 100%': { boxShadow: '0 0 20px rgba(255, 143, 64, 0.3)' },
+                    '50%': { boxShadow: '0 0 30px rgba(255, 143, 64, 0.6)' }
                 },
                 float: {
                     '0%, 100%': { transform: 'translateY(0)' },
@@ -71,15 +79,6 @@ export default {
                     'to': { transform: 'scale(1) translateY(0)', opacity: '1' }
                 }
             },
-            backgroundImage: {
-                'gradient-main': 'linear-gradient(135deg, #2c2c2c 0%, #332E2A 50%, #1a1a1a 100%)',
-                'gradient-header': 'linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 50%, #332E2A 100%)',
-                'gradient-about': 'linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%)',
-                'gradient-skills': 'linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%)',
-                'gradient-footer': 'linear-gradient(135deg, #1a1a1a 0%, #000 100%)',
-                'gradient-primary': 'linear-gradient(90deg, #FE8100, #ff6b35)',
-                'gradient-nav-mobile': 'linear-gradient(135deg, #FE8100, #ff6b35)'
-            }
         },
     },
     plugins: [],

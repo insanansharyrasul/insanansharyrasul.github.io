@@ -44,14 +44,10 @@
 <main>
     <section
         id="header"
-        class="w-full min-h-screen relative flex flex-col bg-gradient-header"
+        class="w-full min-h-screen relative flex flex-col bg-bg"
     >
-        <div
-            class="absolute inset-0 animate-gradientShift z-0"
-            style="background-size: 400% 400%;"
-        ></div>
         <nav
-            class="relative z-10 flex px-[5%] py-[1%] justify-between items-center backdrop-blur-md bg-white/5 border-b border-primary/10"
+            class="relative z-10 flex px-[5%] py-[1%] justify-between items-center backdrop-blur-md bg-surface border-b border-border"
         >
             <ul class="logo">
                 <img
@@ -68,7 +64,7 @@
                 <button
                     on:click={hideMenu}
                     aria-label="Close menu"
-                    class="bg-transparent border-none cursor-pointer text-white p-3 text-2xl transition-transform duration-300 hover:rotate-90 hidden"
+                    class="bg-transparent border-none cursor-pointer text-text p-3 text-2xl transition-transform duration-300 hover:rotate-90 hidden"
                 >
                 </button>
                 <ul class="items-center leading-3">
@@ -76,7 +72,7 @@
                         <a
                             href="#header"
                             on:click={hideMenu}
-                            class="text-white no-underline text-2xl font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
+                            class="text-text no-underline text-2xl font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
                             style="font-family: 'Raleway', sans-serif;">Home</a
                         >
                     </li>
@@ -84,7 +80,7 @@
                         <a
                             href="#about"
                             on:click={hideMenu}
-                            class="text-white no-underline text-2xl font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
+                            class="text-text no-underline text-2xl font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
                             style="font-family: 'Raleway', sans-serif;">About</a
                         >
                     </li>
@@ -92,7 +88,7 @@
                         <a
                             href="#skills-section"
                             on:click={hideMenu}
-                            class="text-white no-underline text-2xl font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
+                            class="text-text no-underline text-2xl font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
                             style="font-family: 'Raleway', sans-serif;"
                             >Skills</a
                         >
@@ -101,7 +97,7 @@
                         <a
                             href="#projects-section"
                             on:click={hideMenu}
-                            class="text-white no-underline text-2xl font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
+                            class="text-text no-underline text-2xl font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
                             style="font-family: 'Raleway', sans-serif;"
                             >Projects</a
                         >
@@ -112,8 +108,8 @@
                 <Hamburger
                     bind:open={menuVisible}
                     on:click={toggleMenu}
-                    --color="white"
-                    --active-color="#FE8100"
+                    --color="#BFBDB6"
+                    --active-color="#FF8F40"
                     --layer-width="24px"
                     --layer-height="2px"
                     --layer-spacing="6px"
@@ -122,7 +118,7 @@
             </div>
         </nav>
         <div
-            class="text-box absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center w-[90%] text-white"
+            class="text-box absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center w-[90%] text-text"
         >
             <h1
                 class="typewriter text-primary text-center font-monda text-4xl md:text-5xl lg:text-6xl font-bold mb-4"
@@ -130,7 +126,7 @@
                 {typedText}<span class="cursor">|</span>
             </h1>
             <p
-                class="fade-in text-white text-center text-lg md:text-xl lg:text-2xl font-normal opacity-90"
+                class="fade-in text-text text-center text-lg md:text-xl lg:text-2xl font-normal opacity-90"
                 style="font-family: 'Raleway', sans-serif;"
             >
                 Computer Science Student at IPB University
@@ -143,7 +139,7 @@
 
     <section
         id="about"
-        class="section-animate py-16 px-5 bg-gradient-about"
+        class="section-animate py-16 px-5 bg-bg"
         class:visible={isVisible.about}
     >
         <div class="max-w-4xl mx-auto">
@@ -151,7 +147,7 @@
                 About Me
             </h1>
             <p
-                class="mx-[5%] text-lg text-center leading-relaxed mb-8 text-gray-300"
+                class="mx-[5%] text-lg text-center leading-relaxed mb-8 text-text-muted"
             >
                 Freshman at IPB University studying Computer Science under the
                 <span class="text-primary italic"
@@ -162,27 +158,27 @@
 
             <div class="grid md:grid-cols-2 gap-6 mt-8">
                 <div
-                    class="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-6"
+                    class="bg-surface border border-border rounded-lg p-6"
                 >
                     <h3
                         class="text-primary text-xl mb-3 font-monda flex items-center"
                     >
                         ⚙️ Firmware Engineering
                     </h3>
-                    <p class="text-gray-300 text-sm leading-relaxed">
+                    <p class="text-text-muted text-sm leading-relaxed">
                         Creating a firmware that integrate hardware and software
                         using C, C++, or Rust
                     </p>
                 </div>
                 <div
-                    class="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-6"
+                    class="bg-surface border border-border rounded-lg p-6"
                 >
                     <h3
                         class="text-primary text-xl mb-3 font-monda flex items-center"
                     >
                         📱 Mobile Development
                     </h3>
-                    <p class="text-gray-300 text-sm leading-relaxed">
+                    <p class="text-text-muted text-sm leading-relaxed">
                         Designing cross-platform mobile applications for Android
                         and iOS
                     </p>
@@ -193,7 +189,7 @@
 
     <section
         id="skills-section"
-        class="section-animate py-16 px-5 bg-gradient-skills"
+        class="section-animate py-16 px-5 bg-surface"
         class:visible={isVisible["skills-section"]}
     >
         <div class="skills-content max-w-5xl mx-auto">
@@ -339,7 +335,7 @@
 
     <section
         id="projects-section"
-        class="section-animate py-16 px-5 bg-gradient-about"
+        class="section-animate py-16 px-5 bg-bg"
         class:visible={isVisible["projects-section"]}
     >
         <div class="projects max-w-5xl mx-auto">
@@ -347,7 +343,7 @@
                 Coding Projects
             </h1>
             <p
-                class="section-subtitle text-center text-gray-300 text-base mb-8 italic"
+                class="section-subtitle text-center text-text-muted text-base mb-8 italic"
             >
                 Building solutions through code and creativity
             </p>
@@ -392,11 +388,11 @@
 
     <section
         id="footer"
-        class="py-8 px-5 border-t border-primary/20 bg-gradient-footer"
+        class="py-8 px-5 border-t border-border bg-surface"
     >
         <div class="footer-content max-w-3xl mx-auto text-center">
             <div class="social-links flex justify-center gap-6 mb-6">
-                <a href="https://instagram.com/insan.a.r" class="social-link">
+                <a href="https://instagram.com/insan_a_r" class="social-link">
                     <img
                         src="icons/icons8-instagram.svg"
                         alt="Instagram"
@@ -417,7 +413,7 @@
                 </a>
             </div>
             <p
-                class="text-xs text-gray-500 m-0"
+                class="text-xs text-text-muted m-0"
                 style="font-family: 'Raleway', sans-serif;"
             >
                 © 2025 Insan Anshary Rasul. All rights reserved.
