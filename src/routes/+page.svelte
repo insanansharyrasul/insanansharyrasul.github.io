@@ -259,57 +259,6 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-6 mt-10">
-                    <div class="bg-surface border border-border rounded-lg p-6 flex flex-col">
-                        <p class="font-mono text-xs tracking-[0.2em] text-primary mb-4">01 / SYSTEMS</p>
-                        <div class="flex items-center gap-4 mb-4">
-                            <span class="inline-flex items-center justify-center w-12 h-12 rounded-md border border-primary text-primary shrink-0" aria-hidden="true">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5" /><line x1="12" y1="19" x2="20" y2="19" /></svg>
-                            </span>
-                            <h3 class="text-text text-xl font-monda font-bold">Systems Programming</h3>
-                        </div>
-                        <p class="text-text-muted text-sm leading-relaxed">
-                            I enjoy exploring how software interacts with computer
-                            resources, writing utilities, and learning about low-level
-                            programming with C, C++, and Rust.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mt-5 mb-6">
-                            <span class="pill"><img src="icons/c-original.svg" alt="" />C</span>
-                            <span class="pill"><img src="icons/cplusplus-original.svg" alt="" />C++</span>
-                            <span class="pill"><img src="icons/rust-original.svg" alt="" />Rust</span>
-                            <span class="pill"><img src="icons/linux-original.svg" alt="" />Linux</span>
-                            <span class="pill">Shell</span>
-                        </div>
-                        <div class="flex items-center justify-between gap-3 border-t border-border mt-auto pt-4">
-                            <a href="#projects-section" class="inline-flex items-center gap-2 text-primary text-sm hover:translate-x-1 transition-transform duration-300"><span aria-hidden="true">→</span> View related projects</a>
-                            <span class="font-mono text-[0.65rem] tracking-[0.1em] text-text-muted">// SYSTEMS_DEVELOPMENT</span>
-                        </div>
-                    </div>
-                    <div class="bg-surface border border-border rounded-lg p-6 flex flex-col">
-                        <p class="font-mono text-xs tracking-[0.2em] text-primary mb-4">02 / MOBILE</p>
-                        <div class="flex items-center gap-4 mb-4">
-                            <span class="inline-flex items-center justify-center w-12 h-12 rounded-md border border-primary text-primary shrink-0" aria-hidden="true">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2" /><line x1="11" y1="18" x2="13" y2="18" /></svg>
-                            </span>
-                            <h3 class="text-text text-xl font-monda font-bold">Mobile Development</h3>
-                        </div>
-                        <p class="text-text-muted text-sm leading-relaxed">
-                            I build cross-platform mobile applications with Flutter
-                            and explore native Android development with Kotlin,
-                            focusing on useful features and thoughtful user experiences.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mt-5 mb-6">
-                            <span class="pill"><img src="icons/flutter-original.svg" alt="" />Flutter</span>
-                            <span class="pill"><img src="icons/bloc-original.svg" alt="" />Bloc</span>
-                            <span class="pill">Kotlin</span>
-                            <span class="pill">Android</span>
-                        </div>
-                        <div class="flex items-center justify-between gap-3 border-t border-border mt-auto pt-4">
-                            <a href="#projects-section" class="inline-flex items-center gap-2 text-primary text-sm hover:translate-x-1 transition-transform duration-300"><span aria-hidden="true">→</span> View related projects</a>
-                            <span class="font-mono text-[0.65rem] tracking-[0.1em] text-text-muted">// MOBILE_APPS</span>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -484,35 +433,52 @@
         </div>
     </section>
 
-    <section id="footer" class="py-8 px-5 border-t border-border bg-surface">
-        <div class="footer-content max-w-3xl mx-auto text-center">
-            <div class="social-links flex justify-center gap-6 mb-6">
-                <a href="https://instagram.com/insan_a_r" class="social-link">
-                    <img
-                        src="icons/icons8-instagram.svg"
-                        alt="Instagram"
-                        class="w-5 h-5 filter invert sepia saturate-[5] hue-rotate-[25deg]"
-                    />
-                    <span>Instagram</span>
-                </a>
-                <a
-                    href="https://github.com/insanansharyrasul"
-                    class="social-link"
-                >
-                    <img
-                        src="icons/icons8-github.svg"
-                        alt="GitHub"
-                        class="w-5 h-5 filter invert sepia saturate-[5] hue-rotate-[25deg]"
-                    />
-                    <span>GitHub</span>
-                </a>
+    <section id="footer" class="py-16 px-5 border-t border-border bg-bg">
+        <div class="footer-content max-w-7xl mx-auto flex flex-col md:flex-row gap-10">
+            <div class="md:w-56 shrink-0 flex flex-col">
+                <p class="section-label"><span class="text-primary">05</span> / CONNECT</p>
+                <h1 class="font-monda font-bold text-5xl leading-[1.05] mt-6 text-text">
+                    Follow<br />the <span class="text-primary">builds.</span>
+                </h1>
+                <div class="w-10 h-px bg-primary mt-6"></div>
             </div>
-            <p
-                class="text-xs text-text-muted m-0"
-                style="font-family: 'Raleway', sans-serif;"
-            >
-                © 2026 Insan Anshary Rasul. All rights reserved.
-            </p>
+            <div class="flex-1 min-w-0 md:border-l md:border-border md:pl-10">
+                <p class="text-text-muted text-lg md:text-xl leading-relaxed">
+                    Code on GitHub, life on Instagram.
+                </p>
+                <div class="social-links flex flex-wrap gap-4 mt-6">
+                    <a
+                        href="https://github.com/insanansharyrasul"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Follow on GitHub"
+                        class="inline-flex items-center gap-3 bg-primary text-text-on-accent font-semibold text-sm px-6 py-3 rounded-md transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5"
+                    >
+                        <img src="icons/icons8-github.svg" alt="" class="w-5 h-5 brightness-0" />
+                        <span>GitHub</span>
+                    </a>
+                    <a
+                        href="https://instagram.com/insan_a_r"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Follow on Instagram"
+                        class="social-link"
+                    >
+                        <img
+                            src="icons/icons8-instagram.svg"
+                            alt=""
+                            class="w-5 h-5 filter invert sepia saturate-[5] hue-rotate-[25deg]"
+                        />
+                        <span>Instagram</span>
+                    </a>
+                </div>
+                <p
+                    class="text-xs text-text-muted mt-10 pt-6 border-t border-border m-0"
+                    style="font-family: 'Raleway', sans-serif;"
+                >
+                    © 2026 Insan Anshary Rasul. All rights reserved.
+                </p>
+            </div>
         </div>
     </section>
 </main>
