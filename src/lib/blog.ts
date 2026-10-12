@@ -6,14 +6,14 @@ import javascript from 'highlight.js/lib/languages/javascript';
 import typescript from 'highlight.js/lib/languages/typescript';
 import bash from 'highlight.js/lib/languages/bash';
 
-// ponytail: only languages the blog uses — one line each to add more
+
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('markdown', markdown);
 hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('typescript', typescript);
 hljs.registerLanguage('bash', bash);
 
-// ponytail: single hardcoded author, no authors/ collection until needed
+
 export const AUTHOR = {
 	name: 'insanansharyrasul',
 	displayName: 'Insan Anshary Rasul',
@@ -39,7 +39,7 @@ export interface Post {
 	toc: TocItem[];
 }
 
-// ponytail: hand-rolled frontmatter, no gray-matter dep
+
 function parseFrontmatter(raw: string): { meta: Record<string, string>; body: string } {
 	if (!raw.startsWith('---')) return { meta: {}, body: raw };
 	const end = raw.indexOf('\n---', 3);
@@ -128,7 +128,7 @@ function buildPost(path: string, raw: string): Post {
 			`<pre><code${lang ? ` class="language-${lang}"` : ''}>${highlightCode(decode(code), lang ?? '')}</code></pre>`
 	);
 	// Inject TOC ids server-side so anchors exist in prerendered HTML.
-	// ponytail: regex on bare <h2>/<h3> instead of a marked renderer
+	
 	// override — version-proof, no API coupling.
 	let n = 0;
 	const html = codeHtml.replace(/<h([23])>/g, (m, lvl: string) => {

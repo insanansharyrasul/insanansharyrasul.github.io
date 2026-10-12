@@ -5,8 +5,13 @@
     export let technologies: string[] = [];
     export let category: string = "";
     export let index: string = "";
-    $: label = (category || technologies[1] || technologies[0] || "").toUpperCase();
-    // ponytail: footer tag derived from title, no new data needed
+    $: label = (
+        category ||
+        technologies[1] ||
+        technologies[0] ||
+        ""
+    ).toUpperCase();
+
     $: repoTag = "// " + title.toUpperCase().replace(/[^A-Z0-9]+/g, "_");
 </script>
 
@@ -18,11 +23,15 @@
 >
     {#if index || label}
         <p class="font-mono text-xs tracking-[0.2em] text-primary mb-4">
-            {#if index}{index} / {/if}{label}
+            {#if index}{index} /
+            {/if}{label}
         </p>
     {/if}
     <div class="flex items-center gap-4 mb-4">
-        <span class="inline-flex items-center justify-center w-12 h-12 rounded-md border border-primary shrink-0" aria-hidden="true">
+        <span
+            class="inline-flex items-center justify-center w-12 h-12 rounded-md border border-primary shrink-0"
+            aria-hidden="true"
+        >
             <img
                 src="icons/icons8-github.svg"
                 alt=""
@@ -43,9 +52,15 @@
             </span>
         {/each}
     </div>
-    <div class="flex items-center justify-between gap-3 border-t border-border mt-auto pt-4">
-        <span class="inline-flex items-center gap-2 text-primary text-sm"><span aria-hidden="true">→</span> View on GitHub</span>
-        <span class="font-mono text-[0.65rem] tracking-[0.1em] text-text-muted">{repoTag}</span>
+    <div
+        class="flex items-center justify-between gap-3 border-t border-border mt-auto pt-4"
+    >
+        <span class="inline-flex items-center gap-2 text-primary text-sm"
+            ><span aria-hidden="true">→</span> View on GitHub</span
+        >
+        <span class="font-mono text-[0.65rem] tracking-[0.1em] text-text-muted"
+            >{repoTag}</span
+        >
     </div>
 </a>
 

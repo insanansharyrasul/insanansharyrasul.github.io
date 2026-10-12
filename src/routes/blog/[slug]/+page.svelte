@@ -1,8 +1,8 @@
 <script lang="ts">
-	import '../../../app.css';
-	import { onMount } from 'svelte';
-	import { AUTHOR } from '$lib/blog';
-	import type { PageData } from './$types';
+	import "../../../app.css";
+	import { onMount } from "svelte";
+	import { AUTHOR } from "$lib/blog";
+	import type { PageData } from "./$types";
 
 	export let data: PageData;
 	$: ({ post, newer, older } = data);
@@ -10,20 +10,19 @@
 	let contentEl: HTMLElement;
 
 	onMount(() => {
-		// ponytail: ids already injected server-side in blog.ts — copy buttons only
-		contentEl.querySelectorAll('pre').forEach((pre) => {
-			const btn = document.createElement('button');
-			btn.textContent = 'Copy';
-			btn.className = 'copy-btn';
-			btn.type = 'button';
-			btn.addEventListener('click', async () => {
+		contentEl.querySelectorAll("pre").forEach((pre) => {
+			const btn = document.createElement("button");
+			btn.textContent = "Copy";
+			btn.className = "copy-btn";
+			btn.type = "button";
+			btn.addEventListener("click", async () => {
 				try {
 					await navigator.clipboard.writeText(pre.innerText);
-					btn.textContent = 'Copied!';
+					btn.textContent = "Copied!";
 				} catch {
-					btn.textContent = 'Failed';
+					btn.textContent = "Failed";
 				}
-				setTimeout(() => (btn.textContent = 'Copy'), 1500);
+				setTimeout(() => (btn.textContent = "Copy"), 1500);
 			});
 			pre.appendChild(btn);
 		});
@@ -40,11 +39,23 @@
 		class="flex px-[5%] py-4 justify-between items-center bg-surface border-b border-border sticky top-0 z-10"
 	>
 		<a href="/" class="flex items-center gap-3 no-underline text-text">
-			<img src="/icons/header_icon.svg" alt="home" class="h-8 transition-all duration-300 hover:scale-110" />
+			<img
+				src="/icons/header_icon.svg"
+				alt="home"
+				class="h-8 transition-all duration-300 hover:scale-110"
+			/>
 		</a>
 		<div class="flex gap-6">
-			<a href="/" class="nav-link text-text no-underline text-base hover:text-primary transition-colors" style="font-family: 'Raleway', sans-serif;">Home</a>
-			<a href="/blog" class="nav-link text-primary no-underline text-base" style="font-family: 'Raleway', sans-serif;">Blog</a>
+			<a
+				href="/"
+				class="nav-link text-text no-underline text-base hover:text-primary transition-colors"
+				style="font-family: 'Raleway', sans-serif;">Home</a
+			>
+			<a
+				href="/blog"
+				class="nav-link text-primary no-underline text-base"
+				style="font-family: 'Raleway', sans-serif;">Blog</a
+			>
 		</div>
 	</nav>
 
@@ -54,24 +65,41 @@
 			<ol>
 				{#each post.toc as item}
 					<li class:indent={item.level === 3}>
-						<a href={'#' + item.id}>{item.text}</a>
+						<a href={"#" + item.id}>{item.text}</a>
 					</li>
 				{/each}
 			</ol>
 		{/snippet}
-		<a href="/blog" class="text-text-muted no-underline text-sm hover:text-primary transition-colors">
+		<a
+			href="/blog"
+			class="text-text-muted no-underline text-sm hover:text-primary transition-colors"
+		>
 			← All posts
 		</a>
 
 		{#if post.cover}
-			<img src={post.cover} alt={post.title} class="w-full max-h-[420px] object-cover rounded-lg mt-6 border border-border" />
+			<img
+				src={post.cover}
+				alt={post.title}
+				class="w-full max-h-[420px] object-cover rounded-lg mt-6 border border-border"
+			/>
 		{/if}
 
-		<h1 class="text-3xl md:text-4xl font-bold mt-6 leading-tight">{post.title}</h1>
+		<h1 class="text-3xl md:text-4xl font-bold mt-6 leading-tight">
+			{post.title}
+		</h1>
 
 		<div class="flex items-center flex-wrap gap-3 mt-4 text-text-muted text-sm">
-			<img src={AUTHOR.avatar} alt={AUTHOR.name} class="w-7 h-7 rounded-full object-cover" />
-			<a href="/blog" class="text-text no-underline hover:text-primary transition-colors">{AUTHOR.name}</a>
+			<img
+				src={AUTHOR.avatar}
+				alt={AUTHOR.name}
+				class="w-7 h-7 rounded-full object-cover"
+			/>
+			<a
+				href="/blog"
+				class="text-text no-underline hover:text-primary transition-colors"
+				>{AUTHOR.name}</a
+			>
 			<span class="opacity-40">|</span>
 			<span>{post.dateLabel}</span>
 			<span class="opacity-40">|</span>
@@ -123,7 +151,7 @@
 </main>
 
 <style>
-  .post-grid {
+	.post-grid {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
 		gap: 2rem;
@@ -296,10 +324,11 @@
 	}
 
 	.blog-content :global(code) {
-		font-family: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+		font-family: "Fira Code", ui-monospace, SFMono-Regular, Menlo, Consolas,
+			monospace;
 		font-feature-settings:
-			'calt' 1,
-			'liga' 1;
+			"calt" 1,
+			"liga" 1;
 		font-variant-ligatures: contextual;
 		letter-spacing: 0;
 		font-size: 0.88em;
