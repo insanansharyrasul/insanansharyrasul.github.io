@@ -152,27 +152,24 @@
                 Freshman at IPB University studying Computer Science under the
                 <span class="text-primary italic"
                     >Sekolah Sains Data, Matematika dan Informatika</span
-                >. Currently interested in firmware engineering and mobile app
+                >. Currently interested in system development and mobile app
                 development.
             </p>
 
             <div class="grid md:grid-cols-2 gap-6 mt-8">
-                <div
-                    class="bg-surface border border-border rounded-lg p-6"
-                >
+                <div class="bg-surface border border-border rounded-lg p-6">
                     <h3
                         class="text-primary text-xl mb-3 font-monda flex items-center"
                     >
-                        ⚙️ Firmware Engineering
+                        ⚙️ Systems Development
                     </h3>
                     <p class="text-text-muted text-sm leading-relaxed">
-                        Creating a firmware that integrate hardware and software
-                        using C, C++, or Rust
+                        Creating a low level program that monitor computer
+                        resource or making simple script to do simple task using
+                        C, C++, or Rust
                     </p>
                 </div>
-                <div
-                    class="bg-surface border border-border rounded-lg p-6"
-                >
+                <div class="bg-surface border border-border rounded-lg p-6">
                     <h3
                         class="text-primary text-xl mb-3 font-monda flex items-center"
                     >
@@ -180,7 +177,7 @@
                     </h3>
                     <p class="text-text-muted text-sm leading-relaxed">
                         Designing cross-platform mobile applications for Android
-                        and iOS
+                        and iOS using Flutter or Android-only using Kotlin
                     </p>
                 </div>
             </div>
@@ -269,7 +266,7 @@
                 <h2
                     class="text-2xl text-center mb-8 text-primary font-monda opacity-90"
                 >
-                    Firmware Engineering
+                    System Engineering
                 </h2>
                 <div
                     class="skills-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
@@ -299,7 +296,7 @@
                 <h2
                     class="text-2xl text-center mb-8 text-primary font-monda opacity-90"
                 >
-                    Tools 
+                    Tools
                 </h2>
                 <div
                     class="skills-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
@@ -386,10 +383,7 @@
         </div>
     </section>
 
-    <section
-        id="footer"
-        class="py-8 px-5 border-t border-border bg-surface"
-    >
+    <section id="footer" class="py-8 px-5 border-t border-border bg-surface">
         <div class="footer-content max-w-3xl mx-auto text-center">
             <div class="social-links flex justify-center gap-6 mb-6">
                 <a href="https://instagram.com/insan_a_r" class="social-link">
