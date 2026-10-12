@@ -1,19 +1,6 @@
-/* Prevent horizontal scrolling */
-:global(body) {
-    overflow-x: hidden;
-    max-width: 100vw;
-}
-
-:global(html) {
-    overflow-x: hidden;
-    max-width: 100vw;
-}
-
-/* Ensure main container doesn't overflow */
-main {
-    max-width: 100vw;
-    overflow-x: hidden;
-}
+/* ponytail: dead rules removed — `:global()` is Svelte-template syntax and
+ * invalid in this plain CSS import, so browsers dropped these. Clipping
+ * lives on html/body in app.css (as `clip`, which preserves sticky). */
 
 /* Navigation link hover effects live in app.css (.nav-link) */
 
