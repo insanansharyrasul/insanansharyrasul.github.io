@@ -21,7 +21,7 @@
 </script>
 
 <nav
-  class="navbar relative z-10 flex px-[5%] py-4 justify-between items-center bg-bg border-b border-border"
+  class="navbar relative z-10 flex px-[5%] py-4 justify-between items-center bg-bg border-border"
   class:sticky-nav={sticky}
 >
   <a href="/" on:click={hideMenu} aria-label="Home" class="logo">
