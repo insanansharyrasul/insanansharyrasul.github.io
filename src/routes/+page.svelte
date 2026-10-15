@@ -2,24 +2,27 @@
     import { onMount } from "svelte";
     import "../app.css";
     import "$lib/pageStyles.css";
+    import Navbar from "$lib/Navbar.svelte";
     import ProjectCard from "$lib/ProjectCard.svelte";
     import { getAllPosts } from "$lib/blog";
 
     const recentPosts = getAllPosts().slice(0, 3);
 
-    let menuVisible = false;
     let isVisible: Record<string, boolean> = {};
     let activeSection = "header";
     let typedText = "";
     const fullText = "I'm Insan Anshary Rasul.";
-
-    function hideMenu() {
-        menuVisible = false;
-    }
-
-    function toggleMenu() {
-        menuVisible = !menuVisible;
-    }
+    const homeLinks = [
+        { href: "/#header", label: "Home", key: "header" },
+        { href: "/#about", label: "About", key: "about" },
+        { href: "/#skills-section", label: "Skills", key: "skills-section" },
+        {
+            href: "/#projects-section",
+            label: "Projects",
+            key: "projects-section",
+        },
+        { href: "/blog", label: "Blog", key: "blog" },
+    ];
 
     onMount(() => {
         let i = 0;
@@ -56,10 +59,12 @@
                 activeSection = "header";
         };
         window.addEventListener("scroll", onScroll, { passive: true });
-        ["about", "skills-section", "projects-section", "blog-section"].forEach((id) => {
-            const el = document.getElementById(id);
-            if (el) obs.observe(el);
-        });
+        ["about", "skills-section", "projects-section", "blog-section"].forEach(
+            (id) => {
+                const el = document.getElementById(id);
+                if (el) obs.observe(el);
+            },
+        );
         return () => {
             obs.disconnect();
             window.removeEventListener("scroll", onScroll);
@@ -80,96 +85,7 @@
         id="header"
         class="w-full min-h-screen relative flex flex-col bg-bg"
     >
-        <nav
-            class="relative z-10 flex px-[5%] py-4 justify-between items-center backdrop-blur-md bg-surface border-b border-border"
-        >
-            <ul class="logo">
-                <img
-                    src="icons/header_icon.svg"
-                    alt=""
-                    class="h-8 transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_12px_rgba(255,143,64,0.6)]"
-                />
-            </ul>
-            <div
-                class="nav-right transition-transform duration-500 ease-out flex-1 text-right"
-                id="navRights"
-                class:visible={menuVisible}
-            >
-                <ul class="items-center">
-                    <li class="list-none inline-block px-3 relative">
-                        <a
-                            href="#header"
-                            on:click={hideMenu}
-                            class="nav-link text-text no-underline text-base font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
-                            class:active={activeSection === "header"}
-                            aria-current={activeSection === "header"
-                                ? "page"
-                                : undefined}
-                            style="font-family: 'Raleway', sans-serif;">Home</a
-                        >
-                    </li>
-                    <li class="list-none inline-block px-3 relative">
-                        <a
-                            href="#about"
-                            on:click={hideMenu}
-                            class="nav-link text-text no-underline text-base font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
-                            class:active={activeSection === "about"}
-                            aria-current={activeSection === "about"
-                                ? "page"
-                                : undefined}
-                            style="font-family: 'Raleway', sans-serif;">About</a
-                        >
-                    </li>
-                    <li class="list-none inline-block px-3 relative">
-                        <a
-                            href="#skills-section"
-                            on:click={hideMenu}
-                            class="nav-link text-text no-underline text-base font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
-                            class:active={activeSection === "skills-section"}
-                            aria-current={activeSection === "skills-section"
-                                ? "page"
-                                : undefined}
-                            style="font-family: 'Raleway', sans-serif;"
-                            >Skills</a
-                        >
-                    </li>
-                    <li class="list-none inline-block px-3 relative">
-                        <a
-                            href="#projects-section"
-                            on:click={hideMenu}
-                            class="nav-link text-text no-underline text-base font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
-                            class:active={activeSection === "projects-section"}
-                            aria-current={activeSection === "projects-section"
-                                ? "page"
-                                : undefined}
-                            style="font-family: 'Raleway', sans-serif;"
-                            >Projects</a
-                        >
-                    </li>
-                    <li class="list-none inline-block px-3 relative">
-                        <a
-                            href="/blog"
-                            on:click={hideMenu}
-                            class="nav-link text-text no-underline text-base font-normal relative transition-all duration-300 hover:text-primary hover:-translate-y-1"
-                            style="font-family: 'Raleway', sans-serif;">Blog</a
-                        >
-                    </li>
-                </ul>
-            </div>
-            <div class="hamburger-wrapper hidden">
-                <button
-                    aria-label="Toggle menu"
-                    aria-expanded={menuVisible}
-                    on:click={toggleMenu}
-                    class="hamburger-btn"
-                    class:open={menuVisible}
-                >
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </nav>
+        <Navbar links={homeLinks} {activeSection} />
         <div
             class="hero-grid flex-1 flex items-center w-full max-w-7xl mx-auto px-[5%] py-12 gap-8"
         >
@@ -776,17 +692,29 @@
             </div>
             <div class="flex-1 min-w-0 md:border-l md:border-border md:pl-10">
                 {#if recentPosts.length}
-                    <div class="flex flex-col divide-y divide-border border-y border-border">
+                    <div
+                        class="flex flex-col divide-y divide-border border-y border-border"
+                    >
                         {#each recentPosts as post}
                             <a
                                 href="/blog/{post.slug}"
                                 class="group flex items-baseline gap-4 py-4 no-underline transition-colors duration-300 hover:bg-surface px-3 -mx-3 rounded-md"
                             >
                                 <span class="flex-1 min-w-0">
-                                    <span class="block text-text text-lg leading-snug group-hover:text-primary transition-colors duration-300 truncate">{post.title}</span>
-                                    <span class="block font-mono text-xs tracking-wide text-text-muted mt-1">{post.dateLabel} · {post.readTime} min read</span>
+                                    <span
+                                        class="block text-text text-lg leading-snug group-hover:text-primary transition-colors duration-300 truncate"
+                                        >{post.title}</span
+                                    >
+                                    <span
+                                        class="block font-mono text-xs tracking-wide text-text-muted mt-1"
+                                        >{post.dateLabel} · {post.readTime} min read</span
+                                    >
                                 </span>
-                                <span aria-hidden="true" class="text-primary shrink-0 transition-transform duration-300 group-hover:translate-x-1">→</span>
+                                <span
+                                    aria-hidden="true"
+                                    class="text-primary shrink-0 transition-transform duration-300 group-hover:translate-x-1"
+                                    >→</span
+                                >
                             </a>
                         {/each}
                     </div>
@@ -796,7 +724,9 @@
                         ><span aria-hidden="true">→</span> View all posts</a
                     >
                 {:else}
-                    <p class="text-text-muted">No posts yet — first writeup coming soon.</p>
+                    <p class="text-text-muted">
+                        No posts yet — first writeup coming soon.
+                    </p>
                 {/if}
             </div>
         </div>
@@ -863,39 +793,6 @@
 </main>
 
 <style>
-    /* ponytail: native hamburger, was svelte-hamburger dep */
-    .hamburger-btn {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 6px;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 8px;
-    }
-    .hamburger-btn span {
-        display: block;
-        width: 24px;
-        height: 2px;
-        background: #bfbdb6;
-        transition:
-            transform 0.3s ease,
-            opacity 0.3s ease,
-            background 0.3s ease;
-    }
-    .hamburger-btn.open span {
-        background: #ff8f40;
-    }
-    .hamburger-btn.open span:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
-    .hamburger-btn.open span:nth-child(2) {
-        opacity: 0;
-    }
-    .hamburger-btn.open span:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
     /* ponytail: 16px pill icons in original colors */
     .pill:has(img) {
         display: inline-flex;

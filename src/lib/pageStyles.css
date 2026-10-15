@@ -13,58 +13,8 @@
     contain-intrinsic-size: auto 800px;
 }
 
-/* Mobile responsive navigation */
+/* Mobile responsive home layout */
 @media screen and (max-width: 600px) {
-
-    .hamburger-wrapper {
-        display: block !important;
-        z-index: 200 !important;
-        position: relative;
-        margin-left: auto;
-    }
-
-    .nav-right {
-        position: fixed;
-        background: var(--color-surface);
-        border-left: 1px solid var(--color-border);
-        height: 100vh;
-        width: 250px;
-        top: 0;
-        right: -250px;
-        text-align: left;
-        z-index: 150 !important;
-        transition: right 0.3s ease;
-        transform: none;
-        padding: 20px;
-        backdrop-filter: blur(10px);
-    }
-
-    .nav-right ul {
-        margin-top: 60px;
-    }
-
-    .nav-right ul li {
-        display: block !important;
-    }
-
-    .nav-right ul li a {
-        font-size: 18px !important;
-        padding: 15px 0;
-        display: block;
-        color: var(--color-text) !important;
-        border-bottom: 1px solid var(--color-border);
-    }
-
-    .nav-right ul li a:hover {
-        color: var(--color-primary) !important;
-        padding-left: 10px;
-    }
-
-    .nav-right.visible {
-        right: 0;
-        transform: none;
-    }
-
     .hero-main h1 {
         font-size: 1.75rem !important;
     }
@@ -79,12 +29,6 @@
         width: auto;
     }
 
-    /* Ensure nav bar stays below hamburger menu but above text */
-    nav {
-        z-index: 15 !important;
-        /* ponytail: backdrop blur is costly on mobile GPUs */
-        backdrop-filter: none !important;
-    }
 }
 
 /* Additional responsive styles */
