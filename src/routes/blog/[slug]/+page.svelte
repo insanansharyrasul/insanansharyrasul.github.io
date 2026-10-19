@@ -4,6 +4,7 @@
 	import { AUTHOR } from "$lib/blog";
 	import Navbar from "$lib/Navbar.svelte";
 	import type { PageData } from "./$types";
+	import { ArrowLeft, ArrowRight, Calendar, Clock } from "@lucide/svelte";
 
 	export let data: PageData;
 	$: ({ post, newer, older } = data);
@@ -58,9 +59,9 @@
 		{/snippet}
 		<a
 			href="/blog"
-			class="text-text-muted no-underline text-sm hover:text-primary transition-colors"
+			class="text-text-muted no-underline text-sm hover:text-primary transition-colors inline-flex items-center gap-1.5"
 		>
-			← All posts
+			<ArrowLeft class="w-4 h-4" /> All posts
 		</a>
 
 		{#if post.cover}
@@ -87,9 +88,15 @@
 				>{AUTHOR.name}</a
 			>
 			<span class="opacity-40">|</span>
-			<span>{post.dateLabel}</span>
+			<span class="inline-flex items-center gap-1.5">
+				<Calendar class="w-3.5 h-3.5" />
+				{post.dateLabel}
+			</span>
 			<span class="opacity-40">|</span>
-			<span>{post.readTime} min read</span>
+			<span class="inline-flex items-center gap-1.5">
+				<Clock class="w-3.5 h-3.5" />
+				{post.readTime} min read
+			</span>
 		</div>
 
 		{#if post.tags.length}
@@ -122,13 +129,13 @@
 		<div class="flex flex-col md:flex-row gap-4 mt-12">
 			{#if older}
 				<a href="/blog/{older.slug}" class="nav-card">
-					<span class="nav-label">← Older post</span>
+					<span class="nav-label inline-flex items-center gap-1.5"><ArrowLeft class="w-3.5 h-3.5" /> Older post</span>
 					<span class="nav-title">{older.title}</span>
 				</a>
 			{/if}
 			{#if newer}
 				<a href="/blog/{newer.slug}" class="nav-card md:text-right md:ml-auto">
-					<span class="nav-label">Newer post →</span>
+					<span class="nav-label inline-flex items-center justify-end gap-1.5">Newer post <ArrowRight class="w-3.5 h-3.5" /></span>
 					<span class="nav-title">{newer.title}</span>
 				</a>
 			{/if}
@@ -601,6 +608,19 @@
 		margin-bottom: 0.4rem;
 	}
 
+	.blog-content :global(.callout-icon) {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+	}
+
+	.blog-content :global(.callout-icon-svg) {
+		width: 1.15rem;
+		height: 1.15rem;
+		stroke-width: 2.25;
+	}
+
 	.blog-content :global(.callout p) {
 		margin: 0;
 		font-size: 0.95rem;
@@ -636,5 +656,25 @@
 
 	.blog-content :global(.callout-warning .callout-header) {
 		color: var(--color-yellow);
+	}
+
+	.blog-content :global(.callout-tip) {
+		background-color: rgba(170, 217, 76, 0.08);
+		border-color: rgba(170, 217, 76, 0.25);
+		border-left-color: var(--color-green);
+	}
+
+	.blog-content :global(.callout-tip .callout-header) {
+		color: var(--color-green);
+	}
+
+	.blog-content :global(.callout-caution) {
+		background-color: rgba(217, 87, 87, 0.08);
+		border-color: rgba(217, 87, 87, 0.25);
+		border-left-color: var(--color-error);
+	}
+
+	.blog-content :global(.callout-caution .callout-header) {
+		color: var(--color-error);
 	}
 </style>

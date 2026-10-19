@@ -39,19 +39,24 @@ Untuk menyelesaikan persoalan tersebut, proyek open-source **IPB Auto Logbook** 
 
   <div class="installer-platforms">
     <a href="https://github.com/insanansharyrasul/ipb_auto_logbook/releases/download/v2.1.0/IPB-Auto-Logbook-Chrome-Extension.zip" class="installer-pill" target="_blank" rel="noopener noreferrer">
-      <span>📦</span> Chrome Extension (.zip)
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
+      Chrome Extension (.zip)
     </a>
     <a href="https://github.com/insanansharyrasul/ipb_auto_logbook/releases/download/v2.1.0/IPB-Auto-Logbook-Windows.zip" class="installer-pill" target="_blank" rel="noopener noreferrer">
-      <span>🪟</span> Windows Standalone (.zip)
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
+      Windows Standalone (.zip)
     </a>
     <a href="https://github.com/insanansharyrasul/ipb_auto_logbook/releases/download/v2.1.0/IPB-Auto-Logbook-macOS.zip" class="installer-pill" target="_blank" rel="noopener noreferrer">
-      <span>🍎</span> macOS Standalone (.zip)
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-2 .6-2.65 1.35-.58.67-1.09 1.74-.95 2.77 1.01.08 2.06-.52 2.68-1.27z"/></svg>
+      macOS Standalone (.zip)
     </a>
     <a href="https://github.com/insanansharyrasul/ipb_auto_logbook/releases/download/v2.1.0/IPB-Auto-Logbook-Linux.tar.gz" class="installer-pill" target="_blank" rel="noopener noreferrer">
-      <span>🐧</span> Linux Standalone (.tar.gz)
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+      Linux Standalone (.tar.gz)
     </a>
     <a href="https://github.com/insanansharyrasul/ipb_auto_logbook" class="installer-pill" target="_blank" rel="noopener noreferrer">
-      <span>⭐</span> GitHub Repository
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      GitHub Repository
     </a>
   </div>
 </div>
@@ -139,7 +144,7 @@ Metode Chrome Extension adalah opsi yang paling direkomendasikan karena Anda tid
 
 1. Masuk ke Portal Mahasiswa IPB (`https://studentportal.ipb.ac.id/`).
 2. Masuk ke menu kegiatan: **Aktivitas Kampus Merdeka** di tautan `https://studentportal.ipb.ac.id/Kegiatan/AktivitasKampusMerdeka`.
-3. Perhatikan pojok kanan atas halaman portal. Anda akan melihat sebuah tombol mengambang berupa ikon dokumen (📄). Klik ikon tersebut untuk menampilkan panel kontrol otomatisasi. Jika ikon belum muncul, muat ulang (refresh) halaman tab Anda.
+3. Perhatikan pojok kanan atas halaman portal. Anda akan melihat sebuah tombol mengambang (*floating action button*) ekstensi. Klik ikon tombol tersebut untuk menampilkan panel kontrol otomatisasi. Jika belum muncul, muat ulang (refresh) halaman tab Anda.
 4. Masukkan parameter konfigurasi kegiatan:
    - **Dosen**: Masukkan nama lengkap dosen penggerak persis seperti yang tertulis pada opsi dropdown portal.
    - **Row Number (Baris)**: Nomor ID kegiatan yang ada di kolom paling kiri (`No`) tabel utama kegiatan.

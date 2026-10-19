@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { AUTHOR, type Post } from '$lib/blog';
+	import { Calendar, Clock } from '@lucide/svelte';
 
 	export let post: Post;
 </script>
@@ -15,9 +16,15 @@
 			<img src={AUTHOR.avatar} alt={AUTHOR.name} class="blog-avatar" />
 			<span class="blog-author">{AUTHOR.name}</span>
 			<span class="blog-sep"></span>
-			<span>{post.dateLabel}</span>
+			<span class="inline-flex items-center gap-1.5">
+				<Calendar class="w-3.5 h-3.5 text-text-muted" />
+				{post.dateLabel}
+			</span>
 			<span class="blog-sep"></span>
-			<span>{post.readTime} min read</span>
+			<span class="inline-flex items-center gap-1.5">
+				<Clock class="w-3.5 h-3.5 text-text-muted" />
+				{post.readTime} min read
+			</span>
 		</div>
 		<div class="blog-tags">
 			{#each post.tags as tag}
