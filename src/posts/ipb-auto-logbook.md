@@ -3,7 +3,7 @@ title: Panduan Lengkap IPB Auto Logbook: Otomatisasi Pengisian Logbook Portal IP
 excerpt: Cara praktis mengisi puluhan entri logbook aktivitas IPB secara otomatis via Chrome Extension, Desktop GUI, dan CLI menggunakan data CSV.
 date: 2026-10-19
 tags: [automation, python, playwright, tools]
-cover: /images/ipb-auto-logbook-cover.svg
+cover: /blog/ipb-auto-logbook/ipb-auto-logbook-cover.svg
 ---
 
 Bagi mahasiswa IPB yang sedang menjalani program MBKM, magang industri, capstone project, maupun kegiatan terstruktur lainnya, pengisian logbook harian di Portal Mahasiswa IPB (`studentportal.ipb.ac.id`) merupakan salah satu kewajiban rutin. Namun ketika aktivitas sudah berjalan berminggu-minggu atau berbulan-bulan, mengisi logbook secara manual satu per satu lewat formulir web portal sering kali menyita banyak waktu dan tenaga.
