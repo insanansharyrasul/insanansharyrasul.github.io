@@ -336,6 +336,26 @@
 		margin: 1.5em 0;
 	}
 
+	.blog-content :global(figure) {
+		margin: 2em 0;
+		width: 100%;
+		display: block;
+	}
+
+	.blog-content :global(figure img) {
+		margin: 0 auto;
+		display: block;
+		width: 100%;
+	}
+
+	.blog-content :global(figcaption) {
+		margin-top: 0.65rem;
+		font-size: 0.85rem;
+		color: var(--color-text-muted);
+		text-align: center;
+		line-height: 1.5;
+	}
+
 	.blog-content :global(blockquote) {
 		border-left: 3px solid var(--color-primary);
 		margin: 1.5em 0;
@@ -474,13 +494,11 @@
 		border-radius: var(--radius-md);
 		text-decoration: none !important;
 		transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
-		box-shadow: 0 4px 14px rgba(255, 143, 64, 0.25);
 	}
 
 	.blog-content :global(.installer-btn:hover) {
 		transform: translateY(-2px);
 		filter: brightness(1.1);
-		box-shadow: 0 6px 20px rgba(255, 143, 64, 0.35);
 	}
 
 	.blog-content :global(.installer-platforms) {

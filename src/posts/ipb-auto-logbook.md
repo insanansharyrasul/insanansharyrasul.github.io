@@ -18,7 +18,7 @@ Untuk menyelesaikan persoalan tersebut, proyek open-source **IPB Auto Logbook** 
     <div>
       <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
         <span class="media-badge media-badge-image">RELEASE TERBARU</span>
-        <span style="font-family: 'Fira Code', monospace; color: var(--color-yellow); font-size: 0.85rem; font-weight: 600;">v2.1.0</span>
+        <span style="font-family: 'Fira Code', monospace; color: var(--color-yellow); font-size: 0.85rem; font-weight: 600;" class="media-badge">v2.1.0</span>
       </div>
       <h3 style="margin: 0 0 4px 0; font-size: 1.25rem; color: var(--color-text);">Unduh IPB Auto Logbook</h3>
       <p style="margin: 0; font-size: 0.9rem; color: var(--color-text-muted);">
@@ -71,13 +71,10 @@ IPB Auto Logbook menyediakan beberapa keunggulan teknis yang memudahkan pengisia
 4. **Parsing CSV Fleksibel**: Menggunakan pustaka *PapaParse* yang toleran terhadap spasi berlebih, baris kosong, maupun tanda petik.
 5. **Penyimpanan Berkas Lampiran**: Memanfaatkan *IndexedDB* pada browser agar berkas bukti tetap tersimpan rapi selama antrean pengisian berjalan.
 
-<!-- PLACEHOLDER 1: OVERVIEW SCREENSHOT -->
-<div class="media-placeholder">
-  <span class="media-badge media-badge-image">SCREENSHOT PLACEHOLDER</span>
-  <h4 class="media-title">Preview Tampilan Aplikasi di Portal IPB</h4>
-  <p class="media-desc">Tampilkan tangkapan layar keseluruhan antarmuka saat Chrome Extension atau Desktop GUI aktif berdampingan dengan Portal Mahasiswa IPB.</p>
-  <span class="media-hint">Rekomendasi file: static/blog/ipb-auto-logbook-overview.png (1280x720)</span>
-</div>
+<figure>
+  <img src="/blog/ipb-auto-logbook/app-showcase.webp" alt="Preview Tampilan Aplikasi di Portal IPB" class="rounded-lg border border-border w-full" />
+  <figcaption>Preview Tampilan Aplikasi di Portal IPB</figcaption>
+</figure>
 
 ## Persiapan Berkas Data CSV
 
@@ -87,16 +84,16 @@ Sebelum menjalankan otomatisasi, siapkan satu berkas spreadsheet dan simpan deng
 
 Berkas CSV harus memiliki **8 nama kolom** (ditulis dengan huruf kecil):
 
-| Nama Kolom | Keterangan | Contoh Nilai |
-| :--- | :--- | :--- |
-| `tanggal` | Tanggal kegiatan (format `DD/MM/YYYY`) | `04/02/2026` |
-| `mulai` | Waktu mulai kegiatan (format `HH:MM`) | `15:00` |
-| `selesai` | Waktu selesai kegiatan (format `HH:MM`) | `16:00` |
-| `keterangan` | Uraian atau topik aktivitas harian | `Diskusi project dan pembagian jobdesk` |
-| `file` | Lokasi path relatif file bukti kegiatan | `files/bukti_04_02_2026.png` |
-| `tipe` | Jenis kegiatan (`offline`, `online`, atau `hybrid`) | `offline` |
-| `lokasi` | Lokasi spesifik tempat kegiatan berlangsung | `SC IPB Kampus Dramaga` |
-| `berita` | Kategori aktivitas (`kegiatan`, `ujian`, `bimbingan`) | `kegiatan` |
+| Nama Kolom   | Keterangan                                            | Contoh Nilai                            |
+| :----------- | :---------------------------------------------------- | :-------------------------------------- |
+| `tanggal`    | Tanggal kegiatan (format `DD/MM/YYYY`)                | `04/02/2026`                            |
+| `mulai`      | Waktu mulai kegiatan (format `HH:MM`)                 | `15:00`                                 |
+| `selesai`    | Waktu selesai kegiatan (format `HH:MM`)               | `16:00`                                 |
+| `keterangan` | Uraian atau topik aktivitas harian                    | `Diskusi project dan pembagian jobdesk` |
+| `file`       | Lokasi path relatif file bukti kegiatan               | `files/bukti_04_02_2026.png`            |
+| `tipe`       | Jenis kegiatan (`offline`, `online`, atau `hybrid`)   | `offline`                               |
+| `lokasi`     | Lokasi spesifik tempat kegiatan berlangsung           | `SC IPB Kampus Dramaga`                 |
+| `berita`     | Kategori aktivitas (`kegiatan`, `ujian`, `bimbingan`) | `kegiatan`                              |
 
 Format berkas bukti yang didukung meliputi `.png`, `.jpeg`, `.jpg`, dan `.pdf`.
 
@@ -111,13 +108,10 @@ tanggal,mulai,selesai,keterangan,file,tipe,lokasi,berita
 06/02/2026,13:30,15:00,Bimbingan progres mingguan bersama dosen penggerak,files/bimbingan_06_02.pdf,offline,Ruang Dosen,bimbingan
 ```
 
-<!-- PLACEHOLDER 2: CSV SPREADSHEET SCREENSHOT -->
-<div class="media-placeholder">
-  <span class="media-badge media-badge-image">SCREENSHOT PLACEHOLDER</span>
-  <h4 class="media-title">Tampilan Format data.csv di Microsoft Excel / Google Sheets</h4>
-  <p class="media-desc">Tampilkan screenshot tabel CSV dengan 8 kolom yang terisi rapi untuk memperjelas format tanggal, jam, dan path file bukti.</p>
-  <span class="media-hint">Rekomendasi file: static/blog/csv-format-preview.png (1000x500)</span>
-</div>
+<figure>
+  <img src="/blog/ipb-auto-logbook/csv-example.webp" alt="Preview Format data.csv di Spreadsheet" class="rounded-lg border border-border w-full" />
+  <figcaption>Preview Tampilan Format data.csv di Microsoft Excel / Google Sheets</figcaption>
+</figure>
 
 ## Cara Menggunakan Opsi 1: Chrome Extension
 
@@ -132,13 +126,10 @@ Metode Chrome Extension adalah opsi yang paling direkomendasikan karena Anda tid
 5. Klik tombol **Load unpacked** (Muat yang belum dibongkar) di pojok kiri atas.
 6. Arahkan dan pilih folder hasil ekstrak ekstensi tadi.
 
-<!-- PLACEHOLDER 3: CHROME EXTENSION INSTALLATION SCREENSHOT -->
-<div class="media-placeholder">
-  <span class="media-badge media-badge-image">SCREENSHOT PLACEHOLDER</span>
-  <h4 class="media-title">Langkah Load Unpacked di chrome://extensions/</h4>
-  <p class="media-desc">Tangkapan layar halaman ekstensi Chrome dengan Developer Mode aktif dan folder ekstensi yang berhasil dimuat.</p>
-  <span class="media-hint">Rekomendasi file: static/blog/chrome-load-unpacked.png (900x500)</span>
-</div>
+<figure>
+  <img src="/blog/ipb-auto-logbook/chrome-extension-demo.gif" alt="Demo Chrome Extension IPB Auto Logbook" class="rounded-lg border border-border w-full" />
+  <figcaption>Demo Penggunaan Chrome Extension IPB Auto Logbook</figcaption>
+</figure>
 
 ### Menjalankan Otomatisasi di Portal
 
@@ -152,14 +143,6 @@ Metode Chrome Extension adalah opsi yang paling direkomendasikan karena Anda tid
 5. Unggah berkas `data.csv` yang telah disiapkan.
 6. Pilih berkas-berkas foto/dokumen bukti pendukung sesuai dengan nama yang tercantum di kolom `file` pada CSV.
 7. Klik tombol **Mulai Pengisian**. Ekstensi akan secara otomatis membuka jendela modal form, mengisi setiap kolom secara berurutan, melampirkan berkas bukti, dan menekan tombol simpan hingga semua baris selesai diproses.
-
-<!-- PLACEHOLDER 4: GIF DEMO CHROME EXTENSION IN ACTION -->
-<div class="media-placeholder">
-  <span class="media-badge media-badge-gif">GIF DEMO PLACEHOLDER</span>
-  <h4 class="media-title">Animasi GIF: Proses Otomatisasi Berjalan di Browser</h4>
-  <p class="media-desc">Rekaman animasi singkat (GIF 10 sampai 15 detik) yang memperlihatkan floating panel aktif dan form modal logbook terisi otomatis secara real-time.</p>
-  <span class="media-hint">Rekomendasi file: static/blog/chrome-extension-demo.gif (800x450, &lt; 5MB)</span>
-</div>
 
 ## Cara Menggunakan Opsi 2: Desktop GUI (PyQt6)
 
@@ -184,13 +167,10 @@ Aplikasi Desktop terbagi dalam 4 tab navigasi utama:
 3. **Tab Run**: Tempat untuk menekan tombol mulai/berhenti proses otomatisasi, dilengkapi dengan indikator *progress bar* dan rekaman log aktivitas real-time.
 4. **Tab About**: Berisi informasi versi aplikasi, lisensi, serta pengembang proyek.
 
-<!-- PLACEHOLDER 5: SCREENSHOT DESKTOP GUI -->
-<div class="media-placeholder">
-  <span class="media-badge media-badge-image">SCREENSHOT PLACEHOLDER</span>
-  <h4 class="media-title">Tampilan Antarmuka Desktop GUI (Tab Config & Data Logbook)</h4>
-  <p class="media-desc">Tangkapan layar jendela aplikasi desktop PyQt6 yang menampilkan form konfigurasi dan pratinjau tabel entri data logbook.</p>
-  <span class="media-hint">Rekomendasi file: static/blog/desktop-gui-preview.png (1000x600)</span>
-</div>
+<figure>
+  <img src="/blog/ipb-auto-logbook/desktop-gui.webp" alt="Preview Tampilan Desktop GUI IPB Auto Logbook" class="rounded-lg border border-border w-full" />
+  <figcaption>Preview Tampilan Desktop GUI IPB Auto Logbook</figcaption>
+</figure>
 
 ## Cara Menggunakan Opsi 3: Terminal CLI
 
@@ -217,11 +197,11 @@ Driver browser Chromium akan terbuka secara otomatis di latar belakang untuk mel
 
 Agar otomatisasi dapat menemukan baris kegiatan yang tepat pada tabel portal, perhatikan panduan penulisan nilai berikut:
 
-| Parameter | Cara Menemukannya di Portal Mahasiswa | Contoh Input yang Tepat |
-| :--- | :--- | :--- |
-| **Dosen** | Masuk ke detail Kegiatan $\rightarrow$ Log $\rightarrow$ Tambah. Salin nama lengkap dosen dari opsi dropdown. | `Jeffrey Einstein, S.Komp., Ph.D.` |
-| **Row Number (Baris)** | Angka pada kolom paling kiri (`No`) di tabel utama aktivitas. Gunakan angka ID baris, bukan urutan yang dihitung manual. | `1` |
-| **Semester** | Teks pada kolom `Tahun Semester` di tabel utama aktivitas. Harus ditulis sama persis. | `2026/2027 Semester Genap` |
+| Parameter              | Cara Menemukannya di Portal Mahasiswa                                                                                    | Contoh Input yang Tepat            |
+| :--------------------- | :----------------------------------------------------------------------------------------------------------------------- | :--------------------------------- |
+| **Dosen**              | Masuk ke detail Kegiatan $\rightarrow$ Log $\rightarrow$ Tambah. Salin nama lengkap dosen dari opsi dropdown.            | `Jeffrey Einstein, S.Komp., Ph.D.` |
+| **Row Number (Baris)** | Angka pada kolom paling kiri (`No`) di tabel utama aktivitas. Gunakan angka ID baris, bukan urutan yang dihitung manual. | `1`                                |
+| **Semester**           | Teks pada kolom `Tahun Semester` di tabel utama aktivitas. Harus ditulis sama persis.                                    | `2026/2027 Semester Genap`         |
 
 > [!IMPORTANT]
 > Mesin otomatisasi menggabungkan nilai `Row Number` dan `Semester` (dengan format `<Row Number> <Semester>`) untuk mengidentifikasi dan mengklik tombol detail pada baris kegiatan yang benar di portal.
@@ -245,47 +225,5 @@ Ketika menggunakan alat otomatisasi web, privasi dan keamanan akun adalah priori
 - **Eksekusi Sepenuhnya di Sisi Klien**: Seluruh proses otomasi berjalan langsung di komputer Anda. Tidak ada data akun, sandi, maupun berkas logbook yang dikirimkan ke server pihak ketiga.
 - **Isolasi Shadow DOM**: Komponen antarmuka pada Chrome Extension diisolasi di dalam *Shadow DOM* agar tidak terjadi kebocoran gaya (style conflict) maupun bentrokan skrip dengan sistem portal IPB.
 - **Lisensi Terbuka**: Kode sumber proyek ini didistribusikan di bawah lisensi terbuka [GNU General Public License v3.0 (GPL-3.0)](https://github.com/insanansharyrasul/ipb_auto_logbook/blob/main/LICENSE), sehingga transparan dan dapat dipelajari oleh siapa saja.
-
-## Petunjuk untuk Pemilik Blog: Cara Memasang Media Sebenarnya
-
-Ketika Anda sudah merekam video, membuat GIF, atau mengambil tangkapan layar untuk blog ini, ganti elemen `<div class="media-placeholder">...</div>` di atas dengan tag media HTML berikut:
-
-### 1. Memasang Gambar / Screenshot / GIF
-
-Simpan gambar atau GIF Anda ke dalam folder `static/blog/` (misal: `static/blog/chrome-extension-demo.gif`), lalu ganti placeholder dengan format markdown standar atau tag img:
-
-```html
-<img src="/blog/chrome-extension-demo.gif" alt="Demo Chrome Extension IPB Auto Logbook" class="rounded-lg border border-border w-full my-6" />
-```
-
-### 2. Memasang Berkas Video MP4
-
-Jika Anda ingin menampilkan video MP4 langsung:
-
-```html
-<video controls class="w-full rounded-lg border border-border my-6">
-  <source src="/blog/tutorial-walkthrough.mp4" type="video/mp4" />
-  Browser Anda tidak mendukung pemutaran video HTML5.
-</video>
-```
-
-### 3. Memasang Video dari YouTube
-
-Jika video diunggah ke YouTube, Anda bisa menyematkannya menggunakan iframe responsif:
-
-```html
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; margin: 1.5em 0; border: 1px solid var(--color-border);">
-  <iframe 
-    src="https://www.youtube.com/embed/YOUR_VIDEO_ID" 
-    title="Tutorial IPB Auto Logbook" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen 
-    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-  ></iframe>
-</div>
-```
-
----
 
 Jika Anda menemukan kendala saat menjalankan aplikasi atau memiliki saran perbaikan fitur, silakan buat laporan masalah (*issue*) atau ajukan kontribusi langsung di repositori resmi [GitHub ipb_auto_logbook](https://github.com/insanansharyrasul/ipb_auto_logbook).
