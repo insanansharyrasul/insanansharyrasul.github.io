@@ -396,4 +396,140 @@
 		color: var(--color-primary);
 		border-color: var(--color-primary);
 	}
+
+	/* Installer CTA box & button */
+	.blog-content :global(.installer-box) {
+		background-color: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		padding: 1.5rem;
+		margin: 2rem 0;
+	}
+
+	.blog-content :global(.installer-btn) {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.6rem;
+		padding: 0.8rem 1.6rem;
+		background-color: var(--color-primary);
+		color: #0d1017 !important;
+		font-weight: 700;
+		font-size: 1rem;
+		border-radius: var(--radius-md);
+		text-decoration: none !important;
+		transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+		box-shadow: 0 4px 14px rgba(255, 143, 64, 0.25);
+	}
+
+	.blog-content :global(.installer-btn:hover) {
+		transform: translateY(-2px);
+		filter: brightness(1.1);
+		box-shadow: 0 6px 20px rgba(255, 143, 64, 0.35);
+	}
+
+	.blog-content :global(.installer-platforms) {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin-top: 1rem;
+	}
+
+	.blog-content :global(.installer-pill) {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		font-size: 0.8rem;
+		padding: 4px 12px;
+		border-radius: 9999px;
+		border: 1px solid var(--color-border);
+		background-color: rgba(255, 255, 255, 0.03);
+		color: var(--color-text-muted) !important;
+		text-decoration: none !important;
+		transition: all 0.2s ease;
+	}
+
+	.blog-content :global(.installer-pill:hover) {
+		border-color: var(--color-primary);
+		color: var(--color-primary) !important;
+		background-color: rgba(255, 143, 64, 0.05);
+	}
+
+	/* Visual media placeholders (Video / GIF / Screenshot) */
+	.blog-content :global(.media-placeholder) {
+		border: 2px dashed var(--color-border);
+		background-color: rgba(20, 24, 33, 0.6);
+		border-radius: var(--radius-lg);
+		padding: 2rem 1.5rem;
+		margin: 2rem 0;
+		text-align: center;
+		transition: border-color 0.2s ease, background-color 0.2s ease;
+	}
+
+	.blog-content :global(.media-placeholder:hover) {
+		border-color: var(--color-primary);
+		background-color: rgba(20, 24, 33, 0.85);
+	}
+
+	.blog-content :global(.media-badge) {
+		display: inline-block;
+		font-family: "Fira Code", monospace;
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		padding: 3px 10px;
+		border-radius: var(--radius-sm);
+		margin-bottom: 0.75rem;
+	}
+
+	.blog-content :global(.media-badge-video) {
+		background-color: rgba(89, 194, 255, 0.15);
+		color: var(--color-blue);
+		border: 1px solid rgba(89, 194, 255, 0.3);
+	}
+
+	.blog-content :global(.media-badge-gif) {
+		background-color: rgba(210, 166, 255, 0.15);
+		color: var(--color-purple);
+		border: 1px solid rgba(210, 166, 255, 0.3);
+	}
+
+	.blog-content :global(.media-badge-image) {
+		background-color: rgba(170, 217, 76, 0.15);
+		color: var(--color-green);
+		border: 1px solid rgba(170, 217, 76, 0.3);
+	}
+
+	.blog-content :global(.media-title) {
+		font-weight: 600;
+		color: var(--color-text);
+		font-size: 1.05rem;
+		margin: 0 0 0.5rem 0;
+	}
+
+	.blog-content :global(.media-desc) {
+		font-size: 0.88rem;
+		color: var(--color-text-muted);
+		margin: 0 0 0.75rem 0;
+		line-height: 1.5;
+	}
+
+	.blog-content :global(.media-hint) {
+		display: inline-block;
+		font-family: "Fira Code", monospace;
+		font-size: 0.75rem;
+		color: var(--color-yellow);
+		background-color: rgba(255, 180, 84, 0.1);
+		padding: 4px 10px;
+		border-radius: var(--radius-sm);
+		border: 1px solid rgba(255, 180, 84, 0.2);
+	}
+
+	.blog-content :global(video) {
+		max-width: 100%;
+		border-radius: var(--radius-lg);
+		border: 1px solid var(--color-border);
+		margin: 1.5em 0;
+		background: #000;
+	}
 </style>
