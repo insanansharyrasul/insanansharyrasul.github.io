@@ -21,6 +21,7 @@
     href={githubUrl}
     target="_blank"
     rel="noopener noreferrer"
+    aria-label="View {title} on GitHub"
     class="project-card"
 >
     {#if index || label}
@@ -37,6 +38,8 @@
             <img
                 src="icons/icons8-github.svg"
                 alt=""
+                width="24"
+                height="24"
                 class="w-6 h-6 filter invert sepia saturate-[5] hue-rotate-[25deg]"
             />
         </span>

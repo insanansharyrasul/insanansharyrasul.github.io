@@ -8,14 +8,14 @@
 <a href="/blog/{post.slug}" class="blog-card">
 	{#if post.cover}
 		<div class="blog-cover-wrap">
-			<img src={post.cover} alt={post.title} class="blog-cover" loading="lazy" />
+			<img src={post.cover} alt={post.title} width="1200" height="675" class="blog-cover" loading="lazy" />
 		</div>
 	{/if}
 	<div class="blog-body">
 		<h2 class="blog-title">{post.title}</h2>
 		<p class="blog-excerpt">{post.excerpt}</p>
 		<div class="blog-meta">
-			<img src={AUTHOR.avatar} alt={AUTHOR.name} class="blog-avatar" />
+			<img src={AUTHOR.avatar} alt={AUTHOR.name} width="24" height="24" class="blog-avatar" />
 			<span class="blog-author">{AUTHOR.name}</span>
 			<span class="blog-sep"></span>
 			<span class="inline-flex items-center gap-1.5">

@@ -93,6 +93,8 @@
 			<img
 				src={post.cover}
 				alt={post.title}
+				width="1200"
+				height="630"
 				class="w-full max-h-[420px] object-cover rounded-lg mt-6 border border-border"
 			/>
 		{/if}
@@ -105,6 +107,8 @@
 			<img
 				src={AUTHOR.avatar}
 				alt={AUTHOR.name}
+				width="28"
+				height="28"
 				class="w-7 h-7 rounded-full object-cover"
 			/>
 			<a

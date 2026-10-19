@@ -72,7 +72,7 @@ IPB Auto Logbook menyediakan beberapa keunggulan teknis yang memudahkan pengisia
 5. **Penyimpanan Berkas Lampiran**: Memanfaatkan *IndexedDB* pada browser agar berkas bukti tetap tersimpan rapi selama antrean pengisian berjalan.
 
 <figure>
-  <img src="/blog/ipb-auto-logbook/app-showcase.webp" alt="Preview Tampilan Aplikasi Desktop dan Chrome Extension di Portal IPB" class="rounded-lg border border-border w-full" />
+  <img src="/blog/ipb-auto-logbook/app-showcase.webp" alt="Preview Tampilan Aplikasi Desktop dan Chrome Extension di Portal IPB" width="2880" height="1800" class="rounded-lg border border-border w-full" />
   <figcaption>Preview Tampilan Aplikasi di Portal IPB</figcaption>
 </figure>
 
@@ -109,7 +109,7 @@ tanggal,mulai,selesai,keterangan,file,tipe,lokasi,berita
 ```
 
 <figure>
-  <img src="/blog/ipb-auto-logbook/csv-example.webp" alt="Preview Format data.csv di Spreadsheet" class="rounded-lg border border-border w-full" />
+  <img src="/blog/ipb-auto-logbook/csv-example.webp" alt="Preview Format data.csv di Spreadsheet" width="2000" height="1000" class="rounded-lg border border-border w-full" />
   <figcaption>Preview Tampilan Format data.csv di Microsoft Excel / Google Sheets</figcaption>
 </figure>
 
@@ -127,7 +127,7 @@ Metode Chrome Extension adalah opsi yang paling direkomendasikan karena Anda tid
 6. Arahkan dan pilih folder hasil ekstrak ekstensi tadi.
 
 <figure>
-  <img src="/blog/ipb-auto-logbook/chrome-extension-demo.gif" alt="Demo Chrome Extension IPB Auto Logbook" class="rounded-lg border border-border w-full" />
+  <img src="/blog/ipb-auto-logbook/chrome-extension-demo.gif" alt="Demo Chrome Extension IPB Auto Logbook" width="960" height="600" class="rounded-lg border border-border w-full" />
   <figcaption>Demo Penggunaan Chrome Extension IPB Auto Logbook</figcaption>
 </figure>
 
@@ -168,7 +168,7 @@ Aplikasi Desktop terbagi dalam 4 tab navigasi utama:
 4. **Tab About**: Berisi informasi versi aplikasi, lisensi, serta pengembang proyek.
 
 <figure>
-  <img src="/blog/ipb-auto-logbook/desktop-gui.webp" alt="Preview Tampilan Desktop GUI IPB Auto Logbook" class="rounded-lg border border-border w-full" />
+  <img src="/blog/ipb-auto-logbook/desktop-gui.webp" alt="Preview Tampilan Desktop GUI IPB Auto Logbook" width="2880" height="1800" class="rounded-lg border border-border w-full" />
   <figcaption>Preview Tampilan Desktop GUI IPB Auto Logbook</figcaption>
 </figure>
 

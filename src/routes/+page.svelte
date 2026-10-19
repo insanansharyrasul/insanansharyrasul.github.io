@@ -51,15 +51,10 @@
                     }
                 });
             },
-            { threshold: 0.3 },
+            { threshold: 0.2 },
         );
 
-        const onScroll = () => {
-            if (window.scrollY < window.innerHeight / 2)
-                activeSection = "header";
-        };
-        window.addEventListener("scroll", onScroll, { passive: true });
-        ["about", "skills-section", "projects-section", "blog-section"].forEach(
+        ["header", "about", "skills-section", "projects-section", "blog-section"].forEach(
             (id) => {
                 const el = document.getElementById(id);
                 if (el) obs.observe(el);
@@ -67,7 +62,6 @@
         );
         return () => {
             obs.disconnect();
-            window.removeEventListener("scroll", onScroll);
         };
     });
 </script>
@@ -199,11 +193,11 @@
                 <p class="section-label">
                     <span class="text-primary">02</span> / ABOUT ME
                 </p>
-                <h1
+                <h2
                     class="font-monda font-bold text-5xl leading-[1.05] mt-6 text-text"
                 >
                     How I<br /><span class="text-primary">think.</span>
-                </h1>
+                </h2>
                 <div class="w-10 h-px bg-primary mt-6"></div>
                 <p
                     class="font-mono text-sm text-text-muted leading-relaxed mt-4"
@@ -217,6 +211,7 @@
                     </p>
                     <a
                         href="#skills-section"
+                        aria-label="Explore skills section"
                         class="font-mono text-xs tracking-[0.2em] text-text-muted hover:text-primary transition-colors duration-300 mt-2 inline-block"
                         >EXPLORE →</a
                     >
@@ -239,11 +234,11 @@
                     <aside
                         class="lg:w-48 shrink-0 lg:border-l lg:border-border lg:pl-8"
                     >
-                        <h2
+                        <h3
                             class="font-mono text-xs tracking-[0.2em] text-text-muted mb-3"
                         >
                             CURRENTLY EXPLORING
-                        </h2>
+                        </h3>
                         <ul
                             class="space-y-1.5 font-mono text-sm text-text-muted"
                         >
@@ -285,11 +280,11 @@
                 <p class="section-label">
                     <span class="text-primary">03</span> / SKILLS
                 </p>
-                <h1
+                <h2
                     class="font-monda font-bold text-5xl leading-[1.05] mt-6 text-text"
                 >
                     What I<br /><span class="text-primary">use.</span>
-                </h1>
+                </h2>
                 <div class="w-10 h-px bg-primary mt-6"></div>
                 <p class="text-text-muted text-sm leading-relaxed mt-4">
                     Languages, frameworks, and tools I reach for when building
@@ -301,6 +296,7 @@
                     </p>
                     <a
                         href="#projects-section"
+                        aria-label="Explore projects section"
                         class="font-mono text-xs tracking-[0.2em] text-text-muted hover:text-primary transition-colors duration-300 mt-2 inline-block"
                         >EXPLORE →</a
                     >
@@ -352,24 +348,32 @@
                                 ><img
                                     src="icons/c-original.svg"
                                     alt=""
+                                    width="16"
+                                    height="16"
                                 />C</span
                             >
                             <span class="pill"
                                 ><img
                                     src="icons/cplusplus-original.svg"
                                     alt=""
+                                    width="16"
+                                    height="16"
                                 />C++</span
                             >
                             <span class="pill"
                                 ><img
                                     src="icons/rust-original.svg"
                                     alt=""
+                                    width="16"
+                                    height="16"
                                 />Rust</span
                             >
                             <span class="pill"
                                 ><img
                                     src="icons/linux-original.svg"
                                     alt=""
+                                    width="16"
+                                    height="16"
                                 />Linux</span
                             >
                             <span class="pill">Shell</span>
@@ -379,6 +383,7 @@
                         >
                             <a
                                 href="#projects-section"
+                                aria-label="View systems development projects"
                                 class="inline-flex items-center gap-2 text-primary text-sm hover:translate-x-1 transition-transform duration-300"
                                 ><span aria-hidden="true">→</span> View related projects</a
                             >
@@ -438,12 +443,16 @@
                                 ><img
                                     src="icons/flutter-original.svg"
                                     alt=""
+                                    width="16"
+                                    height="16"
                                 />Flutter</span
                             >
                             <span class="pill"
                                 ><img
                                     src="icons/bloc-original.svg"
                                     alt=""
+                                    width="16"
+                                    height="16"
                                 />Bloc</span
                             >
                             <span class="pill">Kotlin</span>
@@ -454,6 +463,7 @@
                         >
                             <a
                                 href="#projects-section"
+                                aria-label="View mobile development projects"
                                 class="inline-flex items-center gap-2 text-primary text-sm hover:translate-x-1 transition-transform duration-300"
                                 ><span aria-hidden="true">→</span> View related projects</a
                             >
@@ -504,30 +514,40 @@
                                 ><img
                                     src="icons/python-original.svg"
                                     alt=""
+                                    width="16"
+                                    height="16"
                                 />Python</span
                             >
                             <span class="pill"
                                 ><img
                                     src="icons/javascript-original.svg"
                                     alt=""
+                                    width="16"
+                                    height="16"
                                 />JavaScript</span
                             >
                             <span class="pill"
                                 ><img
                                     src="icons/playwright-original.svg"
                                     alt=""
+                                    width="16"
+                                    height="16"
                                 />Playwright</span
                             >
                             <span class="pill"
                                 ><img
                                     src="icons/git-original.svg"
                                     alt=""
+                                    width="16"
+                                    height="16"
                                 />Git</span
                             >
                             <span class="pill"
                                 ><img
                                     src="icons/github-original.svg"
                                     alt=""
+                                    width="16"
+                                    height="16"
                                 />GitHub</span
                             >
                         </div>
@@ -536,6 +556,7 @@
                         >
                             <a
                                 href="#projects-section"
+                                aria-label="View automation tooling projects"
                                 class="inline-flex items-center gap-2 text-primary text-sm hover:translate-x-1 transition-transform duration-300"
                                 ><span aria-hidden="true">→</span> View related projects</a
                             >
@@ -555,24 +576,32 @@
                         ><img
                             src="icons/ubuntu-original.svg"
                             alt=""
+                            width="16"
+                            height="16"
                         />Ubuntu</span
                     >
                     <span class="pill"
                         ><img
                             src="icons/neovim-original.svg"
                             alt=""
+                            width="16"
+                            height="16"
                         />Neovim</span
                     >
                     <span class="pill"
                         ><img
                             src="icons/vscode-original.svg"
                             alt=""
+                            width="16"
+                            height="16"
                         />VSCode</span
                     >
                     <span class="pill"
                         ><img
                             src="icons/androidstudio-original.svg"
                             alt=""
+                            width="16"
+                            height="16"
                         />Android Studio</span
                     >
                 </div>
@@ -592,11 +621,11 @@
                 <p class="section-label">
                     <span class="text-primary">04</span> / PROJECTS
                 </p>
-                <h1
+                <h2
                     class="font-monda font-bold text-5xl leading-[1.05] mt-6 text-text"
                 >
                     Selected<br /><span class="text-primary">work.</span>
-                </h1>
+                </h2>
                 <div class="w-10 h-px bg-primary mt-6"></div>
                 <p class="text-text-muted text-sm leading-relaxed mt-4">
                     A selection of projects that I've worked on, from automation
@@ -610,6 +639,7 @@
                         href="https://github.com/insanansharyrasul"
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label="Explore GitHub profile"
                         class="font-mono text-xs tracking-[0.2em] text-text-muted hover:text-primary transition-colors duration-300 mt-2 inline-block"
                         >EXPLORE →</a
                     >
@@ -670,11 +700,11 @@
                 <p class="section-label">
                     <span class="text-primary">05</span> / BLOG
                 </p>
-                <h1
+                <h2
                     class="font-monda font-bold text-5xl leading-[1.05] mt-6 text-text"
                 >
                     Latest<br /><span class="text-primary">writes.</span>
-                </h1>
+                </h2>
                 <div class="w-10 h-px bg-primary mt-6"></div>
                 <p class="text-text-muted text-sm leading-relaxed mt-4">
                     Writeups, notes, and life updates.
@@ -685,6 +715,7 @@
                     </p>
                     <a
                         href="/blog"
+                        aria-label="Explore all blog posts"
                         class="font-mono text-xs tracking-[0.2em] text-text-muted hover:text-primary transition-colors duration-300 mt-2 inline-block"
                         >EXPLORE →</a
                     >
@@ -720,6 +751,7 @@
                     </div>
                     <a
                         href="/blog"
+                        aria-label="View all blog posts"
                         class="inline-flex items-center gap-2 text-primary text-sm mt-6 hover:translate-x-1 transition-transform duration-300"
                         ><span aria-hidden="true">→</span> View all posts</a
                     >
@@ -740,11 +772,11 @@
                 <p class="section-label">
                     <span class="text-primary">06</span> / CONNECT
                 </p>
-                <h1
+                <h2
                     class="font-monda font-bold text-5xl leading-[1.05] mt-6 text-text"
                 >
                     Follow<br />the <span class="text-primary">builds.</span>
-                </h1>
+                </h2>
                 <div class="w-10 h-px bg-primary mt-6"></div>
             </div>
             <div class="flex-1 min-w-0 md:border-l md:border-border md:pl-10">
@@ -762,6 +794,8 @@
                         <img
                             src="icons/icons8-github.svg"
                             alt=""
+                            width="20"
+                            height="20"
                             class="w-5 h-5 brightness-0"
                         />
                         <span>GitHub</span>
@@ -776,6 +810,8 @@
                         <img
                             src="icons/icons8-instagram.svg"
                             alt=""
+                            width="20"
+                            height="20"
                             class="w-5 h-5 filter invert sepia saturate-[5] hue-rotate-[25deg]"
                         />
                         <span>Instagram</span>

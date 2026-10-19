@@ -28,7 +28,9 @@
     <img
       src="/icons/header_icon.svg"
       alt=""
-      class="h-8 transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_12px_rgba(255,143,64,0.6)]"
+      width="106"
+      height="78"
+      class="h-8 w-auto transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_12px_rgba(255,143,64,0.6)]"
     />
   </a>
   <div
