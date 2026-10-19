@@ -127,11 +127,36 @@ function buildPost(path: string, raw: string): Post {
 		(m: string, lang: string | undefined, code: string) =>
 			`<pre><code${lang ? ` class="language-${lang}"` : ''}>${highlightCode(decode(code), lang ?? '')}</code></pre>`
 	);
+
+	// Transform GitHub-style alerts: > [!NOTE], > [!IMPORTANT], > [!WARNING], etc.
+	const alertIcons: Record<string, string> = {
+		IMPORTANT: '⚠️',
+		NOTE: 'ℹ️',
+		WARNING: '⚠️',
+		TIP: '💡',
+		CAUTION: '🛑'
+	};
+	const alertLabels: Record<string, string> = {
+		IMPORTANT: 'PENTING',
+		NOTE: 'CATATAN',
+		WARNING: 'PERINGATAN',
+		TIP: 'TIPS',
+		CAUTION: 'PERHATIAN'
+	};
+	const alertHtml = codeHtml.replace(
+		/<blockquote>\s*<p>\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\](?:\s*<br\s*\/?>)?([\s\S]*?)<\/p>\s*<\/blockquote>/gi,
+		(_, type: string, content: string) => {
+			const t = type.toUpperCase();
+			const icon = alertIcons[t] ?? '📌';
+			const label = alertLabels[t] ?? t;
+			return `<div class="callout callout-${t.toLowerCase()}"><div class="callout-header"><span class="callout-icon">${icon}</span> <span class="callout-title">${label}</span></div><p>${content.trim()}</p></div>`;
+		}
+	);
+
 	// Inject TOC ids server-side so anchors exist in prerendered HTML.
-	
 	// override — version-proof, no API coupling.
 	let n = 0;
-	const html = codeHtml.replace(/<h([23])>/g, (m, lvl: string) => {
+	const html = alertHtml.replace(/<h([23])>/g, (m, lvl: string) => {
 		const t = toc[n++];
 		return t ? `<h${lvl} id="${t.id}">` : m;
 	});

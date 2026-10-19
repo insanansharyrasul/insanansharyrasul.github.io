@@ -270,6 +270,54 @@
 		margin: 1em 0;
 	}
 
+	.blog-content :global(ol) {
+		list-style-type: decimal;
+		margin: 1.25em 0;
+		padding-left: 1.75em;
+	}
+
+	.blog-content :global(ul) {
+		list-style-type: disc;
+		margin: 1.25em 0;
+		padding-left: 1.75em;
+	}
+
+	.blog-content :global(li) {
+		margin: 0.5em 0;
+		padding-left: 0.25em;
+		line-height: 1.75;
+	}
+
+	.blog-content :global(li::marker) {
+		color: var(--color-primary);
+		font-weight: 600;
+	}
+
+	.blog-content :global(ol ol) {
+		list-style-type: lower-alpha;
+		margin: 0.4em 0;
+	}
+
+	.blog-content :global(ul ul) {
+		list-style-type: circle;
+		margin: 0.4em 0;
+	}
+
+	.blog-content :global(ol ul),
+	.blog-content :global(ul ol) {
+		margin: 0.4em 0;
+	}
+
+	.blog-content :global(li > p) {
+		margin: 0.4em 0;
+	}
+
+	.blog-content :global(hr) {
+		border: 0;
+		border-top: 1px solid var(--color-border);
+		margin: 2.5em 0;
+	}
+
 	.blog-content :global(a) {
 		color: var(--color-blue);
 	}
@@ -531,5 +579,62 @@
 		border: 1px solid var(--color-border);
 		margin: 1.5em 0;
 		background: #000;
+	}
+
+	/* Callout / Alert Box */
+	.blog-content :global(.callout) {
+		border-radius: var(--radius-md);
+		padding: 1rem 1.25rem;
+		margin: 1.5em 0;
+		background-color: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-left-width: 4px;
+	}
+
+	.blog-content :global(.callout-header) {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-weight: 700;
+		font-size: 0.85rem;
+		letter-spacing: 0.05em;
+		margin-bottom: 0.4rem;
+	}
+
+	.blog-content :global(.callout p) {
+		margin: 0;
+		font-size: 0.95rem;
+		color: var(--color-text);
+		line-height: 1.6;
+	}
+
+	.blog-content :global(.callout-important) {
+		background-color: rgba(255, 143, 64, 0.08);
+		border-color: rgba(255, 143, 64, 0.25);
+		border-left-color: var(--color-primary);
+	}
+
+	.blog-content :global(.callout-important .callout-header) {
+		color: var(--color-primary);
+	}
+
+	.blog-content :global(.callout-note) {
+		background-color: rgba(89, 194, 255, 0.08);
+		border-color: rgba(89, 194, 255, 0.25);
+		border-left-color: var(--color-blue);
+	}
+
+	.blog-content :global(.callout-note .callout-header) {
+		color: var(--color-blue);
+	}
+
+	.blog-content :global(.callout-warning) {
+		background-color: rgba(255, 180, 84, 0.08);
+		border-color: rgba(255, 180, 84, 0.25);
+		border-left-color: var(--color-yellow);
+	}
+
+	.blog-content :global(.callout-warning .callout-header) {
+		color: var(--color-yellow);
 	}
 </style>
