@@ -10,8 +10,10 @@
 	$: ({ post, newer, older } = data);
 
 	let contentEl: HTMLElement;
+	let activeId = "";
 
 	onMount(() => {
+		// Copy button
 		contentEl.querySelectorAll("pre").forEach((pre) => {
 			const btn = document.createElement("button");
 			btn.textContent = "Copy";
@@ -28,6 +30,29 @@
 			});
 			pre.appendChild(btn);
 		});
+
+		// Scroll-spy
+		const headings = Array.from(
+			contentEl.querySelectorAll<HTMLElement>("h2[id], h3[id]")
+		);
+		if (!headings.length) return;
+
+		const obs = new IntersectionObserver(
+			(entries) => {
+				// Pick the topmost heading that is intersecting
+				const visible = entries
+					.filter((e) => e.isIntersecting)
+					.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+				if (visible.length) activeId = visible[0].target.id;
+			},
+			{ rootMargin: "0px 0px -70% 0px", threshold: 0 }
+		);
+
+		headings.forEach((h) => obs.observe(h));
+		// Set initial active to the first heading
+		activeId = headings[0].id;
+
+		return () => obs.disconnect();
 	});
 </script>
 
@@ -52,7 +77,7 @@
 			<ol>
 				{#each post.toc as item}
 					<li class:indent={item.level === 3}>
-						<a href={"#" + item.id}>{item.text}</a>
+						<a href={"#" + item.id} class:active={activeId === item.id}>{item.text}</a>
 					</li>
 				{/each}
 			</ol>
@@ -214,11 +239,19 @@
 		text-decoration: none;
 		font-size: 0.9rem;
 		line-height: 1.4;
+		transition: color 0.2s ease;
 	}
 
 	.toc-side a:hover,
-	.toc-mobile a:hover {
+	.toc-mobile a:hover,
+	.toc-side a.active,
+	.toc-mobile a.active {
 		color: var(--color-primary);
+	}
+
+	.toc-side a.active,
+	.toc-mobile a.active {
+		font-weight: 600;
 	}
 
 	.nav-card {
