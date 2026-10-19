@@ -16,19 +16,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
 
       - name: Install dependencies
-        run: |
-          npm install
-          npm install -D @sveltejs/adapter-static
+        run: bun install
 
       - name: Build
-        run: npm run build
+        run: bun run build
           
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
