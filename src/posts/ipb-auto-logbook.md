@@ -72,7 +72,7 @@ IPB Auto Logbook menyediakan beberapa keunggulan teknis yang memudahkan pengisia
 5. **Penyimpanan Berkas Lampiran**: Memanfaatkan *IndexedDB* pada browser agar berkas bukti tetap tersimpan rapi selama antrean pengisian berjalan.
 
 <figure>
-  <img src="/blog/ipb-auto-logbook/app-showcase.webp" alt="Preview Tampilan Aplikasi di Portal IPB" class="rounded-lg border border-border w-full" />
+  <img src="/blog/ipb-auto-logbook/app-showcase.webp" alt="Preview Tampilan Aplikasi Desktop dan Chrome Extension di Portal IPB" class="rounded-lg border border-border w-full" />
   <figcaption>Preview Tampilan Aplikasi di Portal IPB</figcaption>
 </figure>
 
@@ -208,13 +208,7 @@ Agar otomatisasi dapat menemukan baris kegiatan yang tepat pada tabel portal, pe
 
 ## Video Panduan Lengkap
 
-Untuk melihat alur penggunaan dari awal pembuatan berkas data hingga proses pengisian selesai di portal mahasiswa, simak rekaman video tutorial di bawah ini:
-
-<!-- PLACEHOLDER 6: VIDEO WALKTHROUGH -->
-<div class="media-placeholder">
-  <span class="media-badge media-badge-video">Sorry!</span>
-  <h4 class="media-title">Coming Soon!</h4>
-</div>
+Untuk saat ini, video panduan lengkap penggunaan IPB Auto Logbook bis dilihat melalui instagram. Kalian bisa mengikuti tutorial dari instagram resmi pengembang di [@insan_a_r](https://www.instagram.com/reel/DeD3A3ZpPzp/) untuk panduan dari awal hingga akhir proses otomatisasi.
 
 ## Keamanan Data dan Privasi
 
