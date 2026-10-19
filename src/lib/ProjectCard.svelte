@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { ArrowRight } from "@lucide/svelte";
+
     export let title: string;
     export let description: string;
     export let githubUrl: string;
@@ -55,9 +57,10 @@
     <div
         class="flex items-center justify-between gap-3 border-t border-border mt-auto pt-4"
     >
-        <span class="inline-flex items-center gap-2 text-primary text-sm"
-            ><span aria-hidden="true">→</span> View on GitHub</span
-        >
+        <span class="inline-flex items-center gap-2 text-primary text-sm font-medium">
+            View on GitHub
+            <ArrowRight class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
+        </span>
         <span class="font-mono text-[0.65rem] tracking-[0.1em] text-text-muted"
             >{repoTag}</span
         >

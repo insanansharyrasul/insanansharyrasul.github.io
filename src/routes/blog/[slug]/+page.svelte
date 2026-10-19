@@ -4,13 +4,16 @@
 	import { AUTHOR } from "$lib/blog";
 	import Navbar from "$lib/Navbar.svelte";
 	import type { PageData } from "./$types";
+	import { ArrowLeft, ArrowRight, Calendar, Clock } from "@lucide/svelte";
 
 	export let data: PageData;
 	$: ({ post, newer, older } = data);
 
 	let contentEl: HTMLElement;
+	let activeId = "";
 
 	onMount(() => {
+		// Copy button
 		contentEl.querySelectorAll("pre").forEach((pre) => {
 			const btn = document.createElement("button");
 			btn.textContent = "Copy";
@@ -27,6 +30,29 @@
 			});
 			pre.appendChild(btn);
 		});
+
+		// Scroll-spy
+		const headings = Array.from(
+			contentEl.querySelectorAll<HTMLElement>("h2[id], h3[id]")
+		);
+		if (!headings.length) return;
+
+		const obs = new IntersectionObserver(
+			(entries) => {
+				// Pick the topmost heading that is intersecting
+				const visible = entries
+					.filter((e) => e.isIntersecting)
+					.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+				if (visible.length) activeId = visible[0].target.id;
+			},
+			{ rootMargin: "0px 0px -70% 0px", threshold: 0 }
+		);
+
+		headings.forEach((h) => obs.observe(h));
+		// Set initial active to the first heading
+		activeId = headings[0].id;
+
+		return () => obs.disconnect();
 	});
 </script>
 
@@ -51,16 +77,16 @@
 			<ol>
 				{#each post.toc as item}
 					<li class:indent={item.level === 3}>
-						<a href={"#" + item.id}>{item.text}</a>
+						<a href={"#" + item.id} class:active={activeId === item.id}>{item.text}</a>
 					</li>
 				{/each}
 			</ol>
 		{/snippet}
 		<a
 			href="/blog"
-			class="text-text-muted no-underline text-sm hover:text-primary transition-colors"
+			class="text-text-muted no-underline text-sm hover:text-primary transition-colors inline-flex items-center gap-1.5"
 		>
-			← All posts
+			<ArrowLeft class="w-4 h-4" /> All posts
 		</a>
 
 		{#if post.cover}
@@ -87,9 +113,15 @@
 				>{AUTHOR.name}</a
 			>
 			<span class="opacity-40">|</span>
-			<span>{post.dateLabel}</span>
+			<span class="inline-flex items-center gap-1.5">
+				<Calendar class="w-3.5 h-3.5" />
+				{post.dateLabel}
+			</span>
 			<span class="opacity-40">|</span>
-			<span>{post.readTime} min read</span>
+			<span class="inline-flex items-center gap-1.5">
+				<Clock class="w-3.5 h-3.5" />
+				{post.readTime} min read
+			</span>
 		</div>
 
 		{#if post.tags.length}
@@ -122,13 +154,13 @@
 		<div class="flex flex-col md:flex-row gap-4 mt-12">
 			{#if older}
 				<a href="/blog/{older.slug}" class="nav-card">
-					<span class="nav-label">← Older post</span>
+					<span class="nav-label inline-flex items-center gap-1.5"><ArrowLeft class="w-3.5 h-3.5" /> Older post</span>
 					<span class="nav-title">{older.title}</span>
 				</a>
 			{/if}
 			{#if newer}
 				<a href="/blog/{newer.slug}" class="nav-card md:text-right md:ml-auto">
-					<span class="nav-label">Newer post →</span>
+					<span class="nav-label inline-flex items-center justify-end gap-1.5">Newer post <ArrowRight class="w-3.5 h-3.5" /></span>
 					<span class="nav-title">{newer.title}</span>
 				</a>
 			{/if}
@@ -207,11 +239,19 @@
 		text-decoration: none;
 		font-size: 0.9rem;
 		line-height: 1.4;
+		transition: color 0.2s ease;
 	}
 
 	.toc-side a:hover,
-	.toc-mobile a:hover {
+	.toc-mobile a:hover,
+	.toc-side a.active,
+	.toc-mobile a.active {
 		color: var(--color-primary);
+	}
+
+	.toc-side a.active,
+	.toc-mobile a.active {
+		font-weight: 600;
 	}
 
 	.nav-card {
@@ -270,6 +310,54 @@
 		margin: 1em 0;
 	}
 
+	.blog-content :global(ol) {
+		list-style-type: decimal;
+		margin: 1.25em 0;
+		padding-left: 1.75em;
+	}
+
+	.blog-content :global(ul) {
+		list-style-type: disc;
+		margin: 1.25em 0;
+		padding-left: 1.75em;
+	}
+
+	.blog-content :global(li) {
+		margin: 0.5em 0;
+		padding-left: 0.25em;
+		line-height: 1.75;
+	}
+
+	.blog-content :global(li::marker) {
+		color: var(--color-primary);
+		font-weight: 600;
+	}
+
+	.blog-content :global(ol ol) {
+		list-style-type: lower-alpha;
+		margin: 0.4em 0;
+	}
+
+	.blog-content :global(ul ul) {
+		list-style-type: circle;
+		margin: 0.4em 0;
+	}
+
+	.blog-content :global(ol ul),
+	.blog-content :global(ul ol) {
+		margin: 0.4em 0;
+	}
+
+	.blog-content :global(li > p) {
+		margin: 0.4em 0;
+	}
+
+	.blog-content :global(hr) {
+		border: 0;
+		border-top: 1px solid var(--color-border);
+		margin: 2.5em 0;
+	}
+
 	.blog-content :global(a) {
 		color: var(--color-blue);
 	}
@@ -279,6 +367,26 @@
 		border-radius: var(--radius-lg);
 		border: 1px solid var(--color-border);
 		margin: 1.5em 0;
+	}
+
+	.blog-content :global(figure) {
+		margin: 2em 0;
+		width: 100%;
+		display: block;
+	}
+
+	.blog-content :global(figure img) {
+		margin: 0 auto;
+		display: block;
+		width: 100%;
+	}
+
+	.blog-content :global(figcaption) {
+		margin-top: 0.65rem;
+		font-size: 0.85rem;
+		color: var(--color-text-muted);
+		text-align: center;
+		line-height: 1.5;
 	}
 
 	.blog-content :global(blockquote) {
@@ -395,5 +503,229 @@
 	.blog-content :global(.copy-btn:hover) {
 		color: var(--color-primary);
 		border-color: var(--color-primary);
+	}
+
+	/* Installer CTA box & button */
+	.blog-content :global(.installer-box) {
+		background-color: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		padding: 1.5rem;
+		margin: 2rem 0;
+	}
+
+	.blog-content :global(.installer-btn) {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.6rem;
+		padding: 0.8rem 1.6rem;
+		background-color: var(--color-primary);
+		color: #0d1017 !important;
+		font-weight: 700;
+		font-size: 1rem;
+		border-radius: var(--radius-md);
+		text-decoration: none !important;
+		transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.blog-content :global(.installer-btn:hover) {
+		transform: translateY(-2px);
+		filter: brightness(1.1);
+	}
+
+	.blog-content :global(.installer-platforms) {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin-top: 1rem;
+	}
+
+	.blog-content :global(.installer-pill) {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		font-size: 0.8rem;
+		padding: 4px 12px;
+		border-radius: 9999px;
+		border: 1px solid var(--color-border);
+		background-color: rgba(255, 255, 255, 0.03);
+		color: var(--color-text-muted) !important;
+		text-decoration: none !important;
+		transition: all 0.2s ease;
+	}
+
+	.blog-content :global(.installer-pill:hover) {
+		border-color: var(--color-primary);
+		color: var(--color-primary) !important;
+		background-color: rgba(255, 143, 64, 0.05);
+	}
+
+	/* Visual media placeholders (Video / GIF / Screenshot) */
+	.blog-content :global(.media-placeholder) {
+		border: 2px dashed var(--color-border);
+		background-color: rgba(20, 24, 33, 0.6);
+		border-radius: var(--radius-lg);
+		padding: 2rem 1.5rem;
+		margin: 2rem 0;
+		text-align: center;
+		transition: border-color 0.2s ease, background-color 0.2s ease;
+	}
+
+	.blog-content :global(.media-placeholder:hover) {
+		border-color: var(--color-primary);
+		background-color: rgba(20, 24, 33, 0.85);
+	}
+
+	.blog-content :global(.media-badge) {
+		display: inline-block;
+		font-family: "Fira Code", monospace;
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		padding: 3px 10px;
+		border-radius: var(--radius-sm);
+		margin-bottom: 0.75rem;
+	}
+
+	.blog-content :global(.media-badge-video) {
+		background-color: rgba(89, 194, 255, 0.15);
+		color: var(--color-blue);
+		border: 1px solid rgba(89, 194, 255, 0.3);
+	}
+
+	.blog-content :global(.media-badge-gif) {
+		background-color: rgba(210, 166, 255, 0.15);
+		color: var(--color-purple);
+		border: 1px solid rgba(210, 166, 255, 0.3);
+	}
+
+	.blog-content :global(.media-badge-image) {
+		background-color: rgba(170, 217, 76, 0.15);
+		color: var(--color-green);
+		border: 1px solid rgba(170, 217, 76, 0.3);
+	}
+
+	.blog-content :global(.media-title) {
+		font-weight: 600;
+		color: var(--color-text);
+		font-size: 1.05rem;
+		margin: 0 0 0.5rem 0;
+	}
+
+	.blog-content :global(.media-desc) {
+		font-size: 0.88rem;
+		color: var(--color-text-muted);
+		margin: 0 0 0.75rem 0;
+		line-height: 1.5;
+	}
+
+	.blog-content :global(.media-hint) {
+		display: inline-block;
+		font-family: "Fira Code", monospace;
+		font-size: 0.75rem;
+		color: var(--color-yellow);
+		background-color: rgba(255, 180, 84, 0.1);
+		padding: 4px 10px;
+		border-radius: var(--radius-sm);
+		border: 1px solid rgba(255, 180, 84, 0.2);
+	}
+
+	.blog-content :global(video) {
+		max-width: 100%;
+		border-radius: var(--radius-lg);
+		border: 1px solid var(--color-border);
+		margin: 1.5em 0;
+		background: #000;
+	}
+
+	/* Callout / Alert Box */
+	.blog-content :global(.callout) {
+		border-radius: var(--radius-md);
+		padding: 1rem 1.25rem;
+		margin: 1.5em 0;
+		background-color: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-left-width: 4px;
+	}
+
+	.blog-content :global(.callout-header) {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-weight: 700;
+		font-size: 0.85rem;
+		letter-spacing: 0.05em;
+		margin-bottom: 0.4rem;
+	}
+
+	.blog-content :global(.callout-icon) {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+	}
+
+	.blog-content :global(.callout-icon-svg) {
+		width: 1.15rem;
+		height: 1.15rem;
+		stroke-width: 2.25;
+	}
+
+	.blog-content :global(.callout p) {
+		margin: 0;
+		font-size: 0.95rem;
+		color: var(--color-text);
+		line-height: 1.6;
+	}
+
+	.blog-content :global(.callout-important) {
+		background-color: rgba(255, 143, 64, 0.08);
+		border-color: rgba(255, 143, 64, 0.25);
+		border-left-color: var(--color-primary);
+	}
+
+	.blog-content :global(.callout-important .callout-header) {
+		color: var(--color-primary);
+	}
+
+	.blog-content :global(.callout-note) {
+		background-color: rgba(89, 194, 255, 0.08);
+		border-color: rgba(89, 194, 255, 0.25);
+		border-left-color: var(--color-blue);
+	}
+
+	.blog-content :global(.callout-note .callout-header) {
+		color: var(--color-blue);
+	}
+
+	.blog-content :global(.callout-warning) {
+		background-color: rgba(255, 180, 84, 0.08);
+		border-color: rgba(255, 180, 84, 0.25);
+		border-left-color: var(--color-yellow);
+	}
+
+	.blog-content :global(.callout-warning .callout-header) {
+		color: var(--color-yellow);
+	}
+
+	.blog-content :global(.callout-tip) {
+		background-color: rgba(170, 217, 76, 0.08);
+		border-color: rgba(170, 217, 76, 0.25);
+		border-left-color: var(--color-green);
+	}
+
+	.blog-content :global(.callout-tip .callout-header) {
+		color: var(--color-green);
+	}
+
+	.blog-content :global(.callout-caution) {
+		background-color: rgba(217, 87, 87, 0.08);
+		border-color: rgba(217, 87, 87, 0.25);
+		border-left-color: var(--color-error);
+	}
+
+	.blog-content :global(.callout-caution .callout-header) {
+		color: var(--color-error);
 	}
 </style>
