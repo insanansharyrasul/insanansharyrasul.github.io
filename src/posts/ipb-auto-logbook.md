@@ -212,10 +212,8 @@ Untuk melihat alur penggunaan dari awal pembuatan berkas data hingga proses peng
 
 <!-- PLACEHOLDER 6: VIDEO WALKTHROUGH -->
 <div class="media-placeholder">
-  <span class="media-badge media-badge-video">VIDEO PLACEHOLDER</span>
-  <h4 class="media-title">Video Walkthrough: Tutorial Lengkap IPB Auto Logbook</h4>
-  <p class="media-desc">Video tutorial komprehensif berdurasi 3 sampai 5 menit yang mendemonstrasikan penyiapan data CSV, pemasangan ekstensi, hingga logbook terisi penuh di portal.</p>
-  <span class="media-hint">Rekomendasi file: static/blog/tutorial-walkthrough.mp4 (atau embed YouTube iframe)</span>
+  <span class="media-badge media-badge-video">Sorry!</span>
+  <h4 class="media-title">Coming Soon!</h4>
 </div>
 
 ## Keamanan Data dan Privasi
