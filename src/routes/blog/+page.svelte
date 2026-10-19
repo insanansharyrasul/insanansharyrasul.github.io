@@ -60,11 +60,13 @@
 			</div>
 		{/if}
 
-		<div class="flex flex-col gap-6">
+		<div
+			class="grid grid-cols-1 {filtered.length === 1 ? 'max-w-2xl mx-auto' : 'md:grid-cols-2'} gap-8"
+		>
 			{#each filtered as post (post.slug)}
 				<BlogCard {post} />
 			{:else}
-				<p class="text-center text-text-muted">No posts with this tag yet.</p>
+				<p class="text-center text-text-muted col-span-full">No posts with this tag yet.</p>
 			{/each}
 		</div>
 	</div>
